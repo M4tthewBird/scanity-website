@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <title>Scanity | 3D Scanning & Digital Twins</title>
+  <meta name="description" content="Scanity transforms camera footage into accurate, photorealistic 3D spaces for property, construction, and spatial applications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../index.css">
+  <link rel="alternate" hreflang="cs" href="https://www.scanity.cz/">
+  <link rel="alternate" hreflang="en" href="https://www.scanity.cz/en/">
+  <link rel="alternate" hreflang="x-default" href="https://www.scanity.cz/">
+</head>
+<body>
+  <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
+  <main id="top">
+    <header class="site-header shell">
+      <a href="#top" aria-label="Scanity home" class="brand">
+          <img
+              src="../assets/scanity_logo.svg"
+              alt="Scanity"
+              class="scanity-logo">
+          <span>Scanity</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#platform">Platform <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></a>
+        <a href="#solutions">Solutions</a>
+        <a href="#company">Company</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="listbox" aria-expanded="false">
+            EN
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu" role="listbox">
+            <li role="option" aria-selected="false"><a href="../index.html">CS</a></li>
+            <li role="option" aria-selected="true"><a href="index.html">EN</a></li>
+          </ul>
+        </div>
+        <a class="nav-contact" href="#contact">Contact us</a>
+        <a class="button button-dark button-small" href="#demo">Try demo <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+      </div>
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileNav" id="menuToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+      </button>
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="#platform">Platform</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#company">Company</a>
+        <a href="#contact">Contact us</a>
+        <div class="mobile-lang">
+          <a href="../index.html">CS</a>
+          <a href="index.html" class="is-active">EN</a>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow reveal reveal-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg> The real world in digital form
+        </p>
+        <h1 class="reveal reveal-2">We create digital copies of the real world.</h1>
+        <p class="hero-description reveal reveal-3">We turn real objects and spaces into accurate, photorealistic 3D models — from a piece of jewelry to an entire building. You can then view and work with them from anywhere, whenever you need to.</p>
+        <div class="hero-actions reveal reveal-3">
+          <a class="button button-dark" href="#demo">Try demo <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          <a class="button button-ghost" href="#contact">Contact us</a>
+        </div>
+      </div>
+
+      <a class="hero-visual reveal reveal-4" href="#demo" aria-label="View the interactive 3D demo">
+        <div class="teaser-glow" aria-hidden="true"></div>
+        <span class="teaser-badge">See how we scan the real world</span>
+        <div class="teaser-play" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+        </div>
+        <div class="visual-caption">From small objects to entire spaces — see how we turn the real world into accurate, photorealistic 3D models.</div>
+      </a>
+    </section>
+
+    <section class="trust-strip">
+      <div class="trust-track">
+        <div class="trust-row">
+          <strong>Architecture</strong>
+          <strong>Construction</strong>
+          <strong>Real Estate</strong>
+          <strong>Cultural Heritage</strong>
+          <strong>Jewelry</strong>
+          <strong>Golf Courses</strong>
+          <strong>Manufacturing</strong>
+          <strong>E-commerce</strong>
+          <strong>Infrastructure</strong>
+        </div>
+        <div class="trust-row" aria-hidden="true">
+          <strong>Architecture</strong>
+          <strong>Construction</strong>
+          <strong>Real Estate</strong>
+          <strong>Cultural Heritage</strong>
+          <strong>Jewelry</strong>
+          <strong>Golf Courses</strong>
+          <strong>Manufacturing</strong>
+          <strong>E-commerce</strong>
+          <strong>Infrastructure</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro-section shell" id="platform">
+      <div class="section-kicker"><span>01</span> The platform</div>
+      <div class="intro-content">
+        <h2>From scanning to a finished 3D copy — we handle everything.</h2>
+        <p>No equipment to buy, no complicated processing to figure out. Our team comes to your site, captures every detail, and turns it all into a faithful 3D space.</p>
+      </div>
+    </section>
+
+    <section class="workflow shell">
+      <div class="workflow-stage">
+        <div class="workflow-grid" aria-hidden="true"></div>
+        <div class="process-line" aria-hidden="true"></div>
+
+        <article class="process-step step-capture">
+          <span class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera" aria-hidden="true"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path><circle cx="12" cy="13" r="3"></circle></svg></span>
+          <small>01 / CAPTURE</small>
+          <h3>We scan the space.</h3>
+          <p>Our team visits on site and captures every detail — no equipment needed on your end.</p>
+        </article>
+
+        <article class="process-step step-process">
+          <span class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"></rect><rect width="6" height="6" x="9" y="9"></rect><path d="M15 2v2"></path><path d="M15 20v2"></path><path d="M2 15h2"></path><path d="M2 9h2"></path><path d="M20 15h2"></path><path d="M20 9h2"></path><path d="M9 2v2"></path><path d="M9 20v2"></path></svg></span>
+          <small>02 / PROCESS</small>
+          <h3>We process it for you.</h3>
+          <p>We process, reconstruct, and optimize the captured footage into an accurate, photorealistic 3D model.</p>
+        </article>
+
+        <article class="process-step step-explore">
+          <span class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-orbit" aria-hidden="true"><path d="M20.341 6.484A10 10 0 0 1 10.266 21.85"></path><path d="M3.659 17.516A10 10 0 0 1 13.74 2.152"></path><circle cx="12" cy="12" r="3"></circle><circle cx="19" cy="5" r="2"></circle><circle cx="5" cy="19" r="2"></circle></svg></span>
+          <small>03 / RESULT</small>
+          <h3>View your scan from anywhere.</h3>
+          <p>Once it's ready, view, explore, and share your 3D model anytime, on any device.</p>
+        </article>
+
+        <div class="workflow-orb">
+          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="solutions-section" id="solutions">
+      <div class="shell solutions-heading">
+        <div class="section-kicker"><span>02</span> Digital copies in practice</div>
+        <h2>One digital copy. Many ways to use it.</h2>
+      </div>
+
+      <div class="shell use-case-list">
+        <article class="use-case">
+          <span class="use-number">01</span>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
+          <div><small>Digital twins</small><h3>Preserve spaces exactly as they are.</h3></div>
+          <p>Create measurable, navigable 3D replicas for documentation, planning, and remote collaboration.</p>
+        </article>
+
+        <article class="use-case">
+          <span class="use-number">02</span>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera" aria-hidden="true"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path><circle cx="12" cy="13" r="3"></circle></svg></span>
+          <div><small>Property capture</small><h3>Make every listing feel like the real thing.</h3></div>
+          <p>We build a virtual tour so prospective buyers can walk through the space from anywhere.</p>
+        </article>
+
+        <article class="use-case">
+          <span class="use-number">03</span>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg></span>
+          <div><small>Inspections</small><h3>Stay on top of it from anywhere.</h3></div>
+          <p>We create a detailed 3D model of towers, structures, and infrastructure, so you can check their condition and track changes without a site visit.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="demo-section shell" id="demo">
+      <div class="demo-heading">
+        <p class="eyebrow">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-line" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><path d="M7 12h10"></path></svg> Interactive preview
+        </p>
+        <h2>See how we turn real spaces into virtual tours.</h2>
+        <p>Explore a real Scanity 3D model right in your browser and see every detail of the space.</p>
+      </div>
+
+      <div class="demo-viewer-switch" id="viewerSwitch" role="tablist" aria-label="Choose a 3D capture">
+        <button type="button" class="viewer-switch-btn is-active" data-id="sanctuaire" role="tab" aria-selected="true">Cathedral, aerial view</button>
+        <button type="button" class="viewer-switch-btn" data-id="living_room" role="tab" aria-selected="false">Living room</button>
+        <button type="button" class="viewer-switch-btn" data-id="ikka_gym" role="tab" aria-selected="false">Private Gym</button>
+      </div>
+
+      <div class="demo-viewer-frame" id="demoViewerFrame">
+        <iframe
+          class="demo-viewer"
+          data-src="https://viewer.scanity.cz/?id=sanctuaire"
+          title="Interactive Scanity 3D capture"
+          allow="fullscreen; xr-spatial-tracking"
+        ></iframe>
+        <div class="viewer-loading">
+          <div class="viewer-loading-beam" aria-hidden="true"></div>
+          <span class="viewer-loading-status" role="status" aria-live="polite" data-loading-text="Loading the 3D capture…"></span>
+        </div>
+        <button type="button" class="viewer-launch" id="viewerLaunchBtn">
+          <span class="viewer-launch-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+          </span>
+          <span class="viewer-launch-copy">
+            <span class="viewer-launch-label">Load 3D viewer</span>
+            <span class="viewer-launch-hint">
+              <span class="hint-text-pointer">Drag to look around, scroll to zoom in</span>
+              <span class="hint-text-touch">Drag to look around, pinch to zoom in</span>
+            </span>
+          </span>
+        </button>
+        <div class="viewer-hint" id="viewerHint" role="status">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move" aria-hidden="true"><path d="M12 2v20"></path><path d="m15 19-3 3-3-3"></path><path d="m19 9 3 3-3 3"></path><path d="M2 12h20"></path><path d="m5 9-3 3 3 3"></path><path d="m9 5 3-3 3 3"></path></svg>
+          <span class="hint-text-pointer">Drag to look around, scroll to zoom in</span>
+          <span class="hint-text-touch">Drag to look around, pinch to zoom in</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section shell" id="contact">
+      <div class="contact-panel">
+        <div>
+          <p class="eyebrow">Let's turn your space into 3D</p>
+          <h2>Do you have an object or space you'd like us to turn into 3D?</h2>
+        </div>
+        <div class="contact-action">
+          <p>Tell us what you'd like to turn into 3D, and we'll find the best solution together.</p>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="cfName">Full name</label>
+              <input type="text" id="cfName" name="name" placeholder="Jane Doe" autocomplete="name" aria-describedby="cfName-error" required>
+              <span class="field-error" id="cfName-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfEmail">Work email</label>
+              <input type="email" id="cfEmail" name="email" placeholder="jane@company.com" autocomplete="email" aria-describedby="cfEmail-error" required>
+              <span class="field-error" id="cfEmail-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfCompany">Company</label>
+              <input type="text" id="cfCompany" name="company" placeholder="Company name" autocomplete="organization">
+            </div>
+            <div class="form-field">
+              <label for="cfPhone">Phone (optional)</label>
+              <input type="tel" id="cfPhone" name="phone" placeholder="+420 123 456 789" autocomplete="tel">
+            </div>
+            <div class="form-field">
+              <label for="cfMessage">What would you like to capture?</label>
+              <textarea id="cfMessage" name="message" rows="3" placeholder="Tell us a bit about your project"></textarea>
+            </div>
+            <input type="hidden" name="time">
+            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="contact-submit">
+              Send message
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+            </button>
+            <p class="form-reassurance">We usually get back to you within 1 business day.</p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="contact-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+
+    <footer class="site-footer" id="company">
+      <div class="shell footer-grid">
+        <div class="footer-top">
+          <a href="#top" aria-label="Scanity home" class="brand">
+            <img src="../assets/scanity_logo.svg" alt="Scanity" class="scanity-logo">
+            <span>Scanity</span>
+          </a>
+          <p>We create accurate, photorealistic 3D copies of the real world.</p>
+          <div class="footer-links">
+            <a href="#platform">Platform</a>
+            <a href="#solutions">Solutions</a>
+            <a href="mailto:hello@scanity.com">Contact</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Scanity</span>
+          <span>Privacy · Terms</span>
+        </div>
+      </div>
+    </footer>
+
+    <div class="scroll-nav" role="group" aria-label="Browse page sections">
+      <button type="button" class="scroll-nav-btn" id="scrollNavUp" aria-label="Previous section">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up" aria-hidden="true"><path d="m18 15-6-6-6 6"></path></svg>
+      </button>
+      <div class="scroll-nav-divider" aria-hidden="true"></div>
+      <div class="scroll-nav-dots" id="scrollNavDots" aria-hidden="true"></div>
+      <div class="scroll-nav-divider" aria-hidden="true"></div>
+      <button type="button" class="scroll-nav-btn" id="scrollNavDown" aria-label="Next section">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+    </div>
+  </main>
+
+  <script src="../index.js"></script>
+</body>
+</html>

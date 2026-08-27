@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node \"C:\\\\Users\\\\ptaci\\\\.claude\\\\skills\\\\impeccable\\\\scripts\\\\detect.mjs\" --json index.html)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(node \"C:\\\\Users\\\\ptaci\\\\.claude\\\\skills\\\\impeccable\\\\scripts\\\\detect.mjs\" --json en/index.html)",
+      "Bash(node \"C:\\\\Users\\\\ptaci\\\\.claude\\\\skills\\\\impeccable\\\\scripts\\\\context.mjs\" --target index.html)",
+      "Bash(cat /tmp_out1.json)",
+      "Bash(cat /tmp_err1.txt)",
+      "Read(//c/Users/ptaci/.claude/skills/impeccable/reference/**)",
+      "Bash(grep -noE \"#[0-9a-fA-F]{3,8}\" index.css)",
+      "Bash(sort -t: -k2)",
+      "Bash(uniq -c -f1)"
+    ]
+  }
+}

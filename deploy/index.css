@@ -1,0 +1,1763 @@
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+
+:root {
+  --ink: #101112;
+  --ink-soft: #4f555a;
+  --white: #fff;
+  --cloud: #f5f6f7;
+  --muted: #676d72;
+  --line: #1011121f;
+  --blue: #246bfd;
+  --positive: #259664;
+  --negative: #d64545;
+  /* Soft drop-shadow tint. Several component shadows had drifted to their own
+     near-identical dark navy-greys (#1e252b, #273139, #343d45, #272f36,
+     #28353e) instead of sharing one value -- this converges them behind
+     color-mix() so a future tint change only needs to happen once. */
+  --shadow: #1e252b;
+  /* The demo viewer's frame and its loading overlay used this exact gradient
+     twice, hand-copied rather than shared. */
+  --surface-viewer: linear-gradient(145deg, #dfe4e7, #f9fafb);
+}
+
+/* ==========================================================================
+   Base / reset
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(80px + env(safe-area-inset-top));
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1100px 800px at 12% -8%, color-mix(in srgb, var(--blue) 8%, transparent), transparent 62%),
+    radial-gradient(1200px 900px at 105% 15%, color-mix(in srgb, var(--blue) 5%, transparent), transparent 60%),
+    radial-gradient(1000px 800px at -5% 100%, color-mix(in srgb, var(--blue) 6%, transparent), transparent 60%),
+    var(--cloud);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: Manrope, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Living point cloud behind the whole page: a slow-drifting field of points
+   evoking the raw 3D scan data the product itself produces. Fixed to the
+   viewport (not the document) so it reads as one continuous backdrop as you
+   scroll, the same way the body gradient above does, and only ever needs to
+   render a viewport's worth of points regardless of page length. Negative
+   z-index keeps it below literally every other element without having to
+   coordinate with each one's own stacking. See index.js for the canvas draw
+   loop; it self-disables under prefers-reduced-motion. */
+.point-cloud {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Subtle film-grain noise overlay across the whole page */
+body:before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+}
+
+/* Blurred cover for the notch/Dynamic Island strip itself. Truly fixed to the
+   viewport (unlike the header's own absolute-inside-sticky backdrop, which
+   iOS Safari can fail to keep pinned there during scroll), so page content
+   scrolling up never shows through unblurred behind the status bar. */
+body:after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top);
+  z-index: 40;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--cloud) 80%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
+
+.shell {
+  width: min(1320px, 100% - 56px);
+  margin-inline: auto;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: fit-content;
+  padding: 15px 21px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  transition: transform 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.button-small {
+  padding: 11px 17px;
+}
+
+.button-dark {
+  background: var(--ink);
+  color: var(--white);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-dark:hover {
+    background: var(--blue);
+  }
+}
+
+.button-ghost {
+  background: color-mix(in srgb, var(--white) 50%, transparent);
+  border-color: var(--line);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-ghost:hover {
+    background: var(--white);
+  }
+}
+
+/* ==========================================================================
+   Site header
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 60px;
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Full-bleed translucent backdrop behind the sticky header, breaking out of .shell's max-width.
+   Extends well above the viewport (rather than stopping at top: 0) so iOS Safari's rubber-band
+   overscroll doesn't reveal an unblurred gap around the notch/Dynamic Island when bouncing. */
+.site-header:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -300px;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: color-mix(in srgb, var(--cloud) 80%, transparent);
+  border-bottom: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.scanity-logo {
+  width: 24px;
+  height: auto;
+}
+
+.site-header .scanity-logo {
+  width: 19px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand span {
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.035em;
+  -webkit-text-stroke: 0.25px var(--ink);
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 6px 8px;
+  background: color-mix(in srgb, var(--white) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--white) 90%, transparent);
+  border-radius: 100px;
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--shadow) 7%, transparent);
+}
+
+.desktop-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 64px;
+  padding: 6px 7px;
+  color: var(--ink-soft);
+  font-size: 0.6rem;
+  font-weight: 600;
+  transition: color 0.18s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .desktop-nav a:hover {
+    color: var(--ink);
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-self: end;
+}
+
+.nav-contact {
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+
+.site-header .button-small {
+  padding: 8px 13px;
+  font-size: 0.64rem;
+  gap: 8px;
+}
+
+.lang-switch {
+  position: relative;
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  color: var(--ink);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: background-color 0.18s, border-color 0.18s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lang-toggle:hover {
+    background: color-mix(in srgb, var(--white) 69%, transparent);
+  }
+}
+
+.lang-toggle svg {
+  transition: transform 0.2s;
+}
+
+.lang-switch.open .lang-toggle svg {
+  transform: rotate(180deg);
+}
+
+.lang-menu {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 8px);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 84px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: color-mix(in srgb, var(--white) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--white) 90%, transparent);
+  border-radius: 12px;
+  box-shadow: 0 20px 40px color-mix(in srgb, var(--shadow) 12%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.98);
+  transform-origin: top left;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.16s;
+}
+
+.lang-switch.open .lang-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  transition: opacity 0.16s ease, transform 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lang-menu a {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 8px;
+  color: var(--ink-soft);
+  font-size: 0.62rem;
+  font-weight: 600;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lang-menu a:hover {
+    background: var(--cloud);
+    color: var(--ink);
+  }
+}
+
+.lang-menu li[aria-selected="true"] a {
+  background: var(--cloud);
+  color: var(--ink);
+}
+
+.mobile-lang {
+  display: none;
+}
+
+.menu-button,
+.mobile-nav {
+  display: none;
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+.hero {
+  padding: 45px 0 24px;
+}
+
+.hero-copy {
+  max-width: 970px;
+  margin: 0 auto 35px;
+  text-align: center;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 30px;
+  color: var(--muted);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.intro-content h2,
+.solutions-heading h2,
+.demo-heading h2,
+.contact-panel h2 {
+  font-weight: 500;
+  letter-spacing: -0.06em;
+}
+
+.hero h1 {
+  margin-bottom: 30px;
+  font-size: clamp(4rem, 7.5vw, 7.4rem);
+  line-height: 1.1;
+}
+
+.hero-description {
+  max-width: 670px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 34px;
+}
+
+/* --- Hero visual: promo-video teaser (video itself is still in production) --- */
+
+.hero-visual {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: linear-gradient(145deg, #edf0f3, var(--white) 46%, #dfe3e6);
+  border: 1px solid color-mix(in srgb, var(--white) 90%, transparent);
+  border-radius: 28px;
+  box-shadow: 0 35px 100px color-mix(in srgb, var(--shadow) 13%, transparent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-visual:hover .teaser-play {
+    background: var(--blue);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+
+.teaser-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--blue) 16%, transparent), transparent 70%);
+}
+
+.teaser-badge {
+  position: absolute;
+  z-index: 3;
+  top: 16px;
+  right: 16px;
+  padding: 5px 12px;
+  background: color-mix(in srgb, var(--white) 75%, transparent);
+  border: 1px solid color-mix(in srgb, var(--white) 90%, transparent);
+  border-radius: 100px;
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.teaser-play {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  transform: translate(-50%, -50%);
+  background: var(--ink);
+  color: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 20px 50px color-mix(in srgb, var(--shadow) 12%, transparent);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.teaser-play svg {
+  margin-left: 3px; /* optically centers the play triangle's visual weight */
+}
+
+.visual-caption {
+  position: absolute;
+  z-index: 3;
+  bottom: 20px;
+  left: 20px;
+  max-width: 220px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   Trust strip
+   ========================================================================== */
+
+.trust-strip {
+  margin-top: 56px;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.trust-track {
+  display: flex;
+  gap: 64px;
+  width: max-content;
+  animation: trustScroll 36s linear infinite;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .trust-strip:hover .trust-track {
+    animation-play-state: paused;
+  }
+}
+
+.trust-row {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 64px;
+  min-height: 112px;
+}
+
+.trust-row strong {
+  color: #777d82;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Three identical .trust-row copies make up the track (rather than just two)
+   so that the animation's starting frame, -33.3334% (one row's width out of
+   three), still has two full rows of content ahead of it to fill wide
+   viewports instead of running out and leaving a gap. Animating from there
+   up to 0 slides content left-to-right and loops seamlessly since the frame
+   at -33.3334% matches the frame at 0. */
+@keyframes trustScroll {
+  from {
+    transform: translateX(-33.3334%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ==========================================================================
+   Intro / platform section
+   ========================================================================== */
+
+.intro-section {
+  display: grid;
+  grid-template-columns: 0.7fr 2.3fr;
+  gap: 50px;
+  padding: 100px 0 70px;
+}
+
+.section-kicker {
+  display: flex;
+  gap: 24px;
+  padding-top: 10px;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.section-kicker span {
+  color: var(--ink);
+}
+
+.intro-content {
+  display: grid;
+  grid-template-columns: 1.5fr 0.6fr;
+  align-items: end;
+  gap: 70px;
+}
+
+.intro-content h2 {
+  margin: 0;
+  font-size: clamp(3rem, 5.5vw, 5.7rem);
+  line-height: 1;
+}
+
+.intro-content p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.75;
+}
+
+/* ==========================================================================
+   Workflow (capture / process / explore)
+   ========================================================================== */
+
+.workflow {
+  padding-bottom: 100px;
+}
+
+.workflow-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
+  gap: 50px;
+  min-height: 590px;
+  padding: 70px 55px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e3e7ea, var(--white) 50%, #e9ecee);
+  border-radius: 24px;
+}
+
+.workflow-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(#1a21270f 1px, transparent 1px),
+    linear-gradient(90deg, #1a21270f 1px, transparent 1px);
+  background-size: 60px 60px;
+  -webkit-mask-image: linear-gradient(#000, transparent 85%);
+  mask-image: linear-gradient(#000, transparent 85%);
+}
+
+.process-line {
+  position: absolute;
+  z-index: 1;
+  top: 44%;
+  left: 16%;
+  right: 16%;
+  height: 1px;
+  background: color-mix(in srgb, var(--blue) 35%, transparent);
+}
+
+.process-step {
+  position: relative;
+  z-index: 3;
+  min-height: 230px;
+  padding: 26px;
+  background: color-mix(in srgb, var(--white) 75%, transparent);
+  border: 1px solid color-mix(in srgb, var(--white) 90%, transparent);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px color-mix(in srgb, var(--shadow) 8%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.step-process {
+  transform: translateY(-55px);
+}
+
+.step-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 38px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: 50%;
+}
+
+.process-step small {
+  color: var(--blue);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
+.process-step h3 {
+  margin: 14px 0 10px;
+  font-size: 1.22rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.process-step p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.workflow-orb {
+  position: absolute;
+  z-index: 2;
+  top: 34px;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 110px;
+  height: 110px;
+  transform: translate(-50%);
+  background: var(--blue);
+  color: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 24px 60px color-mix(in srgb, var(--blue) 30%, transparent);
+}
+
+/* ==========================================================================
+   Solutions / use cases
+   ========================================================================== */
+
+.solutions-section {
+  padding: 100px 0;
+}
+
+.solutions-heading {
+  display: grid;
+  grid-template-columns: 0.7fr 2.3fr;
+  gap: 50px;
+  margin-bottom: 90px;
+}
+
+.solutions-heading h2 {
+  max-width: 840px;
+  margin: 0;
+  font-size: clamp(3.2rem, 5.5vw, 5.8rem);
+  line-height: 1.05;
+}
+
+.use-case {
+  display: grid;
+  grid-template-columns: 50px 60px 1.05fr 1fr;
+  align-items: center;
+  gap: 28px;
+  min-height: 164px;
+  border-top: 1px solid var(--line);
+  transition: padding 0.22s, background-color 0.22s;
+}
+
+.use-case:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .use-case:hover {
+    padding-inline: 18px;
+    background: var(--cloud);
+  }
+}
+
+.use-number {
+  color: var(--muted);
+  font-size: 0.58rem;
+}
+
+.use-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+
+.use-case small {
+  color: var(--blue);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.use-case h3 {
+  max-width: 430px;
+  margin: 9px 0 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.use-case p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.65;
+}
+
+/* ==========================================================================
+   Interactive demo
+   ========================================================================== */
+
+.demo-section {
+  padding: 85px 0;
+}
+
+.demo-heading {
+  max-width: 720px;
+  margin-bottom: 45px;
+}
+
+.demo-heading .eyebrow {
+  justify-content: flex-start;
+  margin-bottom: 26px;
+}
+
+.demo-heading h2 {
+  margin-bottom: 18px;
+  font-size: clamp(3rem, 4.4vw, 4.8rem);
+  line-height: 1.05;
+}
+
+.demo-heading > p {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.75;
+}
+
+.demo-viewer-switch {
+  display: flex;
+  width: fit-content;
+  gap: 4px;
+  margin: 0 auto 20px;
+  padding: 4px;
+  background: #eef0f2;
+  border-radius: 999px;
+}
+
+.viewer-switch-btn {
+  padding: 15px 20px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .viewer-switch-btn:hover {
+    color: var(--ink);
+  }
+}
+
+.viewer-switch-btn.is-active {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.demo-viewer-frame {
+  position: relative;
+  display: flex;
+  min-height: 650px;
+  overflow: hidden;
+  background: var(--surface-viewer);
+  border-radius: 24px;
+  box-shadow: 0 30px 90px #2f39411a;
+}
+
+.demo-viewer {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  display: block;
+}
+
+.viewer-launch {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: 0;
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.viewer-launch-icon {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 20px 50px color-mix(in srgb, var(--shadow) 12%, transparent);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .viewer-launch:hover .viewer-launch-icon {
+    background: var(--blue);
+    transform: scale(1.06);
+  }
+}
+
+.viewer-launch-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.viewer-launch-hint {
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 500;
+}
+
+.demo-viewer-frame.is-loaded .viewer-launch {
+  display: none;
+}
+
+/* One-time nudge teaching the orbit/zoom controls right after the viewer loads,
+   since the iframe is a real embed we don't control and can't rely on it to
+   surface its own affordance. Auto-dismisses (see index.js) so returning
+   visitors who already know the controls aren't shown it again. */
+.viewer-hint {
+  position: absolute;
+  z-index: 4;
+  top: 20px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: color-mix(in srgb, var(--white) 75%, transparent);
+  border: 1px solid color-mix(in srgb, var(--white) 90%, transparent);
+  border-radius: 999px;
+  box-shadow: 0 20px 50px color-mix(in srgb, var(--shadow) 12%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, -8px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.viewer-hint.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Shown while the embedded 3D viewer loads: the wait becomes a small demonstration of the
+   product's own scan-beam language instead of a generic spinner.
+
+   The exit is the one authored moment here: rather than the veil just
+   disappearing, it wipes away top-to-bottom like a scan line finishing its
+   pass, with a bright edge riding the clip boundary -- the same "scanning"
+   language as the beam sweep above, now used to reveal the payoff (the
+   loaded model) instead of announcing a wait. Visibility is driven entirely
+   by clip-path rather than display/opacity, since display can't transition
+   and a plain opacity fade was the previous approach here -- worth noting it
+   never actually ran, since toggling display:none alongside it cut the
+   element from rendering before the fade had a chance to play.
+
+   Linear, not eased: this is a boundary sweeping at a constant rate, not an
+   object decelerating into place. An eased curve here, measured frame by
+   frame against the actual computed clip-path, front-loaded ~90% of the
+   visible wipe into the first 190ms and spent the remaining 500ms invisibly
+   finishing the last few percent -- a steady sweep reads as a scan; an eased
+   one just looks like a flicker followed by a stall. */
+.viewer-loading {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: var(--surface-viewer);
+  border-top: 2px solid color-mix(in srgb, var(--blue) 65%, transparent);
+  box-shadow: 0 8px 24px -6px color-mix(in srgb, var(--blue) 45%, transparent);
+  clip-path: inset(100% 0 0 0);
+  pointer-events: none;
+  transition: clip-path 0.5s linear;
+}
+
+.demo-viewer-frame.is-loading .viewer-loading {
+  clip-path: inset(0 0 0 0);
+  border-top-color: transparent;
+  box-shadow: none;
+  pointer-events: auto;
+  transition: clip-path 0.2s ease;
+}
+
+.viewer-loading-beam {
+  position: relative;
+  width: 140px;
+  height: 1px;
+  background: color-mix(in srgb, var(--blue) 22%, transparent);
+}
+
+.viewer-loading-beam:before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--blue);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--blue) 60%, transparent);
+  animation: viewerBeamSweep 1.3s ease-in-out infinite;
+}
+
+.viewer-loading span {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+@keyframes viewerBeamSweep {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(112px);
+  }
+}
+
+/* ==========================================================================
+   Contact
+   ========================================================================== */
+
+.contact-section {
+  padding: 85px 0;
+}
+
+.contact-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: start;
+  gap: 70px;
+  min-height: 520px;
+  padding: 60px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #eef1f3, var(--white) 55%, #dfe4e8);
+  border-radius: 24px;
+}
+
+.contact-panel .eyebrow {
+  justify-content: flex-start;
+}
+
+.contact-panel h2 {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(4rem, 7vw, 7rem);
+  line-height: 1.05;
+}
+
+.contact-action {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+.contact-action p {
+  margin-bottom: 30px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+
+.contact-form {
+  display: grid;
+  gap: 16px;
+}
+
+.form-field {
+  display: grid;
+  gap: 6px;
+}
+
+.form-field label {
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.form-field input,
+.form-field textarea {
+  padding: 8px 2px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #9aa0a5;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: var(--ink);
+}
+
+.form-field input:focus-visible,
+.form-field textarea:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+.field-error {
+  display: none;
+  color: var(--negative);
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.field-error:not(:empty) {
+  display: block;
+}
+
+.form-field.has-error input,
+.form-field.has-error textarea {
+  border-color: var(--negative);
+}
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.contact-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 6px;
+  padding: 18px 0;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.contact-submit:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.contact-submit span {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-submit:hover:not(:disabled) span {
+    transform: rotate(45deg);
+  }
+}
+
+.form-reassurance {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.form-status {
+  margin: 6px 0 0;
+  min-height: 1em;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.form-status.is-success {
+  color: var(--positive);
+}
+
+.form-status.is-error {
+  color: var(--negative);
+}
+
+.contact-rings i {
+  position: absolute;
+  top: -35%;
+  right: -8%;
+  width: 520px;
+  height: 520px;
+  border: 1px solid color-mix(in srgb, var(--blue) 12%, transparent);
+  border-radius: 50%;
+}
+
+.contact-rings i:nth-child(2) {
+  top: -20%;
+  right: -2%;
+  width: 390px;
+  height: 390px;
+}
+
+.contact-rings i:nth-child(3) {
+  top: -5%;
+  right: 4%;
+  width: 260px;
+  height: 260px;
+  background: color-mix(in srgb, var(--blue) 4%, transparent);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  padding: 72px 0 max(28px, env(safe-area-inset-bottom));
+}
+
+.footer-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.footer-top > p {
+  flex: 1;
+  max-width: none;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.footer-links {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  font-size: 0.68rem;
+  flex-shrink: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .footer-links a:hover {
+    color: var(--blue);
+  }
+}
+
+.footer-bottom {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: space-between;
+  margin-top: 75px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.6rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Floating scroll navigation
+   ========================================================================== */
+
+.scroll-nav {
+  position: fixed;
+  z-index: 25;
+  top: 50%;
+  right: max(clamp(14px, 1.6vw, 24px), env(safe-area-inset-right));
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: clamp(4px, 0.4vw, 5px);
+  background: color-mix(in srgb, var(--white) 75%, transparent);
+  border: 1px solid color-mix(in srgb, var(--white) 90%, transparent);
+  border-radius: 999px;
+  box-shadow: 0 20px 50px color-mix(in srgb, var(--shadow) 12%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  transform: translateY(-50%);
+}
+
+.scroll-nav-divider {
+  height: 1px;
+  margin: 0 clamp(7px, 0.8vw, 10px);
+  background: var(--line);
+}
+
+.scroll-nav-dots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(5px, 0.5vw, 7px);
+  padding: clamp(6px, 0.6vw, 8px) 0;
+}
+
+.scroll-nav-dot {
+  width: clamp(4px, 0.35vw, 5px);
+  height: clamp(4px, 0.35vw, 5px);
+  border-radius: 50%;
+  background: var(--line);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.scroll-nav-dot.is-active {
+  background: var(--blue);
+  transform: scale(1.5);
+}
+
+.scroll-nav-btn {
+  display: grid;
+  place-items: center;
+  width: clamp(36px, 3.4vw, 44px);
+  height: clamp(36px, 3.4vw, 44px);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+}
+
+.scroll-nav-btn svg {
+  width: clamp(15px, 1.3vw, 18px);
+  height: clamp(15px, 1.3vw, 18px);
+  transition: transform 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scroll-nav-btn:not(:disabled):hover {
+    background: var(--ink);
+    color: var(--white);
+  }
+
+  .scroll-nav-btn:first-child:not(:disabled):hover svg {
+    transform: translateY(-2px);
+  }
+
+  .scroll-nav-btn:last-child:not(:disabled):hover svg {
+    transform: translateY(2px);
+  }
+}
+
+.scroll-nav-btn:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.scroll-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ==========================================================================
+   Reveal-on-load animation
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  animation: reveal 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.reveal-1 { animation-delay: 60ms; }
+.reveal-2 { animation-delay: 0.15s; }
+.reveal-3 { animation-delay: 0.27s; }
+.reveal-4 { animation-delay: 0.4s; }
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, :before, :after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive breakpoints
+   ========================================================================== */
+
+@media (max-width: 1000px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  /* Hidden alongside .desktop-nav so mobile-nav is the single source of these
+     controls, instead of duplicating them until the 760px breakpoint. */
+  .header-actions {
+    display: none;
+  }
+
+  .menu-button {
+    display: grid;
+    grid-column: 3;
+    place-items: center;
+    padding: 12px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: grid;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    padding: 18px;
+    background: color-mix(in srgb, var(--white) 95%, transparent);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 25px 60px color-mix(in srgb, var(--shadow) 14%, transparent);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.98);
+    transform-origin: top right;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.18s;
+  }
+
+  .mobile-nav.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .mobile-nav > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 6px;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.75rem;
+  }
+
+  .mobile-lang {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+
+  .mobile-lang a {
+    flex: 1;
+    padding: 10px 0;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--ink-soft);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .mobile-lang a.is-active {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+  }
+
+  .intro-content {
+    grid-template-columns: 1fr;
+  }
+
+  /* Floating scroll nav relies on precise section-boundary tracking that's
+     more distraction than help once native touch-scroll momentum takes over. */
+  .scroll-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .shell {
+    width: min(100% - 30px, 1320px);
+  }
+
+  .site-header {
+    min-height: 54px;
+  }
+
+  .menu-button {
+    grid-column: 2;
+  }
+
+  .hero {
+    padding-top: 68px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.5rem, 15vw, 5.8rem);
+  }
+
+  .hero-actions {
+    flex-wrap: wrap;
+  }
+
+  .hero-visual {
+    border-radius: 20px;
+  }
+
+  .teaser-badge {
+    top: 14px;
+    right: 14px;
+  }
+
+  .visual-caption {
+    display: none;
+  }
+
+  .trust-row {
+    min-height: 84px;
+  }
+
+  .intro-section,
+  .solutions-heading {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .workflow-stage {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 95px 20px 30px;
+  }
+
+  .process-step,
+  .step-process {
+    min-height: auto;
+    transform: none;
+  }
+
+  .step-icon {
+    margin-bottom: 25px;
+  }
+
+  .process-line {
+    top: 0;
+    bottom: 0;
+    left: 54px;
+    width: 1px;
+    height: auto;
+  }
+
+  .workflow-orb {
+    top: 22px;
+    width: 62px;
+    height: 62px;
+  }
+
+  .solutions-heading {
+    margin-bottom: 50px;
+  }
+
+  .use-case {
+    grid-template-columns: 36px 50px 1fr;
+    gap: 14px;
+    padding: 25px 0;
+  }
+
+  .use-case p {
+    grid-column: 3 / -1;
+  }
+
+  .demo-viewer-frame {
+    min-height: 420px;
+  }
+
+  .viewer-hint {
+    top: 14px;
+    width: calc(100% - 40px);
+    white-space: normal;
+    text-align: center;
+    font-size: 0.64rem;
+  }
+
+  .contact-panel {
+    grid-template-columns: 1fr;
+    min-height: 600px;
+    padding: 38px 25px;
+  }
+
+  .contact-panel h2 {
+    font-size: clamp(3.7rem, 16vw, 6rem);
+  }
+
+  .footer-grid {
+    gap: 30px;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .footer-top > p {
+    text-align: left;
+  }
+
+  .footer-bottom {
+    margin-top: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-actions .button {
+    width: 100%;
+  }
+
+  .teaser-play {
+    width: 58px;
+    height: 58px;
+  }
+
+  .intro-content h2,
+  .solutions-heading h2 {
+    font-size: 3rem;
+  }
+
+  .use-case h3 {
+    font-size: 1.08rem;
+  }
+
+  .demo-heading h2 {
+    font-size: 3.1rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-top > p {
+    white-space: normal;
+  }
+}
+
+/* ==========================================================================
+   Input method (independent of viewport size: a touchscreen laptop at
+   desktop width still has a coarse pointer; a tablet with a stylus doesn't)
+   ========================================================================== */
+
+@media (pointer: coarse) {
+  .lang-toggle {
+    padding: 16px 14px;
+  }
+
+  .desktop-nav a {
+    padding: 14px 10px;
+  }
+
+  .site-header .button-small {
+    padding: 14px 16px;
+  }
+
+  .footer-links a {
+    padding: 6px 0;
+  }
+}
+
+/* The 3D viewer's control hints name a scroll wheel, which means nothing on a
+   touchscreen (pinch is the zoom gesture there) -- swap the wording instead of
+   describing hardware the visitor isn't using. */
+.hint-text-touch {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .hint-text-pointer {
+    display: none;
+  }
+
+  .hint-text-touch {
+    display: inline;
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-13T00:00:00.000Z",
+  "title": "Design System: Scanity",
+  "extensions": {
+    "colorMeta": {
+      "deep-ink": {
+        "role": "neutral",
+        "displayName": "Deep Ink",
+        "canonical": "#101112",
+        "tonalRamp": ["hsl(210,6%,15%)", "hsl(210,6%,26%)", "hsl(210,6%,37%)", "hsl(210,6%,48%)", "hsl(210,6%,60%)", "hsl(210,6%,71%)", "hsl(210,6%,83%)", "hsl(210,6%,95%)"]
+      },
+      "scan-blue": {
+        "role": "primary",
+        "displayName": "Scan Blue",
+        "canonical": "#246bfd",
+        "tonalRamp": ["hsl(220,97%,15%)", "hsl(220,97%,26%)", "hsl(220,97%,37%)", "hsl(220,97%,48%)", "hsl(220,97%,60%)", "hsl(220,97%,71%)", "hsl(220,97%,83%)", "hsl(220,97%,95%)"]
+      },
+      "cloud": {
+        "role": "neutral",
+        "displayName": "Cloud",
+        "canonical": "#f5f6f7",
+        "tonalRamp": ["hsl(200,8%,15%)", "hsl(200,8%,26%)", "hsl(200,8%,37%)", "hsl(200,8%,48%)", "hsl(200,8%,60%)", "hsl(200,8%,71%)", "hsl(200,8%,83%)", "hsl(200,8%,95%)"]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#676d72",
+        "tonalRamp": ["hsl(202,4%,15%)", "hsl(202,4%,26%)", "hsl(202,4%,37%)", "hsl(202,4%,48%)", "hsl(202,4%,60%)", "hsl(202,4%,71%)", "hsl(202,4%,83%)", "hsl(202,4%,95%)"]
+      },
+      "positive": {
+        "role": "semantic-success",
+        "displayName": "Positive",
+        "canonical": "#259664",
+        "tonalRamp": ["hsl(154,60%,15%)", "hsl(154,60%,26%)", "hsl(154,60%,37%)", "hsl(154,60%,42%)", "hsl(154,60%,55%)", "hsl(154,60%,67%)", "hsl(154,60%,80%)", "hsl(154,60%,93%)"]
+      },
+      "negative": {
+        "role": "semantic-error",
+        "displayName": "Negative",
+        "canonical": "#d64545",
+        "tonalRamp": ["hsl(0,55%,20%)", "hsl(0,55%,31%)", "hsl(0,55%,42%)", "hsl(0,55%,53%)", "hsl(0,55%,63%)", "hsl(0,55%,73%)", "hsl(0,55%,84%)", "hsl(0,55%,94%)"]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "#4f555a",
+        "tonalRamp": ["hsl(206,7%,15%)", "hsl(206,7%,26%)", "hsl(206,7%,37%)", "hsl(206,7%,48%)", "hsl(206,7%,60%)", "hsl(206,7%,71%)", "hsl(206,7%,83%)", "hsl(206,7%,95%)"]
+      },
+      "scan-line": {
+        "role": "component",
+        "displayName": "Scan Line",
+        "canonical": "#234a69",
+        "tonalRamp": ["hsl(207,50%,15%)", "hsl(207,50%,26%)", "hsl(207,50%,37%)", "hsl(207,50%,48%)", "hsl(207,50%,60%)", "hsl(207,50%,71%)", "hsl(207,50%,83%)", "hsl(207,50%,95%)"]
+      },
+      "status-live": {
+        "role": "component",
+        "displayName": "Status Live",
+        "canonical": "#28a76b",
+        "tonalRamp": ["hsl(152,61%,15%)", "hsl(152,61%,26%)", "hsl(152,61%,37%)", "hsl(152,61%,48%)", "hsl(152,61%,60%)", "hsl(152,61%,71%)", "hsl(152,61%,83%)", "hsl(152,61%,95%)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The hero headline only." },
+      "headline": { "displayName": "Headline", "purpose": "Every major section's h2 (platform, solutions, demo, contact)." },
+      "title": { "displayName": "Title", "purpose": "Sub-headings inside cards and list rows (process steps, use cases)." },
+      "body": { "displayName": "Body", "purpose": "Supporting paragraph copy; hero description is the largest instance." },
+      "label": { "displayName": "Label", "purpose": "Eyebrows, section kickers, step numbers, form-field labels." }
+    },
+    "shadows": [
+      { "name": "ambient-panel", "value": "0 20px 50px rgba(39,49,57,0.12)", "purpose": "Process-step cards, hero info chips, the demo viewer's launch icon." },
+      { "name": "hero-lift", "value": "0 35px 100px rgba(52,61,69,0.13)", "purpose": "The hero visual panel; the deepest shadow in the system." },
+      { "name": "chrome-lift-nav", "value": "0 8px 30px rgba(39,47,54,0.07)", "purpose": "The floating desktop nav pill." },
+      { "name": "chrome-lift-dropdown", "value": "0 20px 40px rgba(30,37,43,0.12)", "purpose": "Language and other dropdown menus." },
+      { "name": "chrome-lift-mobile-nav", "value": "0 25px 60px rgba(30,37,43,0.14)", "purpose": "The mobile nav dropdown panel." },
+      { "name": "accent-glow", "value": "0 24px 60px rgba(36,107,253,0.3)", "purpose": "The one colored shadow in the system, under the blue-filled workflow orb." }
+    ],
+    "motion": [
+      { "name": "ease-reveal", "value": "cubic-bezier(0.2, 0.7, 0.2, 1)", "purpose": "Fade + rise-in for content revealing on load, staggered per element." },
+      { "name": "duration-reveal", "value": "0.75s", "purpose": "Duration of the on-load reveal animation." },
+      { "name": "duration-state", "value": "0.2s", "purpose": "Default transition duration for hover/focus state changes (color, background, transform)." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "480px" },
+      { "name": "md", "value": "760px" },
+      { "name": "lg", "value": "1000px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default filled CTA; pill-shaped, Deep Ink fill, hover swaps to Scan Blue and lifts.",
+      "html": "<button class=\"ds-btn-primary\">Try demo <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"></path><path d=\"m12 5 7 7-7 7\"></path></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 15px 21px; background: #101112; color: #ffffff; border: 1px solid transparent; border-radius: 100px; font-family: Manrope, sans-serif; font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, background-color 0.2s; } .ds-btn-primary:hover { background: #246bfd; transform: translateY(-2px); } .ds-btn-primary:focus-visible { outline: 2px solid #246bfd; outline-offset: 4px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Lower-emphasis action paired beside a primary button; translucent fill, hairline border.",
+      "html": "<button class=\"ds-btn-ghost\">Contact us</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 15px 21px; background: rgba(255,255,255,0.5); color: #101112; border: 1px solid rgba(16,17,18,0.12); border-radius: 100px; font-family: Manrope, sans-serif; font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: transform 0.2s, background-color 0.2s; } .ds-btn-ghost:hover { background: #ffffff; transform: translateY(-2px); } .ds-btn-ghost:focus-visible { outline: 2px solid #246bfd; outline-offset: 4px; }"
+    },
+    {
+      "name": "Desktop Navigation",
+      "kind": "nav",
+      "refersTo": "nav-desktop",
+      "description": "Floating pill-shaped glass bar centered in the sticky header.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-link\">Platform</a><a href=\"#\" class=\"ds-nav-link\">Solutions</a><a href=\"#\" class=\"ds-nav-link\">Company</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 0; padding: 6px 8px; background: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.9); border-radius: 100px; box-shadow: 0 8px 30px rgba(39,47,54,0.07); } .ds-nav-link { display: flex; align-items: center; justify-content: center; min-width: 64px; padding: 6px 7px; color: #4f555a; font-family: Manrope, sans-serif; font-size: 0.6rem; font-weight: 600; text-decoration: none; transition: color 0.18s; } .ds-nav-link:hover { color: #101112; } .ds-nav-link:focus-visible { outline: 2px solid #246bfd; outline-offset: 4px; }"
+    },
+    {
+      "name": "Process Step Card",
+      "kind": "card",
+      "refersTo": "card-process-step",
+      "description": "Glass card with a leading circular icon badge, uppercase blue label, title, and muted body copy.",
+      "html": "<article class=\"ds-card\"><span class=\"ds-card-icon\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z\"></path><circle cx=\"12\" cy=\"13\" r=\"3\"></circle></svg></span><small class=\"ds-card-label\">01 / CAPTURE</small><h3 class=\"ds-card-title\">We scan the space.</h3><p class=\"ds-card-body\">Our team visits on site and captures every detail.</p></article>",
+      "css": ".ds-card { padding: 26px; background: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.9); border-radius: 16px; box-shadow: 0 20px 50px rgba(39,53,62,0.08); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-family: Manrope, sans-serif; max-width: 320px; } .ds-card-icon { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 38px; background: #101112; color: #ffffff; border-radius: 50%; } .ds-card-label { display: block; color: #246bfd; font-size: 0.51rem; font-weight: 700; letter-spacing: 0.11em; } .ds-card-title { margin: 14px 0 10px; font-size: 1.22rem; font-weight: 600; letter-spacing: -0.04em; color: #101112; } .ds-card-body { margin: 0; color: #676d72; font-size: 0.72rem; line-height: 1.6; }"
+    },
+    {
+      "name": "Form Field",
+      "kind": "input",
+      "refersTo": "form-field",
+      "description": "Boxless, underline-only text field with an uppercase muted label — the system's one exception to its rounded shape language.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-field-label\" for=\"ds-name\">Full name</label><input class=\"ds-field-input\" id=\"ds-name\" type=\"text\" placeholder=\"Jane Doe\"></div>",
+      "css": ".ds-field { display: grid; gap: 6px; font-family: Manrope, sans-serif; } .ds-field-label { color: #676d72; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; } .ds-field-input { padding: 8px 2px; background: transparent; border: none; border-bottom: 1px solid rgba(16,17,18,0.12); color: #101112; font-family: inherit; font-size: 0.85rem; transition: border-color 0.2s; } .ds-field-input::placeholder { color: #9aa0a5; } .ds-field-input:focus { border-color: #101112; outline: none; }"
+    },
+    {
+      "name": "Tab Switch",
+      "kind": "custom",
+      "refersTo": "demo-viewer-switch",
+      "description": "Segmented pill control for switching between sample captures.",
+      "html": "<div class=\"ds-tabswitch\"><button class=\"ds-tab is-active\">Dorms</button><button class=\"ds-tab\">Living room</button></div>",
+      "css": ".ds-tabswitch { display: flex; width: fit-content; gap: 4px; padding: 4px; background: #eef0f2; border-radius: 999px; font-family: Manrope, sans-serif; } .ds-tab { padding: 9px 20px; border: 0; border-radius: 999px; background: none; color: #676d72; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: background-color 0.2s, color 0.2s; } .ds-tab:hover { color: #101112; } .ds-tab.is-active { background: #101112; color: #ffffff; } .ds-tab:focus-visible { outline: 2px solid #246bfd; outline-offset: 4px; }"
+    },
+    {
+      "name": "Capture Quality Chip",
+      "kind": "custom",
+      "refersTo": "capture-card",
+      "description": "Floating glass info chip from the hero's signature point-cloud scan visual; a circular icon badge beside a label/value pair.",
+      "html": "<div class=\"ds-chip\"><span class=\"ds-chip-icon\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"></path></svg></span><div><small class=\"ds-chip-label\">CAPTURE QUALITY</small><strong class=\"ds-chip-value\">Excellent</strong></div></div>",
+      "css": ".ds-chip { display: grid; grid-template-columns: 35px 1fr; align-items: center; gap: 12px; width: 230px; padding: 14px; background: rgba(255,255,255,0.78); border: 1px solid rgba(255,255,255,0.92); border-radius: 14px; box-shadow: 0 20px 50px rgba(39,49,57,0.12); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); font-family: Manrope, sans-serif; } .ds-chip-icon { display: grid; place-items: center; width: 35px; height: 35px; background: #101112; color: #ffffff; border-radius: 50%; } .ds-chip-label { display: block; color: #676d72; font-size: 0.48rem; letter-spacing: 0.1em; } .ds-chip-value { font-size: 0.68rem; color: #101112; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Reconstructed Room",
+    "overview": "Scanity's interface reads like its own product output: solid, near-black forms standing in for structure, and soft translucent glass standing in for the reconstructed space around them. The mood is precise and understated — the interface stays quiet so the 3D capture itself is always the most interesting thing on the page. Deep Ink carries almost all of the weight (text, fills, icon badges); Scan Blue appears rarely and only where something is happening or actionable (a hover, a link, the scan beam sweeping across the hero visual). Nothing shouts; hierarchy is built with scale and generous whitespace, not color or noise.\n\nA barely-perceptible film-grain texture (1.8% opacity fractal noise) sits fixed over the entire page, keeping the large flat cloud-grey and white surfaces from feeling sterile or purely digital. Type is set entirely in Manrope, one family carrying every role from the 7rem hero display down to 0.5rem uppercase labels, differentiated by weight and tracking rather than by font-pairing.",
+    "keyCharacteristics": [
+      "One typeface (Manrope), one accent color (Scan Blue), used sparingly against a dominant Deep Ink / white / cloud-grey neutral field.",
+      "A simulated point-cloud scan scene as the hero's signature visual, not a static photo or illustration.",
+      "Pill-shaped buttons and navigation throughout, contrasted with completely boxless, underline-only form fields.",
+      "Large asymmetric section headers (a narrow kicker column beside a wide heading) opening most major sections.",
+      "A subtle full-page grain overlay as the only textural decoration."
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Scan Blue is reserved for hover states, the focus ring, and the few live/animated elements (scan beam, status dot, workflow orb). It never fills a large surface or competes with Deep Ink for dominance.", "section": "colors" },
+      { "name": "The One Family Rule", "body": "Every text role — from the 7.4rem hero headline to a 0.5rem form caption — is Manrope. Hierarchy is built entirely through size, weight, tracking, and color, never a second typeface.", "section": "typography" }
+    ],
+    "dos": [
+      "Do keep Scan Blue rare — hover states, the focus ring, and live/animated elements only (see The One Accent Rule).",
+      "Do pair every icon with a full-circle Deep Ink badge when introducing a card, step, or list row.",
+      "Do keep buttons pill-shaped and compact; there is no large, heavy CTA anywhere in the system.",
+      "Do open major sections with the asymmetric kicker + heading header pattern.",
+      "Do keep form fields boxless and underline-only; this is the deliberate exception to the system's rounded shape language, not an oversight."
+    ],
+    "donts": [
+      "Don't add customer logos or named case studies to the trust strip. Per PRODUCT.md, Scanity is pre-launch with no real clients yet — the strip must stay industry-label-only until real evidence exists.",
+      "Don't introduce a second typeface. Every role, from the largest display heading to the smallest label, stays in Manrope.",
+      "Don't remove the hero's \"Sample data\" pill or give the illustrative stats (\"12.4M points\", \"98.6% processed\") the unqualified visual weight of verified data elsewhere in the product — they are UI-mockup values, not real captured metrics (see PRODUCT.md → Evidence on Hand).",
+      "Don't add hard-edged or sharply-defined shadows; every elevated surface in the current system uses a large, soft, low-opacity shadow."
+    ]
+  }
+}

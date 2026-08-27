@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"C:\\\\Users\\\\ptaci\\\\.claude\\\\projects\\\\c--Users-ptaci-OneDrive-Dokumenty---Scanity-Scanity-website\\\\memory\\\\\" 2>/dev/null)",
+      "Read(//c/Users/ptaci/.claude/projects/c--Users-ptaci-OneDrive-Dokumenty---Scanity-Scanity-website/memory\" 2>/dev/**)"
+    ]
+  }
+}
