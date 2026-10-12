@@ -189,6 +189,23 @@ if (viewerFrame) {
   const viewerHint = viewerFrame.querySelector('.viewer-hint');
   const VIEWER_HINT_SEEN_KEY = 'scanity-viewer-hint-seen';
 
+  // Storage can be blocked outright (strict privacy settings throw on any access); the hint
+  // then simply shows on each visit instead of breaking the viewer's load handler.
+  const hintSeen = () => {
+    try {
+      return localStorage.getItem(VIEWER_HINT_SEEN_KEY) === 'true';
+    } catch {
+      return false;
+    }
+  };
+  const rememberHintSeen = () => {
+    try {
+      localStorage.setItem(VIEWER_HINT_SEEN_KEY, 'true');
+    } catch {
+      // not remembered: shown again next visit
+    }
+  };
+
   viewerIframe.addEventListener('load', () => {
     viewerFrame.classList.remove('is-loading');
     if (viewerLoadingStatus) viewerLoadingStatus.textContent = '';
@@ -202,11 +219,11 @@ if (viewerFrame) {
     // leash before it times out, on top of clearing the moment the visitor
     // actually touches the viewer. Never shown again once seen once, across
     // scans and across visits.
-    if (viewerHint && localStorage.getItem(VIEWER_HINT_SEEN_KEY) !== 'true') {
+    if (viewerHint && !hintSeen()) {
       viewerHint.classList.add('is-visible');
       const dismissHint = () => {
         viewerHint.classList.remove('is-visible');
-        localStorage.setItem(VIEWER_HINT_SEEN_KEY, 'true');
+        rememberHintSeen();
         window.removeEventListener('pointerdown', onFramePointerDown, true);
       };
       // Cross-origin iframes still report as the event target for a pointerdown
@@ -235,13 +252,17 @@ if (viewerFrame) {
   }
 
   if (viewerSwitch) {
-    viewerSwitch.addEventListener('click', (event) => {
-      const btn = event.target.closest('.viewer-switch-btn');
-      if (!btn || btn.classList.contains('is-active')) return;
+    const tabs = Array.from(viewerSwitch.querySelectorAll('.viewer-switch-btn'));
 
-      viewerSwitch.querySelectorAll('.viewer-switch-btn').forEach((b) => {
+    const selectTab = (btn) => {
+      if (btn.classList.contains('is-active')) return;
+
+      // Roving tabindex, as a tablist expects: Tab reaches the selected scene only, and the
+      // arrow keys below move between scenes.
+      tabs.forEach((b) => {
         b.classList.toggle('is-active', b === btn);
         b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+        b.tabIndex = b === btn ? 0 : -1;
       });
 
       const src = `${VIEWER_BASE}/?id=${btn.dataset.id}`;
@@ -250,6 +271,30 @@ if (viewerFrame) {
       } else {
         viewerIframe.dataset.src = src;
       }
+    };
+
+    tabs.forEach((b) => {
+      b.tabIndex = b.classList.contains('is-active') ? 0 : -1;
+    });
+
+    viewerSwitch.addEventListener('click', (event) => {
+      const btn = event.target.closest('.viewer-switch-btn');
+      if (btn) selectTab(btn);
+    });
+
+    viewerSwitch.addEventListener('keydown', (event) => {
+      const index = tabs.indexOf(document.activeElement);
+      if (index < 0) return;
+      const next = {
+        ArrowRight: (index + 1) % tabs.length,
+        ArrowLeft: (index - 1 + tabs.length) % tabs.length,
+        Home: 0,
+        End: tabs.length - 1,
+      }[event.key];
+      if (next === undefined) return;
+      event.preventDefault();
+      tabs[next].focus();
+      selectTab(tabs[next]);
     });
   }
 }
@@ -347,15 +392,30 @@ if (scrollNavUp && scrollNavDown && scrollNavFitsViewport) {
     dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
   };
 
-  scrollNavUp.addEventListener('click', () => {
-    const index = currentStopIndex();
-    if (index > 0) goTo(stops[index - 1]);
-  });
+  // While a smooth scroll is still on its way, the page's position says nothing about where it is
+  // going: a click then would count from somewhere mid-way and land on the same stop again. So a
+  // move remembers its target, and the next click steps on from there until the page settles.
+  let pendingIndex = null;
+  let settleTimer;
+  const settle = () => {
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(() => {
+      pendingIndex = null;
+    }, 150);
+  };
+  window.addEventListener('scroll', settle, { passive: true });
 
-  scrollNavDown.addEventListener('click', () => {
-    const index = currentStopIndex();
-    if (index < stops.length - 1) goTo(stops[index + 1]);
-  });
+  const step = (delta) => {
+    const index = pendingIndex ?? currentStopIndex();
+    const next = Math.max(0, Math.min(stops.length - 1, index + delta));
+    if (next === index) return;
+    pendingIndex = next;
+    settle();
+    goTo(stops[next]);
+  };
+
+  scrollNavUp.addEventListener('click', () => step(-1));
+  scrollNavDown.addEventListener('click', () => step(1));
 
   updateButtons();
   window.addEventListener('scroll', updateButtons, { passive: true });
@@ -408,7 +468,13 @@ function loadEmailJS() {
         window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
         resolve(window.emailjs);
       };
-      script.onerror = () => reject(new Error('Failed to load EmailJS'));
+      script.onerror = () => {
+        // Forget the failure (a blocker, a dropped connection), so the next submit tries again
+        // instead of failing on the same rejected promise until the page is reloaded.
+        emailjsReady = null;
+        script.remove();
+        reject(new Error('Failed to load EmailJS'));
+      };
       document.head.appendChild(script);
     });
   }

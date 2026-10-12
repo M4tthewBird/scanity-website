@@ -4,16 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
   <title>Scanity | 3D Scanning & Digital Twins</title>
   <meta name="description" content="Scanity transforms camera footage into accurate, photorealistic 3D spaces for property, construction, and spatial applications.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../index.css">
-  <link rel="alternate" hreflang="cs" href="https://www.scanity.cz/">
-  <link rel="alternate" hreflang="en" href="https://www.scanity.cz/en/">
-  <link rel="alternate" hreflang="x-default" href="https://www.scanity.cz/">
+  <link rel="canonical" href="https://scanity.cz/en/">
+  <link rel="alternate" hreflang="cs" href="https://scanity.cz/">
+  <link rel="alternate" hreflang="en" href="https://scanity.cz/en/">
+  <link rel="alternate" hreflang="x-default" href="https://scanity.cz/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scanity">
+  <meta property="og:url" content="https://scanity.cz/en/">
+  <meta property="og:title" content="Scanity | 3D Scanning &amp; Digital Twins">
+  <meta property="og:description" content="Scanity transforms camera footage into accurate, photorealistic 3D spaces for property, construction, and spatial applications.">
+  <meta property="og:image" content="https://scanity.cz/assets/og-image-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Scanity logo and the line Digital copies of the real world">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
   <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
@@ -105,6 +120,17 @@
           <strong>E-commerce</strong>
           <strong>Infrastructure</strong>
         </div>
+        <div class="trust-row" aria-hidden="true">
+          <strong>Architecture</strong>
+          <strong>Construction</strong>
+          <strong>Real Estate</strong>
+          <strong>Cultural Heritage</strong>
+          <strong>Jewelry</strong>
+          <strong>Golf Courses</strong>
+          <strong>Manufacturing</strong>
+          <strong>E-commerce</strong>
+          <strong>Infrastructure</strong>
+        </div>
       </div>
     </section>
 
@@ -148,36 +174,6 @@
       </div>
     </section>
 
-    <section class="solutions-section" id="solutions">
-      <div class="shell solutions-heading">
-        <div class="section-kicker"><span>02</span> Digital copies in practice</div>
-        <h2>One digital copy. Many ways to use it.</h2>
-      </div>
-
-      <div class="shell use-case-list">
-        <article class="use-case">
-          <span class="use-number">01</span>
-          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
-          <div><small>Digital twins</small><h3>Preserve spaces exactly as they are.</h3></div>
-          <p>Create measurable, navigable 3D replicas for documentation, planning, and remote collaboration.</p>
-        </article>
-
-        <article class="use-case">
-          <span class="use-number">02</span>
-          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera" aria-hidden="true"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path><circle cx="12" cy="13" r="3"></circle></svg></span>
-          <div><small>Property capture</small><h3>Make every listing feel like the real thing.</h3></div>
-          <p>We build a virtual tour so prospective buyers can walk through the space from anywhere.</p>
-        </article>
-
-        <article class="use-case">
-          <span class="use-number">03</span>
-          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg></span>
-          <div><small>Inspections</small><h3>Stay on top of it from anywhere.</h3></div>
-          <p>We create a detailed 3D model of towers, structures, and infrastructure, so you can check their condition and track changes without a site visit.</p>
-        </article>
-      </div>
-    </section>
-
     <section class="demo-section shell" id="demo">
       <div class="demo-heading">
         <p class="eyebrow">
@@ -188,11 +184,12 @@
       </div>
 
       <div class="demo-viewer-switch" id="viewerSwitch" role="tablist" aria-label="Choose a 3D capture">
-        <button type="button" class="viewer-switch-btn is-active" data-id="ikka_gym" role="tab" aria-selected="true">Private Gym</button>
-        <button type="button" class="viewer-switch-btn" data-id="sanctuaire" role="tab" aria-selected="false">Cathedral, aerial view</button>
+        <button type="button" class="viewer-switch-btn is-active" data-id="ikka_gym" role="tab" aria-controls="demoViewerFrame" aria-selected="true">Private Gym</button>
+        <button type="button" class="viewer-switch-btn" data-id="sanctuaire" role="tab" aria-controls="demoViewerFrame" aria-selected="false">Cathedral, aerial view</button>
+        <button type="button" class="viewer-switch-btn" data-id="face_shield" role="tab" aria-controls="demoViewerFrame" aria-selected="false">Face shield</button>
       </div>
 
-      <div class="demo-viewer-frame" id="demoViewerFrame">
+      <div class="demo-viewer-frame" id="demoViewerFrame" role="tabpanel">
         <iframe
           class="demo-viewer"
           data-src="https://viewer.scanity.cz/?id=ikka_gym"
@@ -220,6 +217,36 @@
           <span class="hint-text-pointer">Drag to look around, scroll to zoom in</span>
           <span class="hint-text-touch">Drag to look around, pinch to zoom in</span>
         </div>
+      </div>
+    </section>
+
+    <section class="solutions-section" id="solutions">
+      <div class="shell solutions-heading">
+        <div class="section-kicker"><span>02</span> Digital copies in practice</div>
+        <h2>One digital copy. Many ways to use it.</h2>
+      </div>
+
+      <div class="shell use-case-list">
+        <article class="use-case">
+          <span class="use-number">01</span>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
+          <div><small>Digital twins</small><h3>Preserve spaces exactly as they are.</h3></div>
+          <p>Create measurable, navigable 3D replicas for documentation, planning, and remote collaboration.</p>
+        </article>
+
+        <article class="use-case">
+          <span class="use-number">02</span>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera" aria-hidden="true"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path><circle cx="12" cy="13" r="3"></circle></svg></span>
+          <div><small>Property capture</small><h3>Make every listing feel like the real thing.</h3></div>
+          <p>We build a virtual tour so prospective buyers can walk through the space from anywhere.</p>
+        </article>
+
+        <article class="use-case">
+          <span class="use-number">03</span>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg></span>
+          <div><small>Inspections</small><h3>Stay on top of it from anywhere.</h3></div>
+          <p>We create a detailed 3D model of towers, structures, and infrastructure, so you can check their condition and track changes without a site visit.</p>
+        </article>
       </div>
     </section>
 
@@ -260,7 +287,8 @@
               Send message
               <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
             </button>
-            <p class="form-reassurance">We usually get back to you within 1 business day.</p>
+            <p class="form-reassurance">We usually get back to you within 1 business day.
+              <span class="form-privacy">We use your details only to reply to your enquiry. See our <a href="privacy.html">privacy policy</a>.</span></p>
             <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
           </form>
         </div>
@@ -279,7 +307,7 @@
         </div>
         <div class="footer-bottom">
           <span>© 2026 Scanity</span>
-          <span>Privacy · Terms</span>
+          <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
         </div>
       </div>
     </footer>

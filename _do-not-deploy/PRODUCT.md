@@ -32,7 +32,7 @@ Full-service reconstruction is the core mechanism: a neighboring product that on
 - Teaching/enabling real estate videographers or photographers to capture footage themselves, with Scanity handling all processing and reconstruction, is a live secondary path today — not just a hypothetical future direction.
 - Whether Scanity will ever sell self-serve scanning hardware/apps beyond this guided-capture-partner model is explicitly undecided; do not assume or design for it.
 - Contact form submits client-side via EmailJS, with a hidden honeypot field for spam protection.
-- The interactive demo embeds Scanity's own viewer (`viewer.scanity.cz/?id=…`, the `scanity-viewer` repo; its product record is `scanity-viewer/PRODUCT.md`), lazy-loaded only once the visitor clicks to load it, and is switchable between sample captures (currently "Private Gym", shown first, and "Cathedral, aerial view").
+- The interactive demo embeds Scanity's own viewer (`viewer.scanity.cz/?id=…`, the `scanity-viewer` repo; its product record is `scanity-viewer/PRODUCT.md`), lazy-loaded only once the visitor clicks to load it, and is switchable between sample captures (currently "Private Gym", shown first, "Cathedral, aerial view" and "Face shield").
 - Resolved: the Czech (CS) homepage (`index.html`) now carries real Czech copy and `lang="cs"`, distinct from the English twin at `en/index.html`. The translation was written to fix an audit-flagged defect (CS default page was English content mislabeled as Czech) and should get a native-speaker review pass before the site goes live.
 
 ## Brand Commitments
@@ -47,7 +47,7 @@ Full-service reconstruction is the core mechanism: a neighboring product that on
 - Pre-launch stage: Scanity has no real, nameable customers or case studies yet.
 - The trust-strip industry labels (Architecture, Construction, Real Estate, Retail, Cultural Heritage, Jewelry, Golf Courses, Manufacturing, E-commerce, Infrastructure) are target markets the company is pursuing, not current clients — future work must not present them as customer proof or add logos implying real customers. The strip scrolls continuously (a duplicated-content marquee) rather than sitting static, which is why the list can hold more items than would fit in one static row.
 - A promo video demonstrating the product is in production but not yet available; the hero shows an honest "coming soon" teaser (see DESIGN.md → Video Teaser) rather than fabricated UI stats. An earlier version of the hero showed illustrative mockup values ("12.4M points", "98.6% processed", "Apartment 05") — these were removed and must not be reintroduced as if they were real performance data.
-- The demo viewer's captures ("Private Gym", "Cathedral, aerial view") are real scans served from Scanity's own viewer and can be treated as genuine product demonstration. "Private Gym" is Scanity's own demo capture, not a client project, and must not be presented as a customer or reference.
+- The demo viewer's captures ("Private Gym", "Cathedral, aerial view", "Face shield") are real scans served from Scanity's own viewer and can be treated as genuine product demonstration. "Private Gym" is Scanity's own demo capture, not a client project, and must not be presented as a customer or reference.
 
 ## Product Principles
 

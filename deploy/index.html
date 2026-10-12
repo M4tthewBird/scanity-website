@@ -4,16 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
   <title>Scanity | 3D skenování a digitální dvojčata</title>
   <meta name="description" content="Scanity mění záběry z kamery na přesné, fotorealistické 3D prostory pro nemovitosti, stavebnictví a další prostorové aplikace.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
-  <link rel="alternate" hreflang="cs" href="https://www.scanity.cz/">
-  <link rel="alternate" hreflang="en" href="https://www.scanity.cz/en/">
-  <link rel="alternate" hreflang="x-default" href="https://www.scanity.cz/">
+  <link rel="canonical" href="https://scanity.cz/">
+  <link rel="alternate" hreflang="cs" href="https://scanity.cz/">
+  <link rel="alternate" hreflang="en" href="https://scanity.cz/en/">
+  <link rel="alternate" hreflang="x-default" href="https://scanity.cz/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scanity">
+  <meta property="og:url" content="https://scanity.cz/">
+  <meta property="og:title" content="Scanity | 3D skenování a digitální dvojčata">
+  <meta property="og:description" content="Scanity mění záběry z kamery na přesné, fotorealistické 3D prostory pro nemovitosti, stavebnictví a další prostorové aplikace.">
+  <meta property="og:image" content="https://scanity.cz/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo Scanity a nápis Tvoříme digitální kopie reálného světa">
+  <meta property="og:locale" content="cs_CZ">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
   <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
@@ -169,11 +184,12 @@
       </div>
 
       <div class="demo-viewer-switch" id="viewerSwitch" role="tablist" aria-label="Vyberte 3D snímek">
-        <button type="button" class="viewer-switch-btn is-active" data-id="ikka_gym" role="tab" aria-selected="true">Private Gym</button>
-        <button type="button" class="viewer-switch-btn" data-id="sanctuaire" role="tab" aria-selected="false">Katedrála z ptáčí perspektivy</button>
+        <button type="button" class="viewer-switch-btn is-active" data-id="ikka_gym" role="tab" aria-controls="demoViewerFrame" aria-selected="true">Private Gym</button>
+        <button type="button" class="viewer-switch-btn" data-id="sanctuaire" role="tab" aria-controls="demoViewerFrame" aria-selected="false">Katedrála z ptáčí perspektivy</button>
+        <button type="button" class="viewer-switch-btn" data-id="face_shield" role="tab" aria-controls="demoViewerFrame" aria-selected="false">Ochranný štít</button>
       </div>
 
-      <div class="demo-viewer-frame" id="demoViewerFrame">
+      <div class="demo-viewer-frame" id="demoViewerFrame" role="tabpanel">
         <iframe
           class="demo-viewer"
           data-src="https://viewer.scanity.cz/?id=ikka_gym"
@@ -271,7 +287,8 @@
               Odeslat zprávu
               <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
             </button>
-            <p class="form-reassurance">Ozveme se vám obvykle do 1 pracovního dne.</p>
+            <p class="form-reassurance">Ozveme se vám obvykle do 1 pracovního dne.
+              <span class="form-privacy">Údaje použijeme jen k odpovědi na vaši poptávku. Více v <a href="ochrana-osobnich-udaju.html">zásadách ochrany osobních údajů</a>.</span></p>
             <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
           </form>
         </div>
@@ -290,7 +307,7 @@
         </div>
         <div class="footer-bottom">
           <span>© 2026 Scanity</span>
-          <span>Ochrana soukromí · Podmínky</span>
+          <span><a href="ochrana-osobnich-udaju.html">Ochrana soukromí</a> · <a href="podminky.html">Podmínky</a></span>
         </div>
       </div>
     </footer>
