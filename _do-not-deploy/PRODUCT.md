@@ -38,7 +38,7 @@ Full-service reconstruction is the core mechanism: a neighboring product that on
 ## Brand Commitments
 
 - Name: Scanity. Domain: scanity.cz (Czech-based company).
-- Contact: hello@scanity.com.
+- Contact: matyas.ptacek@scanity.cz (Matyáš Ptáček, operator as a private individual until a business ID exists).
 - Logo asset: `assets/scanity_logo.svg`.
 - Current typeface in use: Manrope.
 

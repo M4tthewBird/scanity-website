@@ -1,0 +1,44 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "deploy/ochrana-osobnich-udaju.html"
+        ],
+        "createdAt": "2026-10-12T07:39:22.843Z",
+        "reason": "Claude: legal pages contain no .trust-track marquee; the finding comes from the shared index.css"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "deploy/podminky.html"
+        ],
+        "createdAt": "2026-10-12T07:39:22.948Z",
+        "reason": "Claude: legal pages contain no .trust-track marquee; the finding comes from the shared index.css"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "deploy/en/privacy.html"
+        ],
+        "createdAt": "2026-10-12T07:39:23.057Z",
+        "reason": "Claude: legal pages contain no .trust-track marquee; the finding comes from the shared index.css"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "deploy/en/terms.html"
+        ],
+        "createdAt": "2026-10-12T07:39:23.162Z",
+        "reason": "Claude: legal pages contain no .trust-track marquee; the finding comes from the shared index.css"
+      }
+    ]
+  }
+}

@@ -442,14 +442,14 @@ const FORM_MESSAGES = {
   cs: {
     sending: 'Odesíláme…',
     success: 'Děkujeme — brzy se vám ozveme.',
-    error: 'Něco se pokazilo. Napište nám prosím přímo na hello@scanity.com.',
+    error: 'Něco se pokazilo. Napište nám prosím přímo na matyas.ptacek@scanity.cz.',
     nameRequired: 'Zadejte prosím své jméno.',
     emailInvalid: 'Zadejte platnou e-mailovou adresu.',
   },
   en: {
     sending: 'Sending...',
     success: 'Thanks — we’ll be in touch shortly.',
-    error: 'Something went wrong. Please email us directly at hello@scanity.com.',
+    error: 'Something went wrong. Please email us directly at matyas.ptacek@scanity.cz.',
     nameRequired: 'Please enter your name.',
     emailInvalid: 'Please enter a valid email address.',
   },
