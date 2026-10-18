@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" href="../../favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../../site.webmanifest">
+  <title>3D tours for hotels and accommodation | Scanity</title>
+  <meta name="description" content="Guests walk through the room, spa and restaurant before they book. See what market data says about virtual tours.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../index.css">
+  <link rel="canonical" href="https://scanity.cz/en/hotels/">
+  <link rel="alternate" hreflang="cs" href="https://scanity.cz/hotely/">
+  <link rel="alternate" hreflang="en" href="https://scanity.cz/en/hotels/">
+  <link rel="alternate" hreflang="x-default" href="https://scanity.cz/hotely/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scanity">
+  <meta property="og:url" content="https://scanity.cz/en/hotels/">
+  <meta property="og:title" content="3D tours for hotels and accommodation | Scanity">
+  <meta property="og:description" content="Guests walk through the room, spa and restaurant before they book. See what market data says about virtual tours.">
+  <meta property="og:image" content="https://scanity.cz/assets/og-image-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Scanity logo and the line We create digital copies of the real world">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
+    <header class="site-header shell">
+      <a href="../" aria-label="Scanity home" class="brand">
+          <img
+              src="../../assets/scanity_logo.svg" width="31" height="54"
+              alt="Scanity"
+              class="scanity-logo">
+          <span>Scanity</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="../#platform">Platform</a>
+        <div class="nav-dropdown" id="industryDropdown">
+          <button type="button" class="nav-dropdown-toggle" id="industryToggle" aria-expanded="false" aria-controls="industryMenu">Solutions <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div class="nav-menu" id="industryMenu">
+            <a href="../real-estate/">
+              <span class="nav-menu-title">Real estate</span>
+              <span class="nav-menu-text">Photos, floor plan, video walkthrough and 3D model for listings</span>
+            </a>
+            <a href="../venues-events/">
+              <span class="nav-menu-title">Venues & cultural events</span>
+              <span class="nav-menu-text">Seat selection in 3D, skyboxes and premium spaces</span>
+            </a>
+            <a href="../products/">
+              <span class="nav-menu-title">Products & e-commerce</span>
+              <span class="nav-menu-text">3D models and photos for your whole product range</span>
+            </a>
+            <a href="../hotels/" aria-current="page">
+              <span class="nav-menu-title">Hotels & hospitality</span>
+              <span class="nav-menu-text">Rooms and spaces to explore before booking</span>
+            </a>
+            <a href="../construction/">
+              <span class="nav-menu-title">Construction & facilities</span>
+              <span class="nav-menu-text">A digital twin of the site and its history</span>
+            </a>
+            <a class="nav-menu-all" href="../#solutions">All solutions <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-toggle" id="langToggle" aria-expanded="false" aria-controls="langMenu" aria-label="Language: English">
+            EN
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu">
+            <li><a href="../../hotely/" lang="cs" hreflang="cs">CS</a></li>
+            <li><a href="./" lang="en" hreflang="en" aria-current="true">EN</a></li>
+          </ul>
+        </div>
+        <a class="nav-contact" href="#contact">Contact us</a>
+        <a class="button button-dark button-small" href="../#demo">Try demo <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+      </div>
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileNav" id="menuToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+      </button>
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="../#platform">Platform</a>
+        <a href="../#solutions">Solutions</a>
+        <div class="mobile-subnav">
+          <a href="../real-estate/">Real estate</a>
+          <a href="../venues-events/">Venues & cultural events</a>
+          <a href="../products/">Products & e-commerce</a>
+          <a href="../hotels/" aria-current="page">Hotels & hospitality</a>
+          <a href="../construction/">Construction & facilities</a>
+        </div>
+        <a href="#contact">Contact us</a>
+        <div class="mobile-lang">
+          <a href="../../hotely/" lang="cs" hreflang="cs">CS</a>
+          <a href="./" lang="en" hreflang="en" class="is-active" aria-current="true">EN</a>
+        </div>
+      </nav>
+    </header>
+
+  <main id="top">
+    <div class="industry-bar" id="industryBar">
+      <div class="industry-bar-inner shell">
+        <nav class="industry-nav" aria-label="Industries">
+          <a href="../real-estate/">Real estate</a>
+          <a href="../venues-events/">Venues & events</a>
+          <a href="../products/">Products</a>
+          <a href="../hotels/" aria-current="page">Hotels</a>
+          <a href="../construction/">Construction</a>
+        </nav>
+        <a class="button button-dark button-small industry-bar-cta" href="#contact">Book a scan <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+      </div>
+    </div>
+
+    <!-- No buttons here: "Domluvit sken" is always in the bar above -->
+    <section class="industry-hero shell">
+      <h1 class="reveal reveal-2">Guests see the room before they book.</h1>
+      <p class="hero-description reveal reveal-3">Guests walk through the room, the spa and the restaurant before they book, and book with confidence.</p>
+    </section>
+
+    <section class="industry-section shell" id="data" aria-labelledby="data-title">
+      <div class="industry-section-head">
+        <h2 id="data-title">Proven results from real-world 3D use</h2>
+        <p class="industry-section-lead">More interest in booking.</p>
+      </div>
+      <div class="stat-grid stat-count-2">
+        <article class="stat">
+          <p class="stat-value">100<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-1" aria-label="Source 1">1</a></sup></p>
+          <p class="stat-label">more likely to be interested in booking a business with a virtual tour</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">17<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-2" aria-label="Source 2">2</a></sup></p>
+          <p class="stat-label">of event planners see 3D and virtual tours as where hotels could most improve their proposals</p>
+        </article>
+      </div>
+      <ol class="stat-footnotes">
+        <li id="source-1">Independent study commissioned by Google in 2015: people who view a listing with a virtual tour are twice as likely to be interested in booking. Summary by <a href="https://seekbeak.com/efficacy-of-virtual-tours-360-photo-industry-research-round-up/" target="_blank" rel="noopener">SeekBeak</a>.</li>
+        <li id="source-2">Cvent Planner Sourcing Report 2025, reported by <a href="https://www.cvent.com/en/blog/hospitality/virtual-venue-tours" target="_blank" rel="noopener">Cvent</a>.</li>
+      </ol>
+    </section>
+
+    <section class="industry-section shell" id="deliver" aria-labelledby="deliver-title">
+      <div class="industry-section-head">
+        <h2 id="deliver-title">What we deliver</h2>
+      </div>
+      <ul class="deliver-list">
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path><path d="M12 4v6"></path><path d="M2 18h20"></path></svg></span>
+          <div>
+            <h3>Rooms and suites</h3>
+            <p>Guests see the real size and layout of the room, not just a few chosen photos.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
+          <div>
+            <h3>Spa, restaurant, function rooms</h3>
+            <p>We also scan shared spaces and conference rooms for corporate clients.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path><path d="m14.5 12.5 2-2"></path><path d="m11.5 9.5 2-2"></path><path d="m8.5 6.5 2-2"></path><path d="m17.5 15.5 2-2"></path></svg></span>
+          <div>
+            <h3>Floor plan with areas</h3>
+            <p>Dimensions and floor area of rooms and halls in m², taken straight from the scan.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect></svg></span>
+          <div>
+            <h3>Photos and a video walkthrough</h3>
+            <p>Shots and a walkthrough of the hotel made from the scan, for your website, booking platforms and social media.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></span>
+          <div>
+            <h3>A link for your site and guests</h3>
+            <p>Embed the tour on the hotel website or send it to a guest or an event organiser.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"></path><path d="M10 19v-3.96 3.15"></path><path d="M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></svg></span>
+          <div>
+            <h3>No app needed</h3>
+            <p>Works in an ordinary browser on a computer, tablet or phone.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- TODO: Scanity case study from a hotel. Fill in from real data, then remove the hidden attribute. -->
+    <section class="industry-section shell" id="case-study" aria-labelledby="case-study-title" hidden>
+      <div class="industry-section-head">
+        <h2 id="case-study-title">Scanity results</h2>
+        <p>TODO</p>
+      </div>
+      <div class="stat-grid">
+        <!-- TODO: stat cards with Scanity's own numbers (same markup as above, source = own measurement) -->
+      </div>
+    </section>
+
+    <section class="contact-section shell" id="contact">
+      <div class="contact-panel">
+        <div>
+          <h2>Book a scan of your hotel.</h2>
+        </div>
+        <div class="contact-action">
+          <p>Tell us about your hotel or property and which spaces you want to show.</p>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="cfName">Full name</label>
+              <input type="text" id="cfName" name="name" placeholder="Jane Doe" autocomplete="name" aria-describedby="cfName-error" required>
+              <span class="field-error" id="cfName-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfEmail">Work email</label>
+              <input type="email" id="cfEmail" name="email" placeholder="jane@company.com" autocomplete="email" aria-describedby="cfEmail-error" required>
+              <span class="field-error" id="cfEmail-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfCompany">Company</label>
+              <input type="text" id="cfCompany" name="company" placeholder="Company name" autocomplete="organization">
+            </div>
+            <div class="form-field">
+              <label for="cfPhone">Phone (optional)</label>
+              <input type="tel" id="cfPhone" name="phone" placeholder="+420 123 456 789" autocomplete="tel">
+            </div>
+            <div class="form-field">
+              <label for="cfMessage">What would you like to capture?</label>
+              <textarea id="cfMessage" name="message" rows="3" placeholder="E.g. boutique hotel, 24 rooms, spa and restaurant"></textarea>
+            </div>
+            <input type="hidden" name="time">
+            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="contact-submit">
+              Send message
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+            </button>
+            <p class="form-reassurance">We usually get back to you within 1 business day.
+              <span class="form-privacy">We use your details only to reply to your enquiry. See our <a href="../privacy.html">privacy policy</a>.</span></p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="contact-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+  </main>
+
+    <footer class="site-footer" id="company">
+      <div class="shell footer-grid">
+        <div class="footer-top">
+          <a href="../" aria-label="Scanity home" class="brand">
+            <img src="../../assets/scanity_logo.svg" width="31" height="54" alt="Scanity" class="scanity-logo">
+            <span>Scanity</span>
+          </a>
+          <p>We create accurate, photorealistic 3D copies of the real world.</p>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Scanity</span>
+          <span><a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></span>
+        </div>
+      </div>
+    </footer>
+
+  <script src="../../index.js"></script>
+</body>
+</html>

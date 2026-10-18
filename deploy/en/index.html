@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f6f7">
-  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="../favicon.ico" sizes="32x32">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="manifest" href="../site.webmanifest">
@@ -31,8 +31,8 @@
   <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
+  <a class="skip-link" href="#top">Skip to content</a>
   <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
-  <main id="top">
     <header class="site-header shell">
       <a href="#top" aria-label="Scanity home" class="brand">
           <img
@@ -42,18 +42,43 @@
           <span>Scanity</span>
       </a>
       <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#platform">Platform <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></a>
-        <a href="#solutions">Solutions</a>
+        <a href="#platform">Platform</a>
+        <div class="nav-dropdown" id="industryDropdown">
+          <button type="button" class="nav-dropdown-toggle" id="industryToggle" aria-expanded="false" aria-controls="industryMenu">Solutions <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div class="nav-menu" id="industryMenu">
+            <a href="real-estate/">
+              <span class="nav-menu-title">Real estate</span>
+              <span class="nav-menu-text">Photos, floor plan, video walkthrough and 3D model for listings</span>
+            </a>
+            <a href="venues-events/">
+              <span class="nav-menu-title">Venues & cultural events</span>
+              <span class="nav-menu-text">Seat selection in 3D, skyboxes and premium spaces</span>
+            </a>
+            <a href="products/">
+              <span class="nav-menu-title">Products & e-commerce</span>
+              <span class="nav-menu-text">3D models and photos for your whole product range</span>
+            </a>
+            <a href="hotels/">
+              <span class="nav-menu-title">Hotels & hospitality</span>
+              <span class="nav-menu-text">Rooms and spaces to explore before booking</span>
+            </a>
+            <a href="construction/">
+              <span class="nav-menu-title">Construction & facilities</span>
+              <span class="nav-menu-text">A digital twin of the site and its history</span>
+            </a>
+            <a class="nav-menu-all" href="#solutions">All solutions <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          </div>
+        </div>
       </nav>
       <div class="header-actions">
         <div class="lang-switch" id="langSwitch">
-          <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="listbox" aria-expanded="false">
+          <button type="button" class="lang-toggle" id="langToggle" aria-expanded="false" aria-controls="langMenu" aria-label="Language: English">
             EN
             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
           </button>
-          <ul class="lang-menu" id="langMenu" role="listbox">
-            <li role="option" aria-selected="false"><a href="../index.html">CS</a></li>
-            <li role="option" aria-selected="true"><a href="index.html">EN</a></li>
+          <ul class="lang-menu" id="langMenu">
+            <li><a href="../index.html" lang="cs" hreflang="cs">CS</a></li>
+            <li><a href="index.html" lang="en" hreflang="en" aria-current="true">EN</a></li>
           </ul>
         </div>
         <a class="nav-contact" href="#contact">Contact us</a>
@@ -65,19 +90,24 @@
       <nav class="mobile-nav" id="mobileNav">
         <a href="#platform">Platform</a>
         <a href="#solutions">Solutions</a>
+        <div class="mobile-subnav">
+          <a href="real-estate/">Real estate</a>
+          <a href="venues-events/">Venues & cultural events</a>
+          <a href="products/">Products & e-commerce</a>
+          <a href="hotels/">Hotels & hospitality</a>
+          <a href="construction/">Construction & facilities</a>
+        </div>
         <a href="#contact">Contact us</a>
         <div class="mobile-lang">
-          <a href="../index.html">CS</a>
-          <a href="index.html" class="is-active">EN</a>
+          <a href="../index.html" lang="cs" hreflang="cs">CS</a>
+          <a href="index.html" lang="en" hreflang="en" class="is-active" aria-current="true">EN</a>
         </div>
       </nav>
     </header>
 
+  <main id="top">
     <section class="hero shell">
       <div class="hero-copy">
-        <p class="eyebrow reveal reveal-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg> The real world in digital form
-        </p>
         <h1 class="reveal reveal-2">We create digital copies of the real world.</h1>
         <p class="hero-description reveal reveal-3">We turn real objects and spaces into accurate, photorealistic 3D models — from a piece of jewelry to an entire building. You can then view and work with them from anywhere, whenever you need to.</p>
         <div class="hero-actions reveal reveal-3">
@@ -135,7 +165,6 @@
     </section>
 
     <section class="intro-section shell" id="platform">
-      <div class="section-kicker"><span>01</span> The platform</div>
       <div class="intro-content">
         <h2>From scanning to a finished 3D copy — we handle everything.</h2>
         <p>No equipment to buy, no complicated processing to figure out. Our team comes to your site, captures every detail, and turns it all into a faithful 3D space.</p>
@@ -176,9 +205,6 @@
 
     <section class="demo-section shell" id="demo">
       <div class="demo-heading">
-        <p class="eyebrow">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-line" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><path d="M7 12h10"></path></svg> Interactive preview
-        </p>
         <h2>See how we turn real spaces into virtual tours.</h2>
         <p>Explore a real Scanity 3D model right in your browser and see every detail of the space.</p>
       </div>
@@ -222,38 +248,56 @@
 
     <section class="solutions-section" id="solutions">
       <div class="shell solutions-heading">
-        <div class="section-kicker"><span>02</span> Digital copies in practice</div>
         <h2>One digital copy. Many ways to use it.</h2>
+        <p class="solutions-lead">Pick your industry and see what we’ll prepare for you.</p>
       </div>
 
       <div class="shell use-case-list">
-        <article class="use-case">
+        <a class="use-case" href="real-estate/">
           <span class="use-number">01</span>
-          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
-          <div><small>Digital twins</small><h3>Preserve spaces exactly as they are.</h3></div>
-          <p>Create measurable, navigable 3D replicas for documentation, planning, and remote collaboration.</p>
-        </article>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span>
+          <div><small>Real estate</small><h3>A complete package for every listing.</h3></div>
+          <p>Everything a listing needs from a single scan: professional photos, a dimensioned floor plan, a video walkthrough and a 3D model.</p>
+          <span class="use-arrow"><span class="use-arrow-label">Explore</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+        </a>
 
-        <article class="use-case">
+        <a class="use-case" href="venues-events/">
           <span class="use-number">02</span>
-          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera" aria-hidden="true"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path><circle cx="12" cy="13" r="3"></circle></svg></span>
-          <div><small>Property capture</small><h3>Make every listing feel like the real thing.</h3></div>
-          <p>We build a virtual tour so prospective buyers can walk through the space from anywhere.</p>
-        </article>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"></path><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"></path><path d="M18 9h1.5a1 1 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"></path><path d="M6 9H4.5a1 1 0 0 1 0-5H6"></path></svg></span>
+          <div><small>Venues & cultural events</small><h3>Tickets bought with confidence.</h3></div>
+          <p>Seat selection in 3D with the real view, tours of skyboxes and club spaces, annotations and a link to ticket sales.</p>
+          <span class="use-arrow"><span class="use-arrow-label">Explore</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+        </a>
 
-        <article class="use-case">
+        <a class="use-case" href="products/">
           <span class="use-number">03</span>
-          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg></span>
-          <div><small>Inspections</small><h3>Stay on top of it from anywhere.</h3></div>
-          <p>We create a detailed 3D model of towers, structures, and infrastructure, so you can check their condition and track changes without a site visit.</p>
-        </article>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><path d="M12 22V12"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><path d="m7.5 4.27 9 5.15"></path></svg></span>
+          <div><small>Products & e-commerce</small><h3>Products customers can turn in their hands.</h3></div>
+          <p>From a single product to your whole range: 3D models for your online store and product photos from any angle.</p>
+          <span class="use-arrow"><span class="use-arrow-label">Explore</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+        </a>
+
+        <a class="use-case" href="hotels/">
+          <span class="use-number">04</span>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path><path d="M12 4v6"></path><path d="M2 18h20"></path></svg></span>
+          <div><small>Hotels & hospitality</small><h3>Guests see the room before they book.</h3></div>
+          <p>Guests walk through rooms, the spa and the restaurant online, and book with confidence.</p>
+          <span class="use-arrow"><span class="use-arrow-label">Explore</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+        </a>
+
+        <a class="use-case" href="construction/">
+          <span class="use-number">05</span>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"></path><path d="M14 6a6 6 0 0 1 6 6v3"></path><path d="M4 15v-3a6 6 0 0 1 6-6"></path><rect x="2" y="15" width="20" height="4" rx="1"></rect></svg></span>
+          <div><small>Construction & facilities</small><h3>Walk the site from your office.</h3></div>
+          <p>A digital twin of a building or site: fewer site visits, faster documentation and a record of every phase.</p>
+          <span class="use-arrow"><span class="use-arrow-label">Explore</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+        </a>
       </div>
     </section>
 
     <section class="contact-section shell" id="contact">
       <div class="contact-panel">
         <div>
-          <p class="eyebrow">Let's turn your space into 3D</p>
           <h2>Do you have an object or space you'd like us to turn into 3D?</h2>
         </div>
         <div class="contact-action">
@@ -296,6 +340,19 @@
       </div>
     </section>
 
+    <div class="scroll-nav" role="group" aria-label="Browse page sections">
+      <button type="button" class="scroll-nav-btn" id="scrollNavUp" aria-label="Previous section">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up" aria-hidden="true"><path d="m18 15-6-6-6 6"></path></svg>
+      </button>
+      <div class="scroll-nav-divider" aria-hidden="true"></div>
+      <div class="scroll-nav-dots" id="scrollNavDots" aria-hidden="true"></div>
+      <div class="scroll-nav-divider" aria-hidden="true"></div>
+      <button type="button" class="scroll-nav-btn" id="scrollNavDown" aria-label="Next section">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+    </div>
+  </main>
+
     <footer class="site-footer" id="company">
       <div class="shell footer-grid">
         <div class="footer-top">
@@ -311,19 +368,6 @@
         </div>
       </div>
     </footer>
-
-    <div class="scroll-nav" role="group" aria-label="Browse page sections">
-      <button type="button" class="scroll-nav-btn" id="scrollNavUp" aria-label="Previous section">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up" aria-hidden="true"><path d="m18 15-6-6-6 6"></path></svg>
-      </button>
-      <div class="scroll-nav-divider" aria-hidden="true"></div>
-      <div class="scroll-nav-dots" id="scrollNavDots" aria-hidden="true"></div>
-      <div class="scroll-nav-divider" aria-hidden="true"></div>
-      <button type="button" class="scroll-nav-btn" id="scrollNavDown" aria-label="Next section">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-      </button>
-    </div>
-  </main>
 
   <script src="../index.js"></script>
 </body>

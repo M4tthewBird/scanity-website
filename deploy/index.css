@@ -20,6 +20,16 @@
   /* The demo viewer's frame and its loading overlay used this exact gradient
      twice, hand-copied rather than shared. */
   --surface-viewer: linear-gradient(145deg, #dfe4e7, #f9fafb);
+  --surface-hero: linear-gradient(145deg, #edf0f3, var(--white) 46%, #dfe3e6);
+  --surface-workflow: linear-gradient(135deg, #e3e7ea, var(--white) 50%, #e9ecee);
+  --surface-contact: linear-gradient(135deg, #eef1f3, var(--white) 55%, #dfe4e8);
+  /* Track behind pill switchers (demo scenes, industry bar) */
+  --surface-pill: #eef0f2;
+  /* Neutral backdrop matching the product-scan renders */
+  --surface-shot: #dcdcdc;
+  --grid-line: #1a21270f;
+  /* Marks a value only the operator can supply (legal pages) */
+  --highlight: #ffe066;
 }
 
 /* ==========================================================================
@@ -252,16 +262,30 @@ h1, h2, h3, p {
   transition: color 0.18s;
 }
 
+/* "Využití" opens the industry pages, so it reads as a button: blue on a
+   soft blue pill, unlike the plain "Řešení" link beside it */
 .nav-dropdown-toggle {
-  background: none;
   border: 0;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--blue) 10%, transparent);
+  color: var(--blue);
+  font-weight: 700;
   cursor: pointer;
+  transition: background-color 0.18s, color 0.18s;
+}
+
+.nav-dropdown-toggle,
+.desktop-nav .nav-dropdown-toggle {
+  padding-inline: 12px;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .desktop-nav > a:hover,
-  .nav-dropdown-toggle:hover {
+  .desktop-nav > a:hover {
     color: var(--ink);
+  }
+
+  .nav-dropdown-toggle:hover {
+    background: color-mix(in srgb, var(--blue) 16%, transparent);
   }
 }
 
@@ -274,7 +298,8 @@ h1, h2, h3, p {
 }
 
 .nav-dropdown.open .nav-dropdown-toggle {
-  color: var(--ink);
+  background: var(--blue);
+  color: var(--white);
 }
 
 .nav-dropdown.open .nav-dropdown-toggle svg {
@@ -479,7 +504,7 @@ h1, h2, h3, p {
   }
 }
 
-.lang-menu li[aria-selected="true"] a {
+.lang-menu a[aria-current] {
   background: var(--cloud);
   color: var(--ink);
 }
@@ -561,7 +586,7 @@ h1, h2, h3, p {
   margin: 0 auto;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: linear-gradient(145deg, #edf0f3, var(--white) 46%, #dfe3e6);
+  background: var(--surface-hero);
   border: 1px solid color-mix(in srgb, var(--white) 90%, transparent);
   border-radius: 28px;
   box-shadow: 0 35px 100px color-mix(in srgb, var(--shadow) 13%, transparent);
@@ -670,7 +695,7 @@ h1, h2, h3, p {
 }
 
 .trust-row strong {
-  color: #777d82;
+  color: var(--muted);
   font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -697,32 +722,16 @@ h1, h2, h3, p {
    ========================================================================== */
 
 .intro-section {
-  display: grid;
-  grid-template-columns: 0.7fr 2.3fr;
-  gap: 50px;
   padding: 100px 0 70px;
-}
-
-.section-kicker {
-  display: flex;
-  gap: 24px;
-  padding-top: 10px;
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.section-kicker span {
-  color: var(--ink);
 }
 
 .intro-content {
   display: grid;
-  grid-template-columns: 1.5fr 0.6fr;
-  align-items: end;
-  gap: 70px;
+  justify-items: center;
+  gap: 28px;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .intro-content h2 {
@@ -732,6 +741,7 @@ h1, h2, h3, p {
 }
 
 .intro-content p {
+  max-width: 620px;
   margin: 0;
   color: var(--muted);
   font-size: 0.84rem;
@@ -755,15 +765,15 @@ h1, h2, h3, p {
   min-height: 590px;
   padding: 70px 55px;
   overflow: hidden;
-  background: linear-gradient(135deg, #e3e7ea, var(--white) 50%, #e9ecee);
+  background: var(--surface-workflow);
   border-radius: 24px;
 }
 
 .workflow-grid {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(#1a21270f 1px, transparent 1px),
-    linear-gradient(90deg, #1a21270f 1px, transparent 1px);
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 60px 60px;
   -webkit-mask-image: linear-gradient(#000, transparent 85%);
   mask-image: linear-gradient(#000, transparent 85%);
@@ -853,22 +863,27 @@ h1, h2, h3, p {
 }
 
 .solutions-heading {
-  display: grid;
-  grid-template-columns: 0.7fr 2.3fr;
-  gap: 50px;
   margin-bottom: 90px;
+  text-align: center;
+}
+
+.solutions-lead {
+  margin: 18px 0 0;
+  color: var(--ink-soft);
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  font-weight: 500;
 }
 
 .solutions-heading h2 {
   max-width: 840px;
-  margin: 0;
+  margin: 0 auto;
   font-size: clamp(3.2rem, 5.5vw, 5.8rem);
   line-height: 1.05;
 }
 
 .use-case {
   display: grid;
-  grid-template-columns: 50px 60px 1.05fr 1fr 48px;
+  grid-template-columns: 50px 60px 1.05fr 1fr auto;
   align-items: center;
   gap: 28px;
   min-height: 164px;
@@ -891,13 +906,10 @@ h1, h2, h3, p {
     background: var(--cloud);
   }
 
-  /* as the padding it replaces did: the row's two sides draw in from either edge */
-  .use-case:hover > :not(:last-child) {
+  /* Only the left side (number, icon, title) nudges in; the description and
+     the button stay put, so the button can never slide over the text */
+  .use-case:hover > :nth-child(-n + 3) {
     transform: translateX(18px);
-  }
-
-  .use-case:hover > :last-child {
-    transform: translateX(-18px);
   }
 }
 
@@ -939,15 +951,23 @@ h1, h2, h3, p {
 }
 
 /* Each row opens its industry page; the arrow is the affordance that says so */
+/* "Prozkoumat": a real, labelled button, so a first-time visitor reads each
+   row as a door to their industry page. A quiet outline at rest, filled
+   blue when the row is hovered. */
 .use-arrow {
-  display: grid;
-  place-items: center;
-  width: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   height: 40px;
-  border-radius: 50%;
-  background: var(--ink);
-  color: var(--white);
-  transition: transform 0.22s, background-color 0.22s;
+  padding: 0 14px 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: transform 0.22s, background-color 0.22s, border-color 0.22s, color 0.22s;
 }
 
 /* Between 1000px (where the floating scroll nav appears) and the width where
@@ -960,7 +980,9 @@ h1, h2, h3, p {
 
 @media (hover: hover) and (pointer: fine) {
   .use-case:hover .use-arrow {
+    border-color: var(--blue);
     background: var(--blue);
+    color: var(--white);
   }
 }
 
@@ -973,13 +995,9 @@ h1, h2, h3, p {
 }
 
 .demo-heading {
-  max-width: 720px;
-  margin-bottom: 45px;
-}
-
-.demo-heading .eyebrow {
-  justify-content: flex-start;
-  margin-bottom: 26px;
+  max-width: 820px;
+  margin: 0 auto 45px;
+  text-align: center;
 }
 
 .demo-heading h2 {
@@ -989,6 +1007,8 @@ h1, h2, h3, p {
 }
 
 .demo-heading > p {
+  max-width: 620px;
+  margin-inline: auto;
   color: var(--muted);
   font-size: 0.86rem;
   line-height: 1.75;
@@ -1000,7 +1020,7 @@ h1, h2, h3, p {
   gap: 4px;
   margin: 0 auto 20px;
   padding: 4px;
-  background: #eef0f2;
+  background: var(--surface-pill);
   border-radius: 999px;
 }
 
@@ -1035,7 +1055,7 @@ h1, h2, h3, p {
   overflow: hidden;
   background: var(--surface-viewer);
   border-radius: 24px;
-  box-shadow: 0 30px 90px #2f39411a;
+  box-shadow: 0 30px 90px color-mix(in srgb, var(--shadow) 10%, transparent);
 }
 
 .demo-viewer {
@@ -1233,12 +1253,8 @@ h1, h2, h3, p {
   min-height: 520px;
   padding: 60px;
   overflow: hidden;
-  background: linear-gradient(135deg, #eef1f3, var(--white) 55%, #dfe4e8);
+  background: var(--surface-contact);
   border-radius: 24px;
-}
-
-.contact-panel .eyebrow {
-  justify-content: flex-start;
 }
 
 .contact-panel h2 {
@@ -1296,7 +1312,7 @@ h1, h2, h3, p {
 
 .form-field input::placeholder,
 .form-field textarea::placeholder {
-  color: #9aa0a5;
+  color: var(--muted);
 }
 
 .form-field input:focus,
@@ -1568,7 +1584,6 @@ h1, h2, h3, p {
   animation: reveal 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
 }
 
-.reveal-1 { animation-delay: 60ms; }
 .reveal-2 { animation-delay: 0.15s; }
 .reveal-3 { animation-delay: 0.27s; }
 .reveal-4 { animation-delay: 0.4s; }
@@ -1812,11 +1827,18 @@ h1, h2, h3, p {
     grid-row: 2;
   }
 
+  /* Phones: the round arrow alone, the row itself says where it goes */
   .use-arrow {
     grid-column: 4;
     grid-row: 1;
-    width: 36px;
-    height: 36px;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+
+  .use-arrow-label {
+    display: none;
   }
 
   .demo-viewer-frame {
@@ -2037,7 +2059,7 @@ h1, h2, h3, p {
 .legal-todo {
   padding: 1px 6px;
   border-radius: 6px;
-  background: #ffe066;
+  background: var(--highlight);
   color: var(--ink);
   font-weight: 600;
 }
@@ -2199,7 +2221,7 @@ html:has(.industry-bar) {
   margin: 0;
   padding: 4px;
   overflow-x: auto;
-  background: #eef0f2;
+  background: var(--surface-pill);
   border-radius: 999px;
   scrollbar-width: none;
   scroll-snap-type: x proximity;
@@ -2265,9 +2287,14 @@ html:has(.industry-bar) {
   display: none;
 }
 
+.industry-section-head {
+  text-align: center;
+}
+
 .industry-section-head h2 {
-  max-width: 760px;
-  margin: 0 0 14px;
+  max-width: 820px;
+  margin: 0 auto 14px;
+  text-wrap: balance;
   font-size: clamp(2.2rem, 4vw, 3.6rem);
   font-weight: 500;
   letter-spacing: -0.05em;
@@ -2276,10 +2303,18 @@ html:has(.industry-bar) {
 
 .industry-section-head p {
   max-width: 620px;
-  margin: 0 0 40px;
+  margin: 0 auto 40px;
   color: var(--muted);
   font-size: 0.84rem;
   line-height: 1.7;
+}
+
+.industry-section-head .industry-section-lead {
+  color: var(--ink-soft);
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
 }
 
 /* Market data, told the way Apple tells a spec: a small qualifier, one
@@ -2295,7 +2330,8 @@ html:has(.industry-bar) {
 .stat-count-4 { --stat-columns: 4; }
 
 .stat {
-  padding: 40px 28px 0 0;
+  padding: 40px 28px 0;
+  text-align: center;
 }
 
 .stat + .stat {
@@ -2359,7 +2395,7 @@ html:has(.industry-bar) {
 
 .stat-label {
   max-width: 26ch;
-  margin: 18px 0 0;
+  margin: 18px auto 0;
   color: var(--ink-soft);
   font-size: 1rem;
   font-weight: 500;
@@ -2369,7 +2405,9 @@ html:has(.industry-bar) {
 
 .stat-footnotes {
   margin: 56px 0 0;
-  padding: 20px 0 0 18px;
+  padding: 20px 0 0;
+  list-style-position: inside;
+  text-align: center;
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.72rem;
@@ -2378,8 +2416,7 @@ html:has(.industry-bar) {
 
 .stat-footnotes li {
   max-width: 110ch;
-  margin-bottom: 4px;
-  padding-left: 4px;
+  margin: 0 auto 4px;
   scroll-margin-top: 120px;
 }
 
@@ -2402,7 +2439,7 @@ html:has(.industry-bar) {
 .product-shots {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
 }
 
 .product-shots img {
@@ -2412,7 +2449,7 @@ html:has(.industry-bar) {
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 20px;
-  background: #dcdcdc;
+  background: var(--surface-shot);
 }
 
 .deliver-list {
@@ -2477,7 +2514,7 @@ html:has(.industry-bar) {
   }
 
   .industry-bar-inner .industry-nav a:not([aria-current]) {
-    background: #eef0f2;
+    background: var(--surface-pill);
   }
 
   .industry-bar-cta {
@@ -2568,43 +2605,17 @@ html:has(.industry-bar) {
   padding: 60px 0 40px;
 }
 
-/* The four deliverables, stated plainly before the video explains them:
-   a fine blue check and the words, nothing else */
-.package-includes {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 40px;
-  margin: 0 0 40px;
-  padding: 0;
-  list-style: none;
-}
-
-.package-includes li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--ink);
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-.package-includes-check {
-  flex-shrink: 0;
-  color: var(--blue);
-  stroke-width: 2.25;
-}
-
-.industry-viewer .demo-viewer-switch {
-  margin-left: 0;
+/* One spacing rhythm through the whole package section */
+.package-section {
+  --package-box-gap: 24px;
+  --package-block-gap: 72px;
 }
 
 .package-player {
   display: grid;
   grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
   align-items: start;
-  gap: 24px;
+  gap: var(--package-box-gap);
 }
 
 .package-stage {
@@ -2779,36 +2790,96 @@ html:has(.industry-bar) {
   opacity: 1;
 }
 
-.package-photos {
+/* The four deliverables, each with its own drawn icon in a soft blue disc,
+   the name, and one line on what it's for */
+.package-includes {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  grid-template-rows: repeat(2, minmax(0, 1fr)) auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
-  margin: 24px 0 0;
+  max-width: 1040px;
+  margin: 8px auto var(--package-block-gap);
+  padding: 0;
+  list-style: none;
+  text-align: center;
 }
 
-.package-photos img {
+.package-includes li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.package-includes-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--blue) 9%, var(--white));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--blue) 14%, transparent);
+  color: var(--blue);
+}
+
+.package-includes-icon svg {
+  stroke-width: 1.6;
+}
+
+.package-includes strong {
+  color: var(--ink);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.package-includes li > span:last-child {
+  max-width: 22ch;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+/* Sample photos: a separate, quieter block below the video. A short title,
+   one line, then three equal frames, so no single photo shouts. */
+.package-photos {
+  margin: var(--package-block-gap) 0 0;
+}
+
+.package-photos figcaption {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.package-photos figcaption strong {
+  color: var(--ink);
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.package-photos figcaption span {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.package-photos-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--package-box-gap);
+}
+
+.package-photos-row img {
   display: block;
   width: 100%;
-  min-height: 0;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-  background: var(--surface-viewer);
-}
-
-/* The main hall leads and sets the height; the two smaller rooms stack
-   beside it and share that height */
-.package-photos img:first-child {
-  grid-row: span 2;
   height: auto;
   aspect-ratio: 3 / 2;
-}
-
-/* Without their own intrinsic size, the side photos can't stretch the rows */
-.package-photos img:not(:first-child) {
-  aspect-ratio: auto;
-  contain: size;
+  object-fit: cover;
+  border-radius: 16px;
+  background: var(--surface-viewer);
 }
 
 /* Points on to the 3D model further down, past the market data */
@@ -2817,7 +2888,7 @@ html:has(.industry-bar) {
   align-items: center;
   gap: 12px;
   width: fit-content;
-  margin: 48px auto 0;
+  margin: var(--package-block-gap) auto 0;
   padding: 10px 10px 10px 20px;
   background: color-mix(in srgb, var(--white) 80%, transparent);
   border: 1px solid var(--line);
@@ -2854,17 +2925,10 @@ html:has(.industry-bar) {
   }
 }
 
-.package-photos figcaption {
-  grid-column: 1 / -1;
-  color: var(--muted);
-  font-size: 0.76rem;
-  line-height: 1.6;
-}
 
 @media (max-width: 1000px) {
   .package-player {
     grid-template-columns: 1fr;
-    gap: 16px;
   }
 
 }
@@ -2892,42 +2956,51 @@ html:has(.industry-bar) {
     right: 14px;
   }
 
-  .package-photos {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-    gap: 12px;
+  .package-section {
+    --package-box-gap: 16px;
+    --package-block-gap: 48px;
   }
 
-  /* Two by two on phones, where a dotted line of four would wrap unevenly */
+  /* Two by two on phones */
   .package-includes {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    justify-content: start;
-    gap: 8px 28px;
-    margin-bottom: 28px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 16px;
   }
 
-  .package-includes li {
-    gap: 8px;
+  .package-includes-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 6px;
+  }
+
+  .package-includes strong {
     font-size: 1rem;
+  }
+
+  /* Phones: one photo at a time, swiped sideways, the next one peeking in */
+  .package-photos-row {
+    display: flex;
+    gap: var(--package-box-gap);
+    margin-inline: -15px;
+    padding: 0 15px 4px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .package-photos-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .package-photos-row img {
+    flex: 0 0 82%;
+    scroll-snap-align: center;
   }
 
   .deliver-list {
     grid-template-columns: 1fr;
   }
 
-  .package-photos img,
-  .package-photos img:first-child,
-  .package-photos img:not(:first-child) {
-    grid-row: auto;
-    height: auto;
-    aspect-ratio: 3 / 2;
-    contain: none;
-  }
-
-  .scroll-cue {
-    margin-top: 32px;
-  }
 }
 
 /* ==========================================================================
@@ -2981,5 +3054,67 @@ html:has(.industry-bar) {
 
   .contact-panel h2 {
     font-size: 11.5vw;
+  }
+}
+
+/* ==========================================================================
+   Skip link: first stop for keyboard users, out of sight until focused
+   ========================================================================== */
+
+.skip-link {
+  position: fixed;
+  z-index: 200;
+  top: 12px;
+  left: 12px;
+  padding: 12px 18px;
+  border-radius: 100px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 700;
+  transform: translateY(-160%);
+  transition: transform 0.2s;
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* ==========================================================================
+   Type scale: running text no smaller than ~13px on desktop and 15px on
+   phones; captions and labels a step above the old 11.5px
+   ========================================================================== */
+
+.process-step p,
+.use-case p,
+.contact-action p,
+.deliver-list p,
+.package-chapter-text > span {
+  font-size: 0.86rem;
+}
+
+.stat-footnotes,
+.form-reassurance,
+.form-privacy {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 760px) {
+  .intro-content p,
+  .process-step p,
+  .use-case p,
+  .contact-action p,
+  .deliver-list p,
+  .industry-section-head p,
+  .demo-heading > p,
+  .package-chapter-text > span {
+    font-size: 0.94rem;
+  }
+
+  .form-field label,
+  .use-case small,
+  .nav-menu-text,
+  .process-step small {
+    font-size: 0.78rem;
   }
 }

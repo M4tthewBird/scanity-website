@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" href="../../favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../../site.webmanifest">
+  <title>3D tours and listing media for real estate | Scanity</title>
+  <meta name="description" content="Everything a listing needs from a single scan: professional photos, a dimensioned floor plan, a video walkthrough and a 3D model of the property.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../index.css">
+  <link rel="canonical" href="https://scanity.cz/en/real-estate/">
+  <link rel="alternate" hreflang="cs" href="https://scanity.cz/reality/">
+  <link rel="alternate" hreflang="en" href="https://scanity.cz/en/real-estate/">
+  <link rel="alternate" hreflang="x-default" href="https://scanity.cz/reality/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scanity">
+  <meta property="og:url" content="https://scanity.cz/en/real-estate/">
+  <meta property="og:title" content="3D tours and listing media for real estate | Scanity">
+  <meta property="og:description" content="Everything a listing needs from a single scan: professional photos, a dimensioned floor plan, a video walkthrough and a 3D model of the property.">
+  <meta property="og:image" content="https://scanity.cz/assets/og-image-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Scanity logo and the line We create digital copies of the real world">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
+    <header class="site-header shell">
+      <a href="../" aria-label="Scanity home" class="brand">
+          <img
+              src="../../assets/scanity_logo.svg" width="31" height="54"
+              alt="Scanity"
+              class="scanity-logo">
+          <span>Scanity</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="../#platform">Platform</a>
+        <div class="nav-dropdown" id="industryDropdown">
+          <button type="button" class="nav-dropdown-toggle" id="industryToggle" aria-expanded="false" aria-controls="industryMenu">Solutions <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div class="nav-menu" id="industryMenu">
+            <a href="../real-estate/" aria-current="page">
+              <span class="nav-menu-title">Real estate</span>
+              <span class="nav-menu-text">Photos, floor plan, video walkthrough and 3D model for listings</span>
+            </a>
+            <a href="../venues-events/">
+              <span class="nav-menu-title">Venues & cultural events</span>
+              <span class="nav-menu-text">Seat selection in 3D, skyboxes and premium spaces</span>
+            </a>
+            <a href="../products/">
+              <span class="nav-menu-title">Products & e-commerce</span>
+              <span class="nav-menu-text">3D models and photos for your whole product range</span>
+            </a>
+            <a href="../hotels/">
+              <span class="nav-menu-title">Hotels & hospitality</span>
+              <span class="nav-menu-text">Rooms and spaces to explore before booking</span>
+            </a>
+            <a href="../construction/">
+              <span class="nav-menu-title">Construction & facilities</span>
+              <span class="nav-menu-text">A digital twin of the site and its history</span>
+            </a>
+            <a class="nav-menu-all" href="../#solutions">All solutions <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-toggle" id="langToggle" aria-expanded="false" aria-controls="langMenu" aria-label="Language: English">
+            EN
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu">
+            <li><a href="../../reality/" lang="cs" hreflang="cs">CS</a></li>
+            <li><a href="./" lang="en" hreflang="en" aria-current="true">EN</a></li>
+          </ul>
+        </div>
+        <a class="nav-contact" href="#contact">Contact us</a>
+        <a class="button button-dark button-small" href="#model">Try demo <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+      </div>
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileNav" id="menuToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+      </button>
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="../#platform">Platform</a>
+        <a href="../#solutions">Solutions</a>
+        <div class="mobile-subnav">
+          <a href="../real-estate/" aria-current="page">Real estate</a>
+          <a href="../venues-events/">Venues & cultural events</a>
+          <a href="../products/">Products & e-commerce</a>
+          <a href="../hotels/">Hotels & hospitality</a>
+          <a href="../construction/">Construction & facilities</a>
+        </div>
+        <a href="#contact">Contact us</a>
+        <div class="mobile-lang">
+          <a href="../../reality/" lang="cs" hreflang="cs">CS</a>
+          <a href="./" lang="en" hreflang="en" class="is-active" aria-current="true">EN</a>
+        </div>
+      </nav>
+    </header>
+
+  <main id="top">
+    <div class="industry-bar" id="industryBar">
+      <div class="industry-bar-inner shell">
+        <nav class="industry-nav" aria-label="Industries">
+          <a href="../real-estate/" aria-current="page">Real estate</a>
+          <a href="../venues-events/">Venues & events</a>
+          <a href="../products/">Products</a>
+          <a href="../hotels/">Hotels</a>
+          <a href="../construction/">Construction</a>
+        </nav>
+        <a class="button button-dark button-small industry-bar-cta" href="#contact">Book a scan <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+      </div>
+    </div>
+
+    <!-- No buttons here: "Domluvit sken" is always in the bar above -->
+    <section class="industry-hero shell">
+      <h1 class="reveal reveal-2">A viewing that never closes.</h1>
+      <p class="hero-description reveal reveal-3">Buyers walk through the whole flat or house online before they call. The ones who book a viewing are the ones who are serious. Fewer wasted viewings for you and the seller, a more confident decision for the buyer.</p>
+    </section>
+
+    <section class="package-section shell" id="package" aria-labelledby="package-title">
+      <div class="industry-section-head">
+        <h2 id="package-title">A complete listing package from a single scan.</h2>
+        <p>We visit once, scan the property and deliver everything the listing needs. Nothing else to order separately.</p>
+      </div>
+      <ul class="package-includes" aria-label="What the package includes">
+        <li>
+          <span class="package-includes-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path><circle cx="12" cy="13" r="3"></circle></svg></span>
+          <strong>Professional photos</strong>
+          <span>From any spot and angle</span>
+        </li>
+        <li>
+          <span class="package-includes-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 12h6"></path><path d="M13 12h8"></path><path d="M12 3v5"></path><path d="M12 12v9"></path></svg></span>
+          <strong>Dimensioned floor plan</strong>
+          <span>Room areas and dimensions</span>
+        </li>
+        <li>
+          <span class="package-includes-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect></svg></span>
+          <strong>Video walkthrough</strong>
+          <span>For the listing and social media</span>
+        </li>
+        <li>
+          <span class="package-includes-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
+          <strong>3D model</strong>
+          <span>A walkthrough in the browser</span>
+        </li>
+      </ul>
+
+      <div class="package-player is-idle" id="packagePlayer">
+        <div class="package-stage">
+          <video class="package-video" muted playsinline loop preload="none"
+            poster="../../assets/reality/balicek-poster.webp"
+            data-src="../../assets/reality/scanity-balicek.mp4"
+            aria-label="Scanity package preview: scan, 3D model, floor plan, photos and video walkthrough"></video>
+          <button type="button" class="package-toggle" aria-label="Play video" data-label-play="Play video" data-label-pause="Pause video">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="package-icon-play" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="package-icon-pause" aria-hidden="true"><rect x="14" y="4" width="4" height="16" rx="1"></rect><rect x="6" y="4" width="4" height="16" rx="1"></rect></svg>
+          </button>
+        </div>
+        <ol class="package-chapters" aria-label="Video chapters">
+          <li>
+            <button type="button" class="package-chapter" data-start="0" data-end="4.5">
+              <span class="package-chapter-index">01</span>
+              <span class="package-chapter-body">
+                <span class="package-chapter-title">On-site scan</span>
+                <span class="package-chapter-text"><span>We come over and scan the property. You don’t need any equipment.</span></span>
+              </span>
+              <span class="package-chapter-progress" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="package-chapter" data-start="4.5" data-end="14.3">
+              <span class="package-chapter-index">02</span>
+              <span class="package-chapter-body">
+                <span class="package-chapter-title">3D model</span>
+                <span class="package-chapter-text"><span>The footage becomes an accurate 3D model buyers can walk through in their browser.</span></span>
+              </span>
+              <span class="package-chapter-progress" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="package-chapter" data-start="14.3" data-end="20">
+              <span class="package-chapter-index">03</span>
+              <span class="package-chapter-body">
+                <span class="package-chapter-title">Dimensioned floor plan</span>
+                <span class="package-chapter-text"><span>Rooms, areas and dimensions, taken straight from the 3D model.</span></span>
+              </span>
+              <span class="package-chapter-progress" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="package-chapter" data-start="20" data-end="25.5">
+              <span class="package-chapter-index">04</span>
+              <span class="package-chapter-body">
+                <span class="package-chapter-title">Professional photos</span>
+                <span class="package-chapter-text"><span>Shots from any spot and angle, picked right on the floor plan.</span></span>
+              </span>
+              <span class="package-chapter-progress" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="package-chapter" data-start="25.5" data-end="30.7">
+              <span class="package-chapter-index">05</span>
+              <span class="package-chapter-body">
+                <span class="package-chapter-title">Video walkthrough</span>
+                <span class="package-chapter-text"><span>A smooth walk through the rooms, with labels, for the listing and social media.</span></span>
+              </span>
+              <span class="package-chapter-progress" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="package-chapter" data-start="30.7" data-end="38.04">
+              <span class="package-chapter-index">06</span>
+              <span class="package-chapter-body">
+                <span class="package-chapter-title">All in one package</span>
+                <span class="package-chapter-text"><span>Photos, floor plan, walkthrough and 3D model, ready to go into the listing.</span></span>
+              </span>
+              <span class="package-chapter-progress" aria-hidden="true"></span>
+            </button>
+          </li>
+        </ol>
+      </div>
+
+      <figure class="package-photos">
+        <figcaption>
+          <strong>Sample photos from a single scan</strong>
+          <span>Made from the 3D model of a private gym. We prepare them the same way for a flat or a house. The video above is in Czech.</span>
+        </figcaption>
+        <div class="package-photos-row">
+          <img src="../../assets/reality/foto-posilovna.webp" srcset="../../assets/reality/foto-posilovna-800.webp 800w, ../../assets/reality/foto-posilovna.webp 1600w" sizes="(max-width: 760px) 80vw, 30vw" width="1600" height="1067" loading="lazy" decoding="async" alt="Photo of the main hall of a private gym, created from the 3D model">
+          <img src="../../assets/reality/foto-detsky-koutek.webp" srcset="../../assets/reality/foto-detsky-koutek-800.webp 800w, ../../assets/reality/foto-detsky-koutek.webp 1600w" sizes="(max-width: 760px) 80vw, 30vw" width="1600" height="1066" loading="lazy" decoding="async" alt="Photo of a children’s corner, created from the 3D model">
+          <img src="../../assets/reality/foto-kardio.webp" srcset="../../assets/reality/foto-kardio-800.webp 800w, ../../assets/reality/foto-kardio.webp 1170w" sizes="(max-width: 760px) 80vw, 30vw" width="1170" height="780" loading="lazy" decoding="async" alt="Photo of a cardio area with a treadmill and a punching bag, created from the 3D model">
+        </div>
+      </figure>
+
+      <a class="scroll-cue" href="#model">
+        <span>Walk through a real 3D model below</span>
+        <span class="scroll-cue-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg></span>
+      </a>
+    </section>
+
+    <section class="industry-section shell" id="data" aria-labelledby="data-title">
+      <div class="industry-section-head">
+        <h2 id="data-title">Proven results from real-world 3D use</h2>
+        <p class="industry-section-lead">More views, faster sales.</p>
+      </div>
+      <div class="stat-grid stat-count-4">
+        <article class="stat">
+          <p class="stat-value">40<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-1" aria-label="Source 1">1</a></sup></p>
+          <p class="stat-label">more listing views with a 3D tour, on average</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value"><span class="stat-prefix">up to</span>31<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-2" aria-label="Source 2">2</a></sup></p>
+          <p class="stat-label">faster sale</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">20<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-3" aria-label="Source 3">3</a></sup></p>
+          <p class="stat-label">faster sale and a 4.8% higher price</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">73<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-4" aria-label="Source 4">4</a></sup></p>
+          <p class="stat-label">of sellers are more likely to hire an agent who offers 3D tours</p>
+        </article>
+      </div>
+      <ol class="stat-footnotes">
+        <li id="source-1">On average, Zillow listings with a 3D tour get 40% more views and 45% more saves. Reported by <a href="https://support.virtuance.com/support/solutions/articles/26000045165-what-are-the-benefits-to-using-a-zillow-3d-home-tour-" target="_blank" rel="noopener">Virtuance</a>, which doesn’t name its data source.</li>
+        <li id="source-2">Preliminary analysis of 143,575 listings (3,935 with a 3D tour), Texas Tech University: up to 31% faster sales in the US South market, sale price 4–9% higher depending on the market. Published by <a href="https://matterport.com/blog/3d-tours-properties-sell-31-faster-and-higher-price" target="_blank" rel="noopener">Matterport</a>, a 3D tour vendor.</li>
+        <li id="source-3">Preliminary comparison of 700 listings (350 with a 3D tour, 350 without) by real estate consultant Sebastian Diessel. Published by <a href="https://matterport.com/blog/3d-tours-properties-sell-31-faster-and-higher-price" target="_blank" rel="noopener">Matterport</a>, a 3D tour vendor; summary by <a href="https://f8re.com/post/matterport-can-deliver-up-to-9-higher-sales-price-for-your-listing" target="_blank" rel="noopener">F8RE</a>.</li>
+        <li id="source-4">Reported by <a href="https://www.virtuance.com/zillow-3d-tours/" target="_blank" rel="noopener">Virtuance</a>, which doesn’t name its data source.</li>
+      </ol>
+    </section>
+
+    <section class="industry-section industry-viewer shell" id="model" aria-labelledby="viewer-title">
+      <div class="industry-section-head">
+        <h2 id="viewer-title">Walk through a real 3D model.</h2>
+        <p>This is the kind of 3D model you get for the listing. Rotate it, zoom in and walk through, just as a buyer would.</p>
+      </div>
+
+      <div class="demo-viewer-switch" id="viewerSwitch" role="tablist" aria-label="Choose a 3D scan">
+        <button type="button" class="viewer-switch-btn is-active" data-id="ikka_gym" role="tab" aria-controls="demoViewerFrame" aria-selected="true">Private Gym</button>
+        <button type="button" class="viewer-switch-btn" data-id="sanctuaire" role="tab" aria-controls="demoViewerFrame" aria-selected="false">Cathedral, aerial view</button>
+      </div>
+
+      <div class="demo-viewer-frame" id="demoViewerFrame" role="tabpanel">
+        <iframe
+          class="demo-viewer"
+          data-src="https://viewer.scanity.cz/?id=ikka_gym"
+          title="Interactive Scanity 3D scan"
+          allow="fullscreen; xr-spatial-tracking"
+        ></iframe>
+        <div class="viewer-loading">
+          <div class="viewer-loading-beam" aria-hidden="true"></div>
+          <span class="viewer-loading-status" role="status" aria-live="polite" data-loading-text="Loading 3D scan…"></span>
+        </div>
+        <button type="button" class="viewer-launch" id="viewerLaunchBtn">
+          <span class="viewer-launch-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+          </span>
+          <span class="viewer-launch-copy">
+            <span class="viewer-launch-label">Load 3D viewer</span>
+            <span class="viewer-launch-hint">
+              <span class="hint-text-pointer">Drag to rotate, scroll to zoom</span>
+              <span class="hint-text-touch">Swipe to rotate, pinch to zoom</span>
+            </span>
+          </span>
+        </button>
+        <div class="viewer-hint" id="viewerHint" role="status">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move" aria-hidden="true"><path d="M12 2v20"></path><path d="m15 19-3 3-3-3"></path><path d="m19 9 3 3-3 3"></path><path d="M2 12h20"></path><path d="m5 9-3 3 3 3"></path><path d="m9 5 3-3 3 3"></path></svg>
+          <span class="hint-text-pointer">Drag to look around, scroll to zoom</span>
+          <span class="hint-text-touch">Swipe to look around, pinch to zoom</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TODO: Scanity case study: e.g. listing views on Sreality with a scan vs. without. Fill in from real data, then remove the hidden attribute. -->
+    <section class="industry-section shell" id="case-study" aria-labelledby="case-study-title" hidden>
+      <div class="industry-section-head">
+        <h2 id="case-study-title">Scanity results</h2>
+        <p>TODO</p>
+      </div>
+      <div class="stat-grid">
+        <!-- TODO: stat cards with Scanity's own numbers (same markup as above, source = own measurement) -->
+      </div>
+    </section>
+
+    <section class="contact-section shell" id="contact">
+      <div class="contact-panel">
+        <div>
+          <h2>Book a scan of your property.</h2>
+        </div>
+        <div class="contact-action">
+          <p>Tell us what kind of property it is and where. We’ll get back to you with a date and a price.</p>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="cfName">Full name</label>
+              <input type="text" id="cfName" name="name" placeholder="Jane Doe" autocomplete="name" aria-describedby="cfName-error" required>
+              <span class="field-error" id="cfName-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfEmail">Work email</label>
+              <input type="email" id="cfEmail" name="email" placeholder="jane@company.com" autocomplete="email" aria-describedby="cfEmail-error" required>
+              <span class="field-error" id="cfEmail-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfCompany">Company</label>
+              <input type="text" id="cfCompany" name="company" placeholder="Company name" autocomplete="organization">
+            </div>
+            <div class="form-field">
+              <label for="cfPhone">Phone (optional)</label>
+              <input type="tel" id="cfPhone" name="phone" placeholder="+420 123 456 789" autocomplete="tel">
+            </div>
+            <div class="form-field">
+              <label for="cfMessage">What would you like to capture?</label>
+              <textarea id="cfMessage" name="message" rows="3" placeholder="E.g. 3-room flat, Prague 6, about 80 m²"></textarea>
+            </div>
+            <input type="hidden" name="time">
+            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="contact-submit">
+              Send message
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+            </button>
+            <p class="form-reassurance">We usually get back to you within 1 business day.
+              <span class="form-privacy">We use your details only to reply to your enquiry. See our <a href="../privacy.html">privacy policy</a>.</span></p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="contact-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+  </main>
+
+    <footer class="site-footer" id="company">
+      <div class="shell footer-grid">
+        <div class="footer-top">
+          <a href="../" aria-label="Scanity home" class="brand">
+            <img src="../../assets/scanity_logo.svg" width="31" height="54" alt="Scanity" class="scanity-logo">
+            <span>Scanity</span>
+          </a>
+          <p>We create accurate, photorealistic 3D copies of the real world.</p>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Scanity</span>
+          <span><a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></span>
+        </div>
+      </div>
+    </footer>
+
+  <script src="../../index.js"></script>
+</body>
+</html>

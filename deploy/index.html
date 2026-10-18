@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f6f7">
-  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
@@ -31,8 +31,8 @@
   <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
+  <a class="skip-link" href="#top">Přeskočit na obsah</a>
   <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
-  <main id="top">
     <header class="site-header shell">
       <a href="#top" aria-label="Domovská stránka Scanity" class="brand">
           <img
@@ -72,13 +72,13 @@
       </nav>
       <div class="header-actions">
         <div class="lang-switch" id="langSwitch">
-          <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="listbox" aria-expanded="false">
+          <button type="button" class="lang-toggle" id="langToggle" aria-expanded="false" aria-controls="langMenu" aria-label="Jazyk: čeština">
             CS
             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
           </button>
-          <ul class="lang-menu" id="langMenu" role="listbox">
-            <li role="option" aria-selected="true"><a href="index.html">CS</a></li>
-            <li role="option" aria-selected="false"><a href="en/index.html">EN</a></li>
+          <ul class="lang-menu" id="langMenu">
+            <li><a href="index.html" lang="cs" hreflang="cs" aria-current="true">CS</a></li>
+            <li><a href="en/index.html" lang="en" hreflang="en">EN</a></li>
           </ul>
         </div>
         <a class="nav-contact" href="#contact">Kontaktujte nás</a>
@@ -99,17 +99,15 @@
         </div>
         <a href="#contact">Kontaktujte nás</a>
         <div class="mobile-lang">
-          <a href="index.html" class="is-active">CS</a>
-          <a href="en/index.html">EN</a>
+          <a href="index.html" lang="cs" hreflang="cs" class="is-active" aria-current="true">CS</a>
+          <a href="en/index.html" lang="en" hreflang="en">EN</a>
         </div>
       </nav>
     </header>
 
+  <main id="top">
     <section class="hero shell">
       <div class="hero-copy">
-        <p class="eyebrow reveal reveal-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg> Reálný svět v digitální podobě
-        </p>
         <h1 class="reveal reveal-2">Tvoříme digitální kopie reálného světa</h1>
         <p class="hero-description reveal reveal-3">Měníme reálné objekty a prostory v přesné, fotorealistické 3D modely. Od šperku až po celou budovu – později si je pak můžete prohlédnout a pracovat na nich odkudkoliv.</p>
         <div class="hero-actions reveal reveal-3">
@@ -167,7 +165,6 @@
     </section>
 
     <section class="intro-section shell" id="platform">
-      <div class="section-kicker"><span>01</span> Řešení</div>
       <div class="intro-content">
         <h2>Od skenování až po hotovou 3D kopii - o všechno se postaráme my.</h2>
         <p>Nemusíte pořizovat žádnou techniku ani řešit složité zpracování. Náš tým přijede na místo, zachytí každý detail a vše převede do věrného 3D prostoru.</p>
@@ -208,9 +205,6 @@
 
     <section class="demo-section shell" id="demo">
       <div class="demo-heading">
-        <p class="eyebrow">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scan-line" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><path d="M7 12h10"></path></svg> Interaktivní náhled
-        </p>
         <h2>Podívejte se, jak měníme reálné prostory ve virtuální prohlídky.</h2>
         <p>Prohlédněte si skutečný 3D model Scanity přímo ve svém prohlížeči a prozkoumejte prostor v každém detailu.</p>
       </div>
@@ -254,8 +248,8 @@
 
     <section class="solutions-section" id="solutions">
       <div class="shell solutions-heading">
-        <div class="section-kicker"><span>02</span> Digitální kopie v praxi</div>
         <h2>Jedna digitální kopie. Mnoho možností využití.</h2>
+        <p class="solutions-lead">Vyberte svůj obor a podívejte se, co pro vás připravíme.</p>
       </div>
 
       <div class="shell use-case-list">
@@ -264,7 +258,7 @@
           <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span>
           <div><small>Realitní trh</small><h3>Kompletní balíček k inzerátu.</h3></div>
           <p>Kompletní podklady k inzerátu z jednoho skenu: profesionální fotky, půdorys s rozměry, video průlet a 3D model.</p>
-          <span class="use-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+          <span class="use-arrow"><span class="use-arrow-label">Prozkoumat</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
         </a>
 
         <a class="use-case" href="sport/">
@@ -272,7 +266,7 @@
           <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"></path><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"></path><path d="M18 9h1.5a1 1 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"></path><path d="M6 9H4.5a1 1 0 0 1 0-5H6"></path></svg></span>
           <div><small>Sportoviště a kulturní eventy</small><h3>Vstupenku koupí s jistotou.</h3></div>
           <p>Výběr sedadla ve 3D se skutečným výhledem, prohlídka skyboxů a klubových prostor, anotace i napojení na prodej vstupenek.</p>
-          <span class="use-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+          <span class="use-arrow"><span class="use-arrow-label">Prozkoumat</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
         </a>
 
         <a class="use-case" href="produkty/">
@@ -280,7 +274,7 @@
           <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><path d="M12 22V12"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><path d="m7.5 4.27 9 5.15"></path></svg></span>
           <div><small>Produkty & e-shopy</small><h3>Produkt, který si zákazník otočí ze všech stran.</h3></div>
           <p>Od jednoho produktu po celé portfolio: 3D modely pro e-shop a produktové fotky z libovolného úhlu.</p>
-          <span class="use-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+          <span class="use-arrow"><span class="use-arrow-label">Prozkoumat</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
         </a>
 
         <a class="use-case" href="hotely/">
@@ -288,7 +282,7 @@
           <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path><path d="M12 4v6"></path><path d="M2 18h20"></path></svg></span>
           <div><small>Hotely & ubytování</small><h3>Pokoj si host projde dřív, než rezervuje.</h3></div>
           <p>Pokoje, wellness i restauraci si host projde online a rezervuje s jistotou.</p>
-          <span class="use-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+          <span class="use-arrow"><span class="use-arrow-label">Prozkoumat</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
         </a>
 
         <a class="use-case" href="stavebnictvi/">
@@ -296,7 +290,7 @@
           <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"></path><path d="M14 6a6 6 0 0 1 6 6v3"></path><path d="M4 15v-3a6 6 0 0 1 6-6"></path><rect x="2" y="15" width="20" height="4" rx="1"></rect></svg></span>
           <div><small>Stavebnictví & správa budov</small><h3>Stavbu projdete z kanceláře.</h3></div>
           <p>Digitální dvojče stavby nebo objektu: méně cest na stavbu, rychlejší dokumentace a historie stavu v každé fázi.</p>
-          <span class="use-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+          <span class="use-arrow"><span class="use-arrow-label">Prozkoumat</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
         </a>
       </div>
     </section>
@@ -304,7 +298,6 @@
     <section class="contact-section shell" id="contact">
       <div class="contact-panel">
         <div>
-          <p class="eyebrow">Proměňme váš prostor v 3D</p>
           <h2>Máte objekt nebo prostor, který chcete převést do 3D?</h2>
         </div>
         <div class="contact-action">
@@ -347,6 +340,19 @@
       </div>
     </section>
 
+    <div class="scroll-nav" role="group" aria-label="Procházet sekce stránky">
+      <button type="button" class="scroll-nav-btn" id="scrollNavUp" aria-label="Předchozí sekce">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up" aria-hidden="true"><path d="m18 15-6-6-6 6"></path></svg>
+      </button>
+      <div class="scroll-nav-divider" aria-hidden="true"></div>
+      <div class="scroll-nav-dots" id="scrollNavDots" aria-hidden="true"></div>
+      <div class="scroll-nav-divider" aria-hidden="true"></div>
+      <button type="button" class="scroll-nav-btn" id="scrollNavDown" aria-label="Další sekce">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+    </div>
+  </main>
+
     <footer class="site-footer" id="company">
       <div class="shell footer-grid">
         <div class="footer-top">
@@ -362,19 +368,6 @@
         </div>
       </div>
     </footer>
-
-    <div class="scroll-nav" role="group" aria-label="Procházet sekce stránky">
-      <button type="button" class="scroll-nav-btn" id="scrollNavUp" aria-label="Předchozí sekce">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up" aria-hidden="true"><path d="m18 15-6-6-6 6"></path></svg>
-      </button>
-      <div class="scroll-nav-divider" aria-hidden="true"></div>
-      <div class="scroll-nav-dots" id="scrollNavDots" aria-hidden="true"></div>
-      <div class="scroll-nav-divider" aria-hidden="true"></div>
-      <button type="button" class="scroll-nav-btn" id="scrollNavDown" aria-label="Další sekce">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-      </button>
-    </div>
-  </main>
 
   <script src="index.js"></script>
 </body>

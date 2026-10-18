@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f6f7">
-  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="../favicon.ico" sizes="32x32">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="manifest" href="../site.webmanifest">
@@ -15,6 +15,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../index.css">
   <link rel="canonical" href="https://scanity.cz/hotely/">
+  <link rel="alternate" hreflang="cs" href="https://scanity.cz/hotely/">
+  <link rel="alternate" hreflang="en" href="https://scanity.cz/en/hotels/">
+  <link rel="alternate" hreflang="x-default" href="https://scanity.cz/hotely/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Scanity">
   <meta property="og:url" content="https://scanity.cz/hotely/">
@@ -28,8 +31,8 @@
   <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
+  <a class="skip-link" href="#top">Přeskočit na obsah</a>
   <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
-  <main id="top">
     <header class="site-header shell">
       <a href="../" aria-label="Domovská stránka Scanity" class="brand">
           <img
@@ -69,13 +72,13 @@
       </nav>
       <div class="header-actions">
         <div class="lang-switch" id="langSwitch">
-          <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="listbox" aria-expanded="false">
+          <button type="button" class="lang-toggle" id="langToggle" aria-expanded="false" aria-controls="langMenu" aria-label="Jazyk: čeština">
             CS
             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
           </button>
-          <ul class="lang-menu" id="langMenu" role="listbox">
-            <li role="option" aria-selected="true"><a href="./">CS</a></li>
-            <li role="option" aria-selected="false"><a href="../en/">EN</a></li>
+          <ul class="lang-menu" id="langMenu">
+            <li><a href="./" lang="cs" hreflang="cs" aria-current="true">CS</a></li>
+            <li><a href="../en/hotels/" lang="en" hreflang="en">EN</a></li>
           </ul>
         </div>
         <a class="nav-contact" href="#contact">Kontaktujte nás</a>
@@ -96,12 +99,13 @@
         </div>
         <a href="#contact">Kontaktujte nás</a>
         <div class="mobile-lang">
-          <a href="./" class="is-active">CS</a>
-          <a href="../en/">EN</a>
+          <a href="./" lang="cs" hreflang="cs" class="is-active" aria-current="true">CS</a>
+          <a href="../en/hotels/" lang="en" hreflang="en">EN</a>
         </div>
       </nav>
     </header>
 
+  <main id="top">
     <div class="industry-bar" id="industryBar">
       <div class="industry-bar-inner shell">
         <nav class="industry-nav" aria-label="Odvětví">
@@ -115,19 +119,16 @@
       </div>
     </div>
 
+    <!-- No buttons here: "Domluvit sken" is always in the bar above -->
     <section class="industry-hero shell">
       <h1 class="reveal reveal-2">Pokoj si host projde dřív, než rezervuje.</h1>
       <p class="hero-description reveal reveal-3">Host si projde pokoj, wellness i restauraci dřív, než rezervuje, a rezervuje s jistotou.</p>
-      <div class="hero-actions reveal reveal-3">
-        <a class="button button-dark" href="#contact">Domluvit sken <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
-        <a class="button button-ghost" href="../#demo">Zobrazit ukázku</a>
-      </div>
     </section>
 
     <section class="industry-section shell" id="data" aria-labelledby="data-title">
       <div class="industry-section-head">
-        <h2 id="data-title">Co říkají data z trhu</h2>
-        <p>Čísla pocházejí ze studií z trhu, převážně z USA, a část z nich zveřejnili sami dodavatelé 3D technologií. Nejde o výsledky Scanity.</p>
+        <h2 id="data-title">Ověřené výsledky z reálného nasazení 3D</h2>
+        <p class="industry-section-lead">Víc zájmu o rezervace.</p>
       </div>
       <div class="stat-grid stat-count-2">
         <article class="stat">
@@ -140,7 +141,7 @@
         </article>
       </div>
       <ol class="stat-footnotes">
-        <li id="zdroj-1">Studie Google z roku 2015: návštěvníci s virtuální prohlídkou mají o rezervaci dvakrát častěji zájem. Shrnutí <a href="https://seekbeak.com/efficacy-of-virtual-tours-360-photo-industry-research-round-up/" target="_blank" rel="noopener">SeekBeak</a>.</li>
+        <li id="zdroj-1">Nezávislá studie, kterou si v roce 2015 objednal Google: kdo vidí nabídku s virtuální prohlídkou, má o rezervaci dvakrát častěji zájem. Shrnutí <a href="https://seekbeak.com/efficacy-of-virtual-tours-360-photo-industry-research-round-up/" target="_blank" rel="noopener">SeekBeak</a>.</li>
         <li id="zdroj-2">Cvent Planner Sourcing Report 2025, uvádí <a href="https://www.cvent.com/en/blog/hospitality/virtual-venue-tours" target="_blank" rel="noopener">Cvent</a>.</li>
       </ol>
     </section>
@@ -199,17 +200,17 @@
     <section class="industry-section shell" id="case-study" aria-labelledby="case-study-title" hidden>
       <div class="industry-section-head">
         <h2 id="case-study-title">Výsledky Scanity</h2>
-        <p>TODO: popis projektu a změřené výsledky.</p>
+        <p>TODO</p>
       </div>
       <div class="stat-grid">
-        <!-- TODO: stat karty s vlastními čísly Scanity (stejná struktura jako výše, zdroj = vlastní měření) -->
+        <!-- TODO: stat cards with Scanity's own numbers (same markup as above, source = own measurement) -->
       </div>
     </section>
 
     <section class="contact-section shell" id="contact">
       <div class="contact-panel">
         <div>
-          <h2>Domluvme sken vašeho hotelu.</h2>
+          <h2>Nechte si naskenovat hotel.</h2>
         </div>
         <div class="contact-action">
           <p>Napište nám, o jaký hotel nebo ubytování jde a které prostory chcete ukázat.</p>
@@ -250,6 +251,7 @@
         <div class="contact-rings" aria-hidden="true"><i></i><i></i><i></i></div>
       </div>
     </section>
+  </main>
 
     <footer class="site-footer" id="company">
       <div class="shell footer-grid">
@@ -266,7 +268,6 @@
         </div>
       </div>
     </footer>
-  </main>
 
   <script src="../index.js"></script>
 </body>

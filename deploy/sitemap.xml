@@ -36,24 +36,66 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/terms.html"/>
     <lastmod>2026-10-12</lastmod>
   </url>
+  <!-- industries:start -->
   <url>
     <loc>https://scanity.cz/reality/</loc>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://scanity.cz/reality/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/real-estate/"/>
     <lastmod>2026-10-18</lastmod>
   </url>
   <url>
-    <loc>https://scanity.cz/stavebnictvi/</loc>
+    <loc>https://scanity.cz/en/real-estate/</loc>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://scanity.cz/reality/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/real-estate/"/>
     <lastmod>2026-10-18</lastmod>
   </url>
   <url>
     <loc>https://scanity.cz/sport/</loc>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://scanity.cz/sport/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/venues-events/"/>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
+    <loc>https://scanity.cz/en/venues-events/</loc>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://scanity.cz/sport/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/venues-events/"/>
     <lastmod>2026-10-18</lastmod>
   </url>
   <url>
     <loc>https://scanity.cz/produkty/</loc>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://scanity.cz/produkty/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/products/"/>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
+    <loc>https://scanity.cz/en/products/</loc>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://scanity.cz/produkty/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/products/"/>
     <lastmod>2026-10-18</lastmod>
   </url>
   <url>
     <loc>https://scanity.cz/hotely/</loc>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://scanity.cz/hotely/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/hotels/"/>
     <lastmod>2026-10-18</lastmod>
   </url>
+  <url>
+    <loc>https://scanity.cz/en/hotels/</loc>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://scanity.cz/hotely/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/hotels/"/>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
+    <loc>https://scanity.cz/stavebnictvi/</loc>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://scanity.cz/stavebnictvi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/construction/"/>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
+    <loc>https://scanity.cz/en/construction/</loc>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://scanity.cz/stavebnictvi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/construction/"/>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <!-- industries:end -->
 </urlset>

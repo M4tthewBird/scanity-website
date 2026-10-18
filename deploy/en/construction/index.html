@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" href="../../favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../../site.webmanifest">
+  <title>3D scanning for construction and buildings | Scanity</title>
+  <meta name="description" content="A digital twin of a building or site you can walk through from the office. See what market data says about 3D scanning in construction.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../index.css">
+  <link rel="canonical" href="https://scanity.cz/en/construction/">
+  <link rel="alternate" hreflang="cs" href="https://scanity.cz/stavebnictvi/">
+  <link rel="alternate" hreflang="en" href="https://scanity.cz/en/construction/">
+  <link rel="alternate" hreflang="x-default" href="https://scanity.cz/stavebnictvi/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scanity">
+  <meta property="og:url" content="https://scanity.cz/en/construction/">
+  <meta property="og:title" content="3D scanning for construction and buildings | Scanity">
+  <meta property="og:description" content="A digital twin of a building or site you can walk through from the office. See what market data says about 3D scanning in construction.">
+  <meta property="og:image" content="https://scanity.cz/assets/og-image-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Scanity logo and the line We create digital copies of the real world">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
+    <header class="site-header shell">
+      <a href="../" aria-label="Scanity home" class="brand">
+          <img
+              src="../../assets/scanity_logo.svg" width="31" height="54"
+              alt="Scanity"
+              class="scanity-logo">
+          <span>Scanity</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="../#platform">Platform</a>
+        <div class="nav-dropdown" id="industryDropdown">
+          <button type="button" class="nav-dropdown-toggle" id="industryToggle" aria-expanded="false" aria-controls="industryMenu">Solutions <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div class="nav-menu" id="industryMenu">
+            <a href="../real-estate/">
+              <span class="nav-menu-title">Real estate</span>
+              <span class="nav-menu-text">Photos, floor plan, video walkthrough and 3D model for listings</span>
+            </a>
+            <a href="../venues-events/">
+              <span class="nav-menu-title">Venues & cultural events</span>
+              <span class="nav-menu-text">Seat selection in 3D, skyboxes and premium spaces</span>
+            </a>
+            <a href="../products/">
+              <span class="nav-menu-title">Products & e-commerce</span>
+              <span class="nav-menu-text">3D models and photos for your whole product range</span>
+            </a>
+            <a href="../hotels/">
+              <span class="nav-menu-title">Hotels & hospitality</span>
+              <span class="nav-menu-text">Rooms and spaces to explore before booking</span>
+            </a>
+            <a href="../construction/" aria-current="page">
+              <span class="nav-menu-title">Construction & facilities</span>
+              <span class="nav-menu-text">A digital twin of the site and its history</span>
+            </a>
+            <a class="nav-menu-all" href="../#solutions">All solutions <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-toggle" id="langToggle" aria-expanded="false" aria-controls="langMenu" aria-label="Language: English">
+            EN
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu">
+            <li><a href="../../stavebnictvi/" lang="cs" hreflang="cs">CS</a></li>
+            <li><a href="./" lang="en" hreflang="en" aria-current="true">EN</a></li>
+          </ul>
+        </div>
+        <a class="nav-contact" href="#contact">Contact us</a>
+        <a class="button button-dark button-small" href="../#demo">Try demo <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+      </div>
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileNav" id="menuToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+      </button>
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="../#platform">Platform</a>
+        <a href="../#solutions">Solutions</a>
+        <div class="mobile-subnav">
+          <a href="../real-estate/">Real estate</a>
+          <a href="../venues-events/">Venues & cultural events</a>
+          <a href="../products/">Products & e-commerce</a>
+          <a href="../hotels/">Hotels & hospitality</a>
+          <a href="../construction/" aria-current="page">Construction & facilities</a>
+        </div>
+        <a href="#contact">Contact us</a>
+        <div class="mobile-lang">
+          <a href="../../stavebnictvi/" lang="cs" hreflang="cs">CS</a>
+          <a href="./" lang="en" hreflang="en" class="is-active" aria-current="true">EN</a>
+        </div>
+      </nav>
+    </header>
+
+  <main id="top">
+    <div class="industry-bar" id="industryBar">
+      <div class="industry-bar-inner shell">
+        <nav class="industry-nav" aria-label="Industries">
+          <a href="../real-estate/">Real estate</a>
+          <a href="../venues-events/">Venues & events</a>
+          <a href="../products/">Products</a>
+          <a href="../hotels/">Hotels</a>
+          <a href="../construction/" aria-current="page">Construction</a>
+        </nav>
+        <a class="button button-dark button-small industry-bar-cta" href="#contact">Book a scan <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+      </div>
+    </div>
+
+    <!-- No buttons here: "Domluvit sken" is always in the bar above -->
+    <section class="industry-hero shell">
+      <h1 class="reveal reveal-2">Walk the site from your office.</h1>
+      <p class="hero-description reveal reveal-3">A digital twin of a building or site you can walk through from the office. Fewer site visits, faster documentation and a record of every phase.</p>
+    </section>
+
+    <section class="industry-section shell" id="data" aria-labelledby="data-title">
+      <div class="industry-section-head">
+        <h2 id="data-title">Proven results from real-world 3D use</h2>
+        <p class="industry-section-lead">Fewer site trips, shorter schedules.</p>
+      </div>
+      <div class="stat-grid stat-count-3">
+        <article class="stat">
+          <p class="stat-value">50<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-1" aria-label="Source 1">1</a></sup></p>
+          <p class="stat-label">fewer site trips for architects and MEP engineers</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">75<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-2" aria-label="Source 2">2</a></sup></p>
+          <p class="stat-label">fewer costly site visits, documentation 2× faster</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">30<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-3" aria-label="Source 3">3</a></sup></p>
+          <p class="stat-label">shorter project schedules on average</p>
+        </article>
+      </div>
+      <ol class="stat-footnotes">
+        <li id="source-1">Swinerton, <a href="https://matterport.com/industries/case-studies/swinerton-uses-matterport-keep-construction-moving-forward" target="_blank" rel="noopener">Matterport case study</a>.</li>
+        <li id="source-2">Knutson Construction, <a href="https://matterport.com/en-gb/industries/case-studies/knutson-construction-works-more-efficiently-and-safely-matterport" target="_blank" rel="noopener">Matterport case study</a>.</li>
+        <li id="source-3">Burns & McDonnell customers report project schedules shortened by 30% on average. <a href="https://matterport.com/es/news/matterport-partners-burns-mcdonnell-help-energy-utilities-and-manufacturing-industries-save" target="_blank" rel="noopener">Matterport press release</a>, 2022.</li>
+      </ol>
+    </section>
+
+    <section class="industry-section shell" id="deliver" aria-labelledby="deliver-title">
+      <div class="industry-section-head">
+        <h2 id="deliver-title">What we deliver</h2>
+      </div>
+      <ul class="deliver-list">
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
+          <div>
+            <h3>A digital twin of the site</h3>
+            <p>A photorealistic 3D model of the building or site you can walk through on a computer or phone.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path><path d="m14.5 12.5 2-2"></path><path d="m11.5 9.5 2-2"></path><path d="m8.5 6.5 2-2"></path><path d="m17.5 15.5 2-2"></path></svg></span>
+          <div>
+            <h3>Dimensioned floor plan</h3>
+            <p>A floor plan with wall dimensions and room areas, taken straight from the scan.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path></svg></span>
+          <div>
+            <h3>Every phase on record</h3>
+            <p>Repeat scans capture services and structures before they’re covered up.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect></svg></span>
+          <div>
+            <h3>Photos and a video walkthrough</h3>
+            <p>Shots and a walkthrough made from the scan for documentation, investor reports and presentations.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></span>
+          <div>
+            <h3>Shared with one link</h3>
+            <p>Designers, investors and subcontractors see the same model without travelling to the site.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path><circle cx="12" cy="13" r="3"></circle></svg></span>
+          <div>
+            <h3>No equipment of your own</h3>
+            <p>We handle scanning and processing. Your team doesn’t need to buy anything or learn new software.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- TODO: Scanity case study from construction or facility management. Fill in from real data, then remove the hidden attribute. -->
+    <section class="industry-section shell" id="case-study" aria-labelledby="case-study-title" hidden>
+      <div class="industry-section-head">
+        <h2 id="case-study-title">Scanity results</h2>
+        <p>TODO</p>
+      </div>
+      <div class="stat-grid">
+        <!-- TODO: stat cards with Scanity's own numbers (same markup as above, source = own measurement) -->
+      </div>
+    </section>
+
+    <section class="contact-section shell" id="contact">
+      <div class="contact-panel">
+        <div>
+          <h2>Book a scan of your site.</h2>
+        </div>
+        <div class="contact-action">
+          <p>Tell us about the building or site and its current phase. We’ll suggest how and how often to scan.</p>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="cfName">Full name</label>
+              <input type="text" id="cfName" name="name" placeholder="Jane Doe" autocomplete="name" aria-describedby="cfName-error" required>
+              <span class="field-error" id="cfName-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfEmail">Work email</label>
+              <input type="email" id="cfEmail" name="email" placeholder="jane@company.com" autocomplete="email" aria-describedby="cfEmail-error" required>
+              <span class="field-error" id="cfEmail-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfCompany">Company</label>
+              <input type="text" id="cfCompany" name="company" placeholder="Company name" autocomplete="organization">
+            </div>
+            <div class="form-field">
+              <label for="cfPhone">Phone (optional)</label>
+              <input type="tel" id="cfPhone" name="phone" placeholder="+420 123 456 789" autocomplete="tel">
+            </div>
+            <div class="form-field">
+              <label for="cfMessage">What would you like to capture?</label>
+              <textarea id="cfMessage" name="message" rows="3" placeholder="E.g. office building refurbishment, scan before services are covered"></textarea>
+            </div>
+            <input type="hidden" name="time">
+            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="contact-submit">
+              Send message
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+            </button>
+            <p class="form-reassurance">We usually get back to you within 1 business day.
+              <span class="form-privacy">We use your details only to reply to your enquiry. See our <a href="../privacy.html">privacy policy</a>.</span></p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="contact-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+  </main>
+
+    <footer class="site-footer" id="company">
+      <div class="shell footer-grid">
+        <div class="footer-top">
+          <a href="../" aria-label="Scanity home" class="brand">
+            <img src="../../assets/scanity_logo.svg" width="31" height="54" alt="Scanity" class="scanity-logo">
+            <span>Scanity</span>
+          </a>
+          <p>We create accurate, photorealistic 3D copies of the real world.</p>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Scanity</span>
+          <span><a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></span>
+        </div>
+      </div>
+    </footer>
+
+  <script src="../../index.js"></script>
+</body>
+</html>

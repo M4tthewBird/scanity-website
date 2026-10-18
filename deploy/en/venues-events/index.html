@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" href="../../favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../../site.webmanifest">
+  <title>3D models of sports venues and event spaces | Scanity</title>
+  <meta name="description" content="Seat selection in 3D with the real view, tours of skyboxes and premium spaces, annotations and a link to your ticketing system.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../index.css">
+  <link rel="canonical" href="https://scanity.cz/en/venues-events/">
+  <link rel="alternate" hreflang="cs" href="https://scanity.cz/sport/">
+  <link rel="alternate" hreflang="en" href="https://scanity.cz/en/venues-events/">
+  <link rel="alternate" hreflang="x-default" href="https://scanity.cz/sport/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scanity">
+  <meta property="og:url" content="https://scanity.cz/en/venues-events/">
+  <meta property="og:title" content="3D models of sports venues and event spaces | Scanity">
+  <meta property="og:description" content="Seat selection in 3D with the real view, tours of skyboxes and premium spaces, annotations and a link to your ticketing system.">
+  <meta property="og:image" content="https://scanity.cz/assets/og-image-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Scanity logo and the line We create digital copies of the real world">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
+    <header class="site-header shell">
+      <a href="../" aria-label="Scanity home" class="brand">
+          <img
+              src="../../assets/scanity_logo.svg" width="31" height="54"
+              alt="Scanity"
+              class="scanity-logo">
+          <span>Scanity</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="../#platform">Platform</a>
+        <div class="nav-dropdown" id="industryDropdown">
+          <button type="button" class="nav-dropdown-toggle" id="industryToggle" aria-expanded="false" aria-controls="industryMenu">Solutions <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div class="nav-menu" id="industryMenu">
+            <a href="../real-estate/">
+              <span class="nav-menu-title">Real estate</span>
+              <span class="nav-menu-text">Photos, floor plan, video walkthrough and 3D model for listings</span>
+            </a>
+            <a href="../venues-events/" aria-current="page">
+              <span class="nav-menu-title">Venues & cultural events</span>
+              <span class="nav-menu-text">Seat selection in 3D, skyboxes and premium spaces</span>
+            </a>
+            <a href="../products/">
+              <span class="nav-menu-title">Products & e-commerce</span>
+              <span class="nav-menu-text">3D models and photos for your whole product range</span>
+            </a>
+            <a href="../hotels/">
+              <span class="nav-menu-title">Hotels & hospitality</span>
+              <span class="nav-menu-text">Rooms and spaces to explore before booking</span>
+            </a>
+            <a href="../construction/">
+              <span class="nav-menu-title">Construction & facilities</span>
+              <span class="nav-menu-text">A digital twin of the site and its history</span>
+            </a>
+            <a class="nav-menu-all" href="../#solutions">All solutions <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-toggle" id="langToggle" aria-expanded="false" aria-controls="langMenu" aria-label="Language: English">
+            EN
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu">
+            <li><a href="../../sport/" lang="cs" hreflang="cs">CS</a></li>
+            <li><a href="./" lang="en" hreflang="en" aria-current="true">EN</a></li>
+          </ul>
+        </div>
+        <a class="nav-contact" href="#contact">Contact us</a>
+        <a class="button button-dark button-small" href="#model">Try demo <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+      </div>
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileNav" id="menuToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+      </button>
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="../#platform">Platform</a>
+        <a href="../#solutions">Solutions</a>
+        <div class="mobile-subnav">
+          <a href="../real-estate/">Real estate</a>
+          <a href="../venues-events/" aria-current="page">Venues & cultural events</a>
+          <a href="../products/">Products & e-commerce</a>
+          <a href="../hotels/">Hotels & hospitality</a>
+          <a href="../construction/">Construction & facilities</a>
+        </div>
+        <a href="#contact">Contact us</a>
+        <div class="mobile-lang">
+          <a href="../../sport/" lang="cs" hreflang="cs">CS</a>
+          <a href="./" lang="en" hreflang="en" class="is-active" aria-current="true">EN</a>
+        </div>
+      </nav>
+    </header>
+
+  <main id="top">
+    <div class="industry-bar" id="industryBar">
+      <div class="industry-bar-inner shell">
+        <nav class="industry-nav" aria-label="Industries">
+          <a href="../real-estate/">Real estate</a>
+          <a href="../venues-events/" aria-current="page">Venues & events</a>
+          <a href="../products/">Products</a>
+          <a href="../hotels/">Hotels</a>
+          <a href="../construction/">Construction</a>
+        </nav>
+        <a class="button button-dark button-small industry-bar-cta" href="#contact">Book a scan <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+      </div>
+    </div>
+
+    <!-- No buttons here: "Domluvit sken" is always in the bar above -->
+    <section class="industry-hero shell">
+      <h1 class="reveal reveal-2">Tickets bought with confidence, not blind from a seating plan.</h1>
+      <p class="hero-description reveal reveal-3">Visitors walk through the arena, “sit” in their seat and see the real view: the distance to the floor, the viewing angle and how close the stage will be.</p>
+    </section>
+
+    <section class="industry-section shell" id="data" aria-labelledby="data-title">
+      <div class="industry-section-head">
+        <h2 id="data-title">Proven results from real-world 3D use</h2>
+        <p class="industry-section-lead">More tickets sold.</p>
+      </div>
+      <div class="stat-grid stat-count-4">
+        <article class="stat">
+          <p class="stat-value">20<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-1" aria-label="Source 1">1</a></sup></p>
+          <p class="stat-label">higher ticket conversion after adding a 3D seat map</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">25<span class="stat-of">of</span>30<sup class="stat-ref"><a href="#source-2" aria-label="Source 2">2</a></sup></p>
+          <p class="stat-label">MLB clubs sell tickets through a 3D stadium map</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">7.6<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-3" aria-label="Source 3">3</a></sup></p>
+          <p class="stat-label">higher conversion for organisers with a view-from-seat preview</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">17<span class="stat-unit">%</span><sup class="stat-ref"><a href="#source-4" aria-label="Source 4">4</a></sup></p>
+          <p class="stat-label">of event planners see 3D and virtual tours as where venues could most improve their proposals</p>
+        </article>
+      </div>
+      <ol class="stat-footnotes">
+        <li id="source-1">Fever; advance sales rose 30% at the same time. Reported by <a href="https://3ddigitalvenue.com/why-virtual-3d-maps-for-live-events-are-commercial-infrastructure-not-just-visualization/" target="_blank" rel="noopener">3D Digital Venue</a>, the technology vendor.</li>
+        <li id="source-2"><a href="https://3ddigitalvenue.com/why-virtual-3d-maps-for-live-events-are-commercial-infrastructure-not-just-visualization/" target="_blank" rel="noopener">3D Digital Venue</a>: 25 of 30 MLB clubs run fully integrated 3D maps connected to ticket sales.</li>
+        <li id="source-3"><a href="https://www.tickx.com/solutions/view-from-seat" target="_blank" rel="noopener">TickX</a>, vendor of View from Seat; methodology not stated.</li>
+        <li id="source-4">Cvent Planner Sourcing Report 2025, reported by <a href="https://www.cvent.com/en/blog/hospitality/virtual-venue-tours" target="_blank" rel="noopener">Cvent</a>.</li>
+      </ol>
+    </section>
+
+    <section class="industry-section shell" id="deliver" aria-labelledby="deliver-title">
+      <div class="industry-section-head">
+        <h2 id="deliver-title">What we build for you</h2>
+      </div>
+      <ul class="deliver-list">
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
+          <div>
+            <h3>A real 3D space</h3>
+            <p>No jumping between fixed points and no 360° photos. Visitors move freely and look around from anywhere, in the browser and on mobile.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"></path><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"></path><path d="M5 18v2"></path><path d="M19 18v2"></path></svg></span>
+          <div>
+            <h3>Seat selection with the real view</h3>
+            <p>The model keeps the true scale of the whole arena. Visitors walk through the sections and see the exact view from the chosen seat.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg></span>
+          <div>
+            <h3>Linked to ticket sales</h3>
+            <p>We connect the tour to your ticketing system, so the chosen seat can be bought right away.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+          <div>
+            <h3>Annotations and minimap</h3>
+            <p>Points in the space take visitors to a section, a skybox or the club level in one click. A minimap shows where they are in the arena.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+          <div>
+            <h3>Skyboxes and club seats</h3>
+            <p>Companies tour premium spaces before an in-person visit, which makes selling them faster.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg></span>
+          <div>
+            <h3>Layouts for each type of event</h3>
+            <p>One model adapted to different arena layouts, whether it’s hockey or a concert with a stage.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg></span>
+          <div>
+            <h3>Climbing wall routes</h3>
+            <p>A route picked from the list is highlighted right in 3D. Climbers preview new routes before they come; newcomers, parents and corporate event organisers see what your gym looks like.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg></span>
+          <div>
+            <h3>Booking inside the tour</h3>
+            <p>Visitors book a time slot straight from an annotation, as in our private gym demo.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></svg></span>
+          <div>
+            <h3>Your brand, made to measure</h3>
+            <p>The viewer is our own product. We match its design to the club’s or arena’s branding and adapt the format to what you need.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="industry-section industry-viewer shell" id="model" aria-labelledby="viewer-title">
+      <div class="industry-section-head">
+        <h2 id="viewer-title">Try it on our models.</h2>
+        <p>The cathedral shows what a model looks like at large scale. The private gym shows floating annotations with details of the space and instant booking.</p>
+      </div>
+
+      <div class="demo-viewer-switch" id="viewerSwitch" role="tablist" aria-label="Choose a 3D scan">
+        <button type="button" class="viewer-switch-btn is-active" data-id="sanctuaire" role="tab" aria-controls="demoViewerFrame" aria-selected="true">Cathedral, aerial view</button>
+        <button type="button" class="viewer-switch-btn" data-id="ikka_gym" role="tab" aria-controls="demoViewerFrame" aria-selected="false">Private Gym</button>
+      </div>
+
+      <div class="demo-viewer-frame" id="demoViewerFrame" role="tabpanel">
+        <iframe
+          class="demo-viewer"
+          data-src="https://viewer.scanity.cz/?id=sanctuaire"
+          title="Interactive Scanity 3D scan"
+          allow="fullscreen; xr-spatial-tracking"
+        ></iframe>
+        <div class="viewer-loading">
+          <div class="viewer-loading-beam" aria-hidden="true"></div>
+          <span class="viewer-loading-status" role="status" aria-live="polite" data-loading-text="Loading 3D scan…"></span>
+        </div>
+        <button type="button" class="viewer-launch" id="viewerLaunchBtn">
+          <span class="viewer-launch-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+          </span>
+          <span class="viewer-launch-copy">
+            <span class="viewer-launch-label">Load 3D viewer</span>
+            <span class="viewer-launch-hint">
+              <span class="hint-text-pointer">Drag to rotate, scroll to zoom</span>
+              <span class="hint-text-touch">Swipe to rotate, pinch to zoom</span>
+            </span>
+          </span>
+        </button>
+        <div class="viewer-hint" id="viewerHint" role="status">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move" aria-hidden="true"><path d="M12 2v20"></path><path d="m15 19-3 3-3-3"></path><path d="m19 9 3 3-3 3"></path><path d="M2 12h20"></path><path d="m5 9-3 3 3 3"></path><path d="m9 5 3-3 3 3"></path></svg>
+          <span class="hint-text-pointer">Drag to look around, scroll to zoom</span>
+          <span class="hint-text-touch">Swipe to look around, pinch to zoom</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TODO: Scanity case study from a venue or cultural space. Fill in from real data, then remove the hidden attribute. -->
+    <section class="industry-section shell" id="case-study" aria-labelledby="case-study-title" hidden>
+      <div class="industry-section-head">
+        <h2 id="case-study-title">Scanity results</h2>
+        <p>TODO</p>
+      </div>
+      <div class="stat-grid">
+        <!-- TODO: stat cards with Scanity's own numbers (same markup as above, source = own measurement) -->
+      </div>
+    </section>
+
+    <section class="contact-section shell" id="contact">
+      <div class="contact-panel">
+        <div>
+          <h2>Book a scan of your venue.</h2>
+        </div>
+        <div class="contact-action">
+          <p>Tell us about your stadium, arena, climbing gym or cultural space. We’ll get back to you with a concrete proposal.</p>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="cfName">Full name</label>
+              <input type="text" id="cfName" name="name" placeholder="Jane Doe" autocomplete="name" aria-describedby="cfName-error" required>
+              <span class="field-error" id="cfName-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfEmail">Work email</label>
+              <input type="email" id="cfEmail" name="email" placeholder="jane@company.com" autocomplete="email" aria-describedby="cfEmail-error" required>
+              <span class="field-error" id="cfEmail-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfCompany">Company</label>
+              <input type="text" id="cfCompany" name="company" placeholder="Company name" autocomplete="organization">
+            </div>
+            <div class="form-field">
+              <label for="cfPhone">Phone (optional)</label>
+              <input type="tel" id="cfPhone" name="phone" placeholder="+420 123 456 789" autocomplete="tel">
+            </div>
+            <div class="form-field">
+              <label for="cfMessage">What would you like to capture?</label>
+              <textarea id="cfMessage" name="message" rows="3" placeholder="E.g. multi-purpose arena, seat selection for hockey and concerts"></textarea>
+            </div>
+            <input type="hidden" name="time">
+            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="contact-submit">
+              Send message
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+            </button>
+            <p class="form-reassurance">We usually get back to you within 1 business day.
+              <span class="form-privacy">We use your details only to reply to your enquiry. See our <a href="../privacy.html">privacy policy</a>.</span></p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="contact-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+  </main>
+
+    <footer class="site-footer" id="company">
+      <div class="shell footer-grid">
+        <div class="footer-top">
+          <a href="../" aria-label="Scanity home" class="brand">
+            <img src="../../assets/scanity_logo.svg" width="31" height="54" alt="Scanity" class="scanity-logo">
+            <span>Scanity</span>
+          </a>
+          <p>We create accurate, photorealistic 3D copies of the real world.</p>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Scanity</span>
+          <span><a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></span>
+        </div>
+      </div>
+    </footer>
+
+  <script src="../../index.js"></script>
+</body>
+</html>

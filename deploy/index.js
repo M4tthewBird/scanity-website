@@ -164,7 +164,12 @@ const pointCloudCanvas = document.getElementById('pointCloud');
 if (pointCloudCanvas) {
   const pointCloudCtx = pointCloudCanvas.getContext('2d');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  // Phones get a lighter field at half the frame rate, and with data saver on
+  // the field stays a still frame: it's atmosphere, not worth the battery.
+  const isSmallScreen = window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+  const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+  const staticField = prefersReducedMotion || saveData;
+  const dpr = Math.min(window.devicePixelRatio || 1, isSmallScreen ? 1.5 : 2);
   const POINT_COLOR = '36, 107, 253'; // --blue as r,g,b for rgba()
 
   let viewWidth = 0;
@@ -178,7 +183,9 @@ if (pointCloudCanvas) {
   function makePoints() {
     // Roughly one point per 9000px^2 of viewport, clamped so it reads as a
     // sparse scan cloud rather than a dense static-noise field at any size.
-    const count = Math.max(70, Math.min(220, Math.round((viewWidth * viewHeight) / 9000)));
+    const count = isSmallScreen
+      ? Math.max(40, Math.min(90, Math.round((viewWidth * viewHeight) / 9000)))
+      : Math.max(70, Math.min(220, Math.round((viewWidth * viewHeight) / 9000)));
     points = Array.from({ length: count }, () => ({
       x: Math.random() * viewWidth,
       y: Math.random() * viewHeight,
@@ -211,10 +218,20 @@ if (pointCloudCanvas) {
     });
   }
 
+  let skipFrame = false;
   function stepPointCloudFrame() {
+    // Half rate on phones: draw every other frame, moving the points twice as far
+    if (isSmallScreen) {
+      skipFrame = !skipFrame;
+      if (skipFrame) {
+        rafId = requestAnimationFrame(stepPointCloudFrame);
+        return;
+      }
+    }
+    const stride = isSmallScreen ? 2 : 1;
     points.forEach((p) => {
-      p.x += p.vx;
-      p.y += p.vy;
+      p.x += p.vx * stride;
+      p.y += p.vy * stride;
       if (p.x < -10) p.x = viewWidth + 10;
       if (p.x > viewWidth + 10) p.x = -10;
       if (p.y < -10) p.y = viewHeight + 10;
@@ -225,7 +242,7 @@ if (pointCloudCanvas) {
   }
 
   function startPointCloud() {
-    if (running || prefersReducedMotion) return;
+    if (running || staticField) return;
     running = true;
     rafId = requestAnimationFrame(stepPointCloudFrame);
   }
