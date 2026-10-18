@@ -1,3 +1,16 @@
+// Industry pages live at clean folder URLs (reality/, sport/, ...), which
+// Netlify serves from each folder's index.html. Opened straight from disk
+// (file://) a folder link shows a directory listing instead, so point local
+// previews at the index.html itself.
+if (location.protocol === 'file:') {
+  document.querySelectorAll('a[href]').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (/^[a-z]+:/i.test(href)) return; // http:, mailto: ...
+    // "../" -> "../index.html", "../#demo" -> "../index.html#demo"
+    link.setAttribute('href', href.replace(/\/(#.*)?$/, '/index.html$1'));
+  });
+}
+
 // Mobile navigation toggle
 const menuToggle = document.getElementById('menuToggle');
 const mobileNav = document.getElementById('mobileNav');
@@ -54,6 +67,90 @@ if (langSwitch && langToggle) {
       langToggle.setAttribute('aria-expanded', 'false');
     }
   });
+}
+
+// "Využití" header menu: lists the industry pages. Opens on click (and on
+// hover where there is a mouse), closes on Escape, outside click, or once
+// keyboard focus leaves it.
+const industryDropdown = document.getElementById('industryDropdown');
+const industryToggle = document.getElementById('industryToggle');
+
+if (industryDropdown && industryToggle) {
+  let closeTimer;
+  const setOpen = (open) => {
+    clearTimeout(closeTimer);
+    industryDropdown.classList.toggle('open', open);
+    industryToggle.setAttribute('aria-expanded', String(open));
+  };
+
+  // Hovering opens it first, so the click that usually follows must not close it again
+  let openedByHover = false;
+
+  industryToggle.addEventListener('click', () => {
+    if (openedByHover) {
+      openedByHover = false;
+      setOpen(true);
+      return;
+    }
+    setOpen(!industryDropdown.classList.contains('open'));
+  });
+
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    industryDropdown.addEventListener('mouseenter', () => {
+      if (!industryDropdown.classList.contains('open')) openedByHover = true;
+      setOpen(true);
+    });
+    // A short grace period, so a pointer cutting a corner doesn't snap it shut
+    industryDropdown.addEventListener('mouseleave', () => {
+      openedByHover = false;
+      closeTimer = setTimeout(() => setOpen(false), 180);
+    });
+  }
+
+  industryDropdown.addEventListener('focusout', (event) => {
+    if (!industryDropdown.contains(event.relatedTarget)) setOpen(false);
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!industryDropdown.contains(event.target)) setOpen(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && industryDropdown.classList.contains('open')) {
+      setOpen(false);
+      industryToggle.focus();
+    }
+  });
+}
+
+// Industry pages: the bar under the header gets its own backdrop only once it
+// has stuck below the header, so at the top it still reads as part of the hero.
+const industryBar = document.getElementById('industryBar');
+
+if (industryBar) {
+  const siteHeader = document.querySelector('.site-header');
+  let ticking = false;
+  const updateStuck = () => {
+    ticking = false;
+    const headerBottom = siteHeader ? siteHeader.getBoundingClientRect().bottom : 0;
+    industryBar.classList.toggle('is-stuck', industryBar.getBoundingClientRect().top <= headerBottom + 0.5 && window.scrollY > 0);
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateStuck);
+    }
+  }, { passive: true });
+  window.addEventListener('resize', updateStuck);
+  updateStuck();
+
+  // On narrow screens the switcher scrolls sideways; start it at the current
+  // page, so "Hotely" isn't hidden off to the right while you're on it.
+  const industrySwitcher = industryBar.querySelector('.industry-nav');
+  const currentIndustry = industrySwitcher && industrySwitcher.querySelector('[aria-current="page"]');
+  if (currentIndustry && industrySwitcher.scrollWidth > industrySwitcher.clientWidth) {
+    industrySwitcher.scrollLeft = currentIndustry.offsetLeft - (industrySwitcher.clientWidth - currentIndustry.offsetWidth) / 2;
+  }
 }
 
 // Page-wide point-cloud background: a slow-drifting field of points evoking
@@ -296,6 +393,131 @@ if (viewerFrame) {
       tabs[next].focus();
       selectTab(tabs[next]);
     });
+  }
+}
+
+// Real-estate package video (reality/): the chapter list is the video's own
+// navigation. Clicking a chapter seeks there; while it plays, the current
+// chapter opens its description and fills a progress line. The video is
+// silent, so it may start by itself (muted) once scrolled into view -- except
+// under reduced motion or data saver, where it waits for a click. It only
+// starts downloading once it is about to be seen.
+const packagePlayer = document.getElementById('packagePlayer');
+
+if (packagePlayer) {
+  const video = packagePlayer.querySelector('.package-video');
+  const toggle = packagePlayer.querySelector('.package-toggle');
+  const chapters = Array.from(packagePlayer.querySelectorAll('.package-chapter')).map((button) => ({
+    button,
+    start: Number(button.dataset.start),
+    end: Number(button.dataset.end),
+  }));
+  const canAutoplay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    && !(navigator.connection && navigator.connection.saveData);
+  let pausedByVisitor = false;
+  let frame = null;
+
+  const ensureSource = () => {
+    if (!video.getAttribute('src')) video.src = video.dataset.src;
+  };
+
+  const play = () => {
+    ensureSource();
+    // Rejected when the browser blocks it; the big play button stays up then.
+    video.play().catch(() => {});
+  };
+
+  const render = () => {
+    const t = video.currentTime;
+    chapters.forEach((chapter, i) => {
+      const isLast = i === chapters.length - 1;
+      const active = t >= chapter.start && (t < chapter.end || isLast);
+      if (active) {
+        chapter.button.setAttribute('aria-current', 'true');
+        const progress = Math.min(1, Math.max(0, (t - chapter.start) / (chapter.end - chapter.start)));
+        chapter.button.style.setProperty('--progress', progress.toFixed(4));
+      } else {
+        chapter.button.removeAttribute('aria-current');
+        chapter.button.style.setProperty('--progress', '0');
+      }
+    });
+  };
+
+  const loop = () => {
+    render();
+    frame = requestAnimationFrame(loop);
+  };
+
+  video.addEventListener('play', () => {
+    packagePlayer.classList.remove('is-idle');
+    packagePlayer.classList.add('is-playing');
+    toggle.setAttribute('aria-label', toggle.dataset.labelPause);
+    cancelAnimationFrame(frame);
+    loop();
+  });
+
+  video.addEventListener('pause', () => {
+    packagePlayer.classList.remove('is-playing');
+    toggle.setAttribute('aria-label', toggle.dataset.labelPlay);
+    cancelAnimationFrame(frame);
+    render();
+  });
+
+  video.addEventListener('seeked', render);
+
+  toggle.addEventListener('click', () => {
+    if (video.paused) {
+      pausedByVisitor = false;
+      play();
+    } else {
+      pausedByVisitor = true;
+      video.pause();
+    }
+  });
+
+  chapters.forEach((chapter) => {
+    chapter.button.addEventListener('click', () => {
+      pausedByVisitor = false;
+      ensureSource();
+      const seek = () => {
+        video.currentTime = chapter.start;
+        render();
+      };
+      if (video.readyState >= 1) {
+        seek();
+      } else {
+        video.addEventListener('loadedmetadata', seek, { once: true });
+      }
+      play();
+    });
+  });
+
+  if ('IntersectionObserver' in window) {
+    // Fetch a little ahead of time, so playback can begin as it comes into view.
+    // Kept tight: the player sits right under the hero, and a wider margin
+    // would pull the 7 MB video on every page load, scrolled or not.
+    const preloadObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        if (canAutoplay) {
+          video.preload = 'auto';
+          ensureSource();
+        }
+        preloadObserver.disconnect();
+      }
+    }, { rootMargin: '150px' });
+    preloadObserver.observe(packagePlayer);
+
+    // Plays only while mostly on screen, and never against a visitor's pause.
+    const playObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (canAutoplay && !pausedByVisitor) play();
+        } else if (!video.paused) {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+    playObserver.observe(video);
   }
 }
 

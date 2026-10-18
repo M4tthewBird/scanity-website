@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <title>3D prohlídky hotelů a ubytování | Scanity</title>
+  <meta name="description" content="Host si projde pokoj, wellness i restauraci dřív, než rezervuje. Podívejte se, co o virtuálních prohlídkách říkají data z trhu.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../index.css">
+  <link rel="canonical" href="https://scanity.cz/hotely/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scanity">
+  <meta property="og:url" content="https://scanity.cz/hotely/">
+  <meta property="og:title" content="3D prohlídky hotelů a ubytování | Scanity">
+  <meta property="og:description" content="Host si projde pokoj, wellness i restauraci dřív, než rezervuje. Podívejte se, co o virtuálních prohlídkách říkají data z trhu.">
+  <meta property="og:image" content="https://scanity.cz/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo Scanity a nápis Tvoříme digitální kopie reálného světa">
+  <meta property="og:locale" content="cs_CZ">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+  <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
+  <main id="top">
+    <header class="site-header shell">
+      <a href="../" aria-label="Domovská stránka Scanity" class="brand">
+          <img
+              src="../assets/scanity_logo.svg" width="31" height="54"
+              alt="Scanity"
+              class="scanity-logo">
+          <span>Scanity</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Hlavní navigace">
+        <a href="../#platform">Řešení</a>
+        <div class="nav-dropdown" id="industryDropdown">
+          <button type="button" class="nav-dropdown-toggle" id="industryToggle" aria-expanded="false" aria-controls="industryMenu">Využití <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div class="nav-menu" id="industryMenu">
+            <a href="../reality/">
+              <span class="nav-menu-title">Realitní trh</span>
+              <span class="nav-menu-text">Fotky, půdorys, video průlet a 3D model k inzerátu</span>
+            </a>
+            <a href="../sport/">
+              <span class="nav-menu-title">Sportoviště a kulturní eventy</span>
+              <span class="nav-menu-text">Výběr sedadla ve 3D, skyboxy a prémiové prostory</span>
+            </a>
+            <a href="../produkty/">
+              <span class="nav-menu-title">Produkty & e-shopy</span>
+              <span class="nav-menu-text">3D modely a fotky pro celé portfolio produktů</span>
+            </a>
+            <a href="../hotely/" aria-current="page">
+              <span class="nav-menu-title">Hotely & ubytování</span>
+              <span class="nav-menu-text">Pokoje a prostory k prohlédnutí před rezervací</span>
+            </a>
+            <a href="../stavebnictvi/">
+              <span class="nav-menu-title">Stavebnictví & správa budov</span>
+              <span class="nav-menu-text">Digitální dvojče stavby a historie jejího stavu</span>
+            </a>
+            <a class="nav-menu-all" href="../#solutions">Přehled všech využití <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="listbox" aria-expanded="false">
+            CS
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu" role="listbox">
+            <li role="option" aria-selected="true"><a href="./">CS</a></li>
+            <li role="option" aria-selected="false"><a href="../en/">EN</a></li>
+          </ul>
+        </div>
+        <a class="nav-contact" href="#contact">Kontaktujte nás</a>
+        <a class="button button-dark button-small" href="../#demo">Zobrazit ukázku <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+      </div>
+      <button class="menu-button" type="button" aria-label="Otevřít navigaci" aria-expanded="false" aria-controls="mobileNav" id="menuToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+      </button>
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="../#platform">Řešení</a>
+        <a href="../#solutions">Využití</a>
+        <div class="mobile-subnav">
+          <a href="../reality/">Realitní trh</a>
+          <a href="../sport/">Sportoviště a kulturní eventy</a>
+          <a href="../produkty/">Produkty & e-shopy</a>
+          <a href="../hotely/" aria-current="page">Hotely & ubytování</a>
+          <a href="../stavebnictvi/">Stavebnictví & správa budov</a>
+        </div>
+        <a href="#contact">Kontaktujte nás</a>
+        <div class="mobile-lang">
+          <a href="./" class="is-active">CS</a>
+          <a href="../en/">EN</a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="industry-bar" id="industryBar">
+      <div class="industry-bar-inner shell">
+        <nav class="industry-nav" aria-label="Odvětví">
+          <a href="../reality/">Realitní trh</a>
+          <a href="../sport/">Sport a eventy</a>
+          <a href="../produkty/">Produkty</a>
+          <a href="../hotely/" aria-current="page">Hotely</a>
+          <a href="../stavebnictvi/">Stavebnictví</a>
+        </nav>
+        <a class="button button-dark button-small industry-bar-cta" href="#contact">Domluvit sken <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+      </div>
+    </div>
+
+    <section class="industry-hero shell">
+      <h1 class="reveal reveal-2">Pokoj si host projde dřív, než rezervuje.</h1>
+      <p class="hero-description reveal reveal-3">Host si projde pokoj, wellness i restauraci dřív, než rezervuje, a rezervuje s jistotou.</p>
+      <div class="hero-actions reveal reveal-3">
+        <a class="button button-dark" href="#contact">Domluvit sken <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+        <a class="button button-ghost" href="../#demo">Zobrazit ukázku</a>
+      </div>
+    </section>
+
+    <section class="industry-section shell" id="data" aria-labelledby="data-title">
+      <div class="industry-section-head">
+        <h2 id="data-title">Co říkají data z trhu</h2>
+        <p>Čísla pocházejí ze studií z trhu, převážně z USA, a část z nich zveřejnili sami dodavatelé 3D technologií. Nejde o výsledky Scanity.</p>
+      </div>
+      <div class="stat-grid stat-count-2">
+        <article class="stat">
+          <p class="stat-value"><span class="stat-prefix">o</span>100<span class="stat-unit">%</span><sup class="stat-ref"><a href="#zdroj-1" aria-label="Zdroj 1">1</a></sup></p>
+          <p class="stat-label">vyšší pravděpodobnost zájmu o rezervaci u podniku s virtuální prohlídkou</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">17<span class="stat-unit">%</span><sup class="stat-ref"><a href="#zdroj-2" aria-label="Zdroj 2">2</a></sup></p>
+          <p class="stat-label">organizátorů akcí vidí ve 3D a virtuálních prohlídkách největší prostor ke zlepšení nabídek hotelů</p>
+        </article>
+      </div>
+      <ol class="stat-footnotes">
+        <li id="zdroj-1">Studie Google z roku 2015: návštěvníci s virtuální prohlídkou mají o rezervaci dvakrát častěji zájem. Shrnutí <a href="https://seekbeak.com/efficacy-of-virtual-tours-360-photo-industry-research-round-up/" target="_blank" rel="noopener">SeekBeak</a>.</li>
+        <li id="zdroj-2">Cvent Planner Sourcing Report 2025, uvádí <a href="https://www.cvent.com/en/blog/hospitality/virtual-venue-tours" target="_blank" rel="noopener">Cvent</a>.</li>
+      </ol>
+    </section>
+
+    <section class="industry-section shell" id="deliver" aria-labelledby="deliver-title">
+      <div class="industry-section-head">
+        <h2 id="deliver-title">Co od nás dostanete</h2>
+      </div>
+      <ul class="deliver-list">
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path><path d="M12 4v6"></path><path d="M2 18h20"></path></svg></span>
+          <div>
+            <h3>Pokoje a apartmány</h3>
+            <p>Host vidí skutečnou velikost a uspořádání pokoje, ne jen vybrané fotky.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
+          <div>
+            <h3>Wellness, restaurace, sály</h3>
+            <p>Naskenujeme i společné prostory a konferenční sály pro firemní klienty.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path><path d="m14.5 12.5 2-2"></path><path d="m11.5 9.5 2-2"></path><path d="m8.5 6.5 2-2"></path><path d="m17.5 15.5 2-2"></path></svg></span>
+          <div>
+            <h3>Půdorys s plochami</h3>
+            <p>Rozměry a plocha pokojů i sálů v m², vytvořené přímo ze skenu.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect></svg></span>
+          <div>
+            <h3>Fotky a video průlet</h3>
+            <p>Záběry a průlet hotelem vytvořené ze skenu pro web, rezervační portály i sociální sítě.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></span>
+          <div>
+            <h3>Odkaz na web i hostům</h3>
+            <p>Prohlídku vložíte na web hotelu nebo ji pošlete hostovi či organizátorovi akce.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"></path><path d="M10 19v-3.96 3.15"></path><path d="M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></svg></span>
+          <div>
+            <h3>Bez aplikace</h3>
+            <p>Funguje v běžném prohlížeči na počítači, tabletu i telefonu.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- TODO: Vlastní case study Scanity z hotelu nebo ubytování. Doplnit z reálných dat, pak odstranit atribut hidden. -->
+    <section class="industry-section shell" id="case-study" aria-labelledby="case-study-title" hidden>
+      <div class="industry-section-head">
+        <h2 id="case-study-title">Výsledky Scanity</h2>
+        <p>TODO: popis projektu a změřené výsledky.</p>
+      </div>
+      <div class="stat-grid">
+        <!-- TODO: stat karty s vlastními čísly Scanity (stejná struktura jako výše, zdroj = vlastní měření) -->
+      </div>
+    </section>
+
+    <section class="contact-section shell" id="contact">
+      <div class="contact-panel">
+        <div>
+          <h2>Domluvme sken vašeho hotelu.</h2>
+        </div>
+        <div class="contact-action">
+          <p>Napište nám, o jaký hotel nebo ubytování jde a které prostory chcete ukázat.</p>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="cfName">Celé jméno</label>
+              <input type="text" id="cfName" name="name" placeholder="Jana Nováková" autocomplete="name" aria-describedby="cfName-error" required>
+              <span class="field-error" id="cfName-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfEmail">Pracovní e-mail</label>
+              <input type="email" id="cfEmail" name="email" placeholder="jana@firma.cz" autocomplete="email" aria-describedby="cfEmail-error" required>
+              <span class="field-error" id="cfEmail-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfCompany">Společnost</label>
+              <input type="text" id="cfCompany" name="company" placeholder="Název společnosti" autocomplete="organization">
+            </div>
+            <div class="form-field">
+              <label for="cfPhone">Telefon (nepovinné)</label>
+              <input type="tel" id="cfPhone" name="phone" placeholder="+420 123 456 789" autocomplete="tel">
+            </div>
+            <div class="form-field">
+              <label for="cfMessage">Co byste chtěli zachytit?</label>
+              <textarea id="cfMessage" name="message" rows="3" placeholder="Např. boutique hotel, 24 pokojů, wellness a restaurace"></textarea>
+            </div>
+            <input type="hidden" name="time">
+            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="contact-submit">
+              Odeslat zprávu
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+            </button>
+            <p class="form-reassurance">Ozveme se vám obvykle do 1 pracovního dne.
+              <span class="form-privacy">Údaje použijeme jen k odpovědi na vaši poptávku. Více v <a href="../ochrana-osobnich-udaju.html">zásadách ochrany osobních údajů</a>.</span></p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="contact-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+
+    <footer class="site-footer" id="company">
+      <div class="shell footer-grid">
+        <div class="footer-top">
+          <a href="../" aria-label="Domovská stránka Scanity" class="brand">
+            <img src="../assets/scanity_logo.svg" width="31" height="54" alt="Scanity" class="scanity-logo">
+            <span>Scanity</span>
+          </a>
+          <p>Tvoříme přesné a fotorealistické 3D kopie reálného světa.</p>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Scanity</span>
+          <span><a href="../ochrana-osobnich-udaju.html">Ochrana soukromí</a> · <a href="../podminky.html">Podmínky</a></span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="../index.js"></script>
+</body>
+</html>

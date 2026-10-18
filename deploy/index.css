@@ -238,7 +238,8 @@ h1, h2, h3, p {
   box-shadow: 0 8px 30px color-mix(in srgb, var(--shadow) 7%, transparent);
 }
 
-.desktop-nav a {
+.desktop-nav > a,
+.nav-dropdown-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -251,10 +252,128 @@ h1, h2, h3, p {
   transition: color 0.18s;
 }
 
+.nav-dropdown-toggle {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .desktop-nav a:hover {
+  .desktop-nav > a:hover,
+  .nav-dropdown-toggle:hover {
     color: var(--ink);
   }
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-toggle svg {
+  transition: transform 0.2s;
+}
+
+.nav-dropdown.open .nav-dropdown-toggle {
+  color: var(--ink);
+}
+
+.nav-dropdown.open .nav-dropdown-toggle svg {
+  transform: rotate(180deg);
+}
+
+/* Same surface and motion as the language menu, wide enough for a one-line
+   description under each industry */
+.nav-menu {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 14px);
+  left: 50%;
+  display: grid;
+  gap: 2px;
+  width: 340px;
+  padding: 8px;
+  background: color-mix(in srgb, var(--white) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--white) 90%, transparent);
+  border-radius: 16px;
+  box-shadow: 0 24px 50px color-mix(in srgb, var(--shadow) 14%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -6px) scale(0.98);
+  transform-origin: top center;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.16s;
+}
+
+/* Bridges the gap between the toggle and the menu, so moving the pointer
+   down into the menu doesn't close it on the way */
+.nav-menu:before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  left: 0;
+  right: 0;
+  height: 16px;
+}
+
+.nav-dropdown.open .nav-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0) scale(1);
+  pointer-events: auto;
+  transition: opacity 0.16s ease, transform 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-menu a {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: background-color 0.15s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-menu a:hover {
+    background: var(--cloud);
+  }
+}
+
+.nav-menu a[aria-current="page"] {
+  background: var(--cloud);
+}
+
+.nav-menu-title {
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.nav-menu a[aria-current="page"] .nav-menu-title {
+  color: var(--blue);
+}
+
+.nav-menu-text {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.nav-menu .nav-menu-all {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  border-radius: 0 0 10px 10px;
+  color: var(--ink-soft);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.mobile-subnav {
+  display: none;
 }
 
 .header-actions {
@@ -749,7 +868,7 @@ h1, h2, h3, p {
 
 .use-case {
   display: grid;
-  grid-template-columns: 50px 60px 1.05fr 1fr;
+  grid-template-columns: 50px 60px 1.05fr 1fr 48px;
   align-items: center;
   gap: 28px;
   min-height: 164px;
@@ -817,6 +936,32 @@ h1, h2, h3, p {
   color: var(--muted);
   font-size: 0.76rem;
   line-height: 1.65;
+}
+
+/* Each row opens its industry page; the arrow is the affordance that says so */
+.use-arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+  transition: transform 0.22s, background-color 0.22s;
+}
+
+/* Between 1000px (where the floating scroll nav appears) and the width where
+   the shell's margin clears it, keep the arrows out from under that nav */
+@media (min-width: 1000.02px) and (max-width: 1560px) {
+  .use-case {
+    padding-right: 64px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .use-case:hover .use-arrow {
+    background: var(--blue);
+  }
 }
 
 /* ==========================================================================
@@ -1521,6 +1666,23 @@ h1, h2, h3, p {
     font-size: 0.75rem;
   }
 
+  .mobile-subnav {
+    display: grid;
+    padding: 4px 0 8px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-subnav a {
+    padding: 9px 6px;
+    color: var(--ink-soft);
+    font-size: 0.75rem;
+  }
+
+  .mobile-subnav a[aria-current="page"] {
+    color: var(--blue);
+    font-weight: 600;
+  }
+
   .mobile-lang {
     display: flex;
     gap: 8px;
@@ -1640,13 +1802,21 @@ h1, h2, h3, p {
   }
 
   .use-case {
-    grid-template-columns: 36px 50px 1fr;
+    grid-template-columns: 36px 50px 1fr 40px;
     gap: 14px;
     padding: 25px 0;
   }
 
   .use-case p {
     grid-column: 3 / -1;
+    grid-row: 2;
+  }
+
+  .use-arrow {
+    grid-column: 4;
+    grid-row: 1;
+    width: 36px;
+    height: 36px;
   }
 
   .demo-viewer-frame {
@@ -1733,7 +1903,8 @@ h1, h2, h3, p {
     padding: 16px 14px;
   }
 
-  .desktop-nav a {
+  .desktop-nav > a,
+  .nav-dropdown-toggle {
     padding: 14px 10px;
   }
 
@@ -1968,4 +2139,847 @@ h1, h2, h3, p {
   color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* ==========================================================================
+   Industry pages (/reality/, /stavebnictvi/, ...): one page per target
+   market, each backed by third-party market data with a visible source
+   ========================================================================== */
+
+/* Bar under the header on the industry pages: the industry switcher plus a
+   permanent "Domluvit sken". Sticks below the header while scrolling and
+   only gains its own backdrop once it is actually stuck (.is-stuck, set in
+   index.js), so at the top of the page it still reads as part of the hero. */
+.industry-bar {
+  position: sticky;
+  z-index: 29;
+  top: calc(60px + env(safe-area-inset-top));
+  margin-top: 18px;
+  padding: 8px 0;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+.industry-bar.is-stuck {
+  background: color-mix(in srgb, var(--cloud) 82%, transparent);
+  border-bottom-color: var(--line);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.industry-bar-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.industry-bar-inner .industry-nav {
+  grid-column: 2;
+}
+
+.industry-bar-cta {
+  grid-column: 3;
+  justify-self: end;
+  white-space: nowrap;
+}
+
+/* Anchors (#contact, #ukazka ...) land below both the header and the bar */
+html:has(.industry-bar) {
+  scroll-padding-top: calc(130px + env(safe-area-inset-top));
+}
+
+/* Switches between the industry pages. Each item is a link to its own URL,
+   so this is a nav with aria-current, not an ARIA tablist. */
+.industry-nav {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  gap: 4px;
+  margin: 0;
+  padding: 4px;
+  overflow-x: auto;
+  background: #eef0f2;
+  border-radius: 999px;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+
+.industry-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.industry-nav a {
+  flex-shrink: 0;
+  padding: 13px 18px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  scroll-snap-align: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.industry-nav a:focus-visible {
+  outline-offset: -2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .industry-nav a:hover {
+    color: var(--ink);
+  }
+}
+
+.industry-nav a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.industry-hero {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 0 40px;
+  text-align: center;
+}
+
+.industry-hero h1 {
+  margin-bottom: 26px;
+  font-size: clamp(3rem, 6.2vw, 5.8rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 1.05;
+}
+
+.industry-hero .hero-description {
+  max-width: 640px;
+}
+
+.industry-section {
+  padding: 80px 0;
+}
+
+/* .industry-section sets display: grid, which would otherwise override the
+   hidden attribute on the not-yet-filled case-study section */
+.industry-section[hidden] {
+  display: none;
+}
+
+.industry-section-head h2 {
+  max-width: 760px;
+  margin: 0 0 14px;
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+.industry-section-head p {
+  max-width: 620px;
+  margin: 0 0 40px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.7;
+}
+
+/* Market data, told the way Apple tells a spec: a small qualifier, one
+   heavy number, a short line of meaning, and the source as a numbered
+   footnote underneath. No cards: the numbers carry the section. */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--stat-columns, 3), minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.stat-count-2 { --stat-columns: 2; }
+.stat-count-4 { --stat-columns: 4; }
+
+.stat {
+  padding: 40px 28px 0 0;
+}
+
+.stat + .stat {
+  padding-left: 28px;
+  border-left: 1px solid var(--line);
+}
+
+/* "o", "až o": read inline with the number, a step down in size and tone */
+.stat-prefix {
+  margin-right: 0.14em;
+  color: var(--ink-soft);
+  font-size: 0.36em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.stat-value {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(3.6rem, 6.6vw, 6rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  white-space: nowrap;
+}
+
+.stat-unit {
+  margin-left: 0.04em;
+  font-size: 0.6em;
+  letter-spacing: -0.02em;
+}
+
+.stat-of {
+  margin: 0 0.18em;
+  color: var(--ink-soft);
+  font-size: 0.4em;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.stat-ref {
+  position: relative;
+  top: 0.55em;
+  margin-left: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+  vertical-align: top;
+}
+
+.stat-ref a {
+  color: var(--muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stat-ref a:hover {
+    color: var(--blue);
+  }
+}
+
+.stat-label {
+  max-width: 26ch;
+  margin: 18px 0 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.stat-footnotes {
+  margin: 56px 0 0;
+  padding: 20px 0 0 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.stat-footnotes li {
+  max-width: 110ch;
+  margin-bottom: 4px;
+  padding-left: 4px;
+  scroll-margin-top: 120px;
+}
+
+.stat-footnotes li:target {
+  color: var(--ink);
+}
+
+.stat-footnotes a {
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stat-footnotes a:hover {
+    color: var(--blue);
+  }
+}
+
+.product-shots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.product-shots img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 20px;
+  background: #dcdcdc;
+}
+
+.deliver-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.deliver-list li {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+}
+
+.deliver-list .use-icon {
+  width: 40px;
+  height: 40px;
+  color: var(--blue);
+}
+
+.deliver-list h3 {
+  margin: 8px 0 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.deliver-list p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.65;
+}
+
+.deliver-list a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 1000px) {
+  .industry-bar-inner {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* Scrolls sideways; the right edge fades so a cut-off item reads as "more this way" */
+  .industry-bar-inner .industry-nav {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+  }
+
+  .industry-bar-inner .industry-nav a:not([aria-current]) {
+    background: #eef0f2;
+  }
+
+  .industry-bar-cta {
+    flex-shrink: 0;
+  }
+
+  .deliver-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-count-4,
+  .stat-count-3 {
+    --stat-columns: 2;
+  }
+
+  .stat-grid .stat:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .stat-grid .stat:nth-child(n + 3) {
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 760px) {
+  .industry-bar {
+    top: calc(54px + env(safe-area-inset-top));
+    margin-top: 10px;
+  }
+
+  html:has(.industry-bar) {
+    scroll-padding-top: calc(118px + env(safe-area-inset-top));
+  }
+
+  .industry-nav a {
+    padding: 11px 14px;
+  }
+
+  .industry-bar-cta {
+    padding: 11px 14px;
+  }
+
+  .industry-hero {
+    padding-top: 48px;
+  }
+
+  .industry-section {
+    padding: 56px 0;
+  }
+
+  .stat-grid {
+    --stat-columns: 1;
+  }
+
+  .stat-grid .stat {
+    margin-top: 0;
+    padding: 28px 0 28px;
+    border-left: 0;
+  }
+
+  .stat-grid .stat + .stat {
+    padding-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .stat-value {
+    font-size: clamp(3.6rem, 19vw, 5rem);
+  }
+
+  .stat-footnotes {
+    margin-top: 16px;
+  }
+
+  .product-shots {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .product-shots img:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --- Real-estate full package: promo video + chapter list that drives it --- */
+
+.package-section {
+  padding: 60px 0 40px;
+}
+
+/* The four deliverables, stated plainly before the video explains them:
+   a fine blue check and the words, nothing else */
+.package-includes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 40px;
+  margin: 0 0 40px;
+  padding: 0;
+  list-style: none;
+}
+
+.package-includes li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.package-includes-check {
+  flex-shrink: 0;
+  color: var(--blue);
+  stroke-width: 2.25;
+}
+
+.industry-viewer .demo-viewer-switch {
+  margin-left: 0;
+}
+
+.package-player {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+  align-items: start;
+  gap: 24px;
+}
+
+.package-stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--white);
+  border: 1px solid color-mix(in srgb, var(--white) 90%, transparent);
+  border-radius: 24px;
+  box-shadow: 0 35px 100px color-mix(in srgb, var(--shadow) 13%, transparent);
+}
+
+.package-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* One control, two postures: a large centred play button before the video
+   has started, then a small pause/play in the top corner once it runs (the
+   only corner the video itself leaves empty in every shot) */
+.package-toggle {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--shadow) 18%, transparent);
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), right 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    top 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s;
+}
+
+.package-player.is-idle .package-toggle {
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%) scale(1.45);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .package-toggle:hover {
+    background: var(--blue);
+  }
+}
+
+.package-icon-play {
+  margin-left: 2px; /* optically centres the triangle */
+}
+
+.package-icon-pause,
+.package-player.is-playing .package-icon-play {
+  display: none;
+}
+
+.package-player.is-playing .package-icon-pause {
+  display: block;
+}
+
+.package-chapters {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.package-chapter {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 12px;
+  width: 100%;
+  padding: 15px 18px;
+  overflow: hidden;
+  background: none;
+  border: 0;
+  border-radius: 16px;
+  color: var(--ink-soft);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.35s, box-shadow 0.35s, color 0.2s;
+}
+
+.package-chapter:focus-visible {
+  outline-offset: -2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .package-chapter:hover {
+    color: var(--ink);
+  }
+}
+
+.package-chapter[aria-current="true"] {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--shadow) 8%, transparent);
+}
+
+.package-chapter-index {
+  padding-top: 3px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+
+.package-chapter[aria-current="true"] .package-chapter-index {
+  color: var(--blue);
+}
+
+.package-chapter-title {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Only the playing chapter opens its description, so the list reads as the
+   video's running commentary rather than a wall of text */
+.package-chapter-text {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+}
+
+.package-chapter-text > span {
+  min-height: 0;
+  overflow: hidden;
+  padding-top: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  transition: padding-top 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.package-chapter[aria-current="true"] .package-chapter-text {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.package-chapter[aria-current="true"] .package-chapter-text > span {
+  padding-top: 6px;
+}
+
+.package-chapter-progress {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--blue);
+  opacity: 0;
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left;
+}
+
+.package-chapter[aria-current="true"] .package-chapter-progress {
+  opacity: 1;
+}
+
+.package-photos {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr)) auto;
+  gap: 24px;
+  margin: 24px 0 0;
+}
+
+.package-photos img {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  background: var(--surface-viewer);
+}
+
+/* The main hall leads and sets the height; the two smaller rooms stack
+   beside it and share that height */
+.package-photos img:first-child {
+  grid-row: span 2;
+  height: auto;
+  aspect-ratio: 3 / 2;
+}
+
+/* Without their own intrinsic size, the side photos can't stretch the rows */
+.package-photos img:not(:first-child) {
+  aspect-ratio: auto;
+  contain: size;
+}
+
+/* Points on to the 3D model further down, past the market data */
+.scroll-cue {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  margin: 48px auto 0;
+  padding: 10px 10px 10px 20px;
+  background: color-mix(in srgb, var(--white) 80%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.scroll-cue-arrow {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+  animation: scrollCue 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes scrollCue {
+  0%, 100% { transform: translateY(-2px); }
+  50% { transform: translateY(3px); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scroll-cue:hover {
+    background: var(--white);
+  }
+
+  .scroll-cue:hover .scroll-cue-arrow {
+    background: var(--blue);
+  }
+}
+
+.package-photos figcaption {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 1000px) {
+  .package-player {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+}
+
+@media (max-width: 760px) {
+  .package-section {
+    padding: 40px 0 24px;
+  }
+
+  .package-stage {
+    border-radius: 18px;
+  }
+
+  .package-toggle {
+    top: 12px;
+    right: 12px;
+  }
+
+  .package-chapter {
+    padding: 13px 14px;
+  }
+
+  .package-chapter-progress {
+    left: 14px;
+    right: 14px;
+  }
+
+  .package-photos {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: 12px;
+  }
+
+  /* Two by two on phones, where a dotted line of four would wrap unevenly */
+  .package-includes {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
+    gap: 8px 28px;
+    margin-bottom: 28px;
+  }
+
+  .package-includes li {
+    gap: 8px;
+    font-size: 1rem;
+  }
+
+  .deliver-list {
+    grid-template-columns: 1fr;
+  }
+
+  .package-photos img,
+  .package-photos img:first-child,
+  .package-photos img:not(:first-child) {
+    grid-row: auto;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    contain: none;
+  }
+
+  .scroll-cue {
+    margin-top: 32px;
+  }
+}
+
+/* ==========================================================================
+   Touch and small-screen refinements (adapt pass)
+   ========================================================================== */
+
+@media (pointer: coarse) {
+  /* 16px keeps iOS Safari from zooming the page when a field gets focus,
+     and the extra padding brings each field up to a 44px touch target */
+  .form-field input,
+  .form-field textarea {
+    padding: 12px 2px;
+    font-size: 16px;
+  }
+
+  /* Footer links are short single lines; give them a finger-sized hit area
+     without moving them */
+  .footer-bottom a {
+    display: inline-block;
+    margin-block: -12px;
+    padding-block: 12px;
+  }
+}
+
+/* The footnote numbers are tiny by design; their hit area isn't */
+.stat-ref a {
+  display: inline-block;
+  margin: -12px -10px;
+  padding: 12px 10px;
+}
+
+@media (max-width: 760px) {
+  .industry-nav a,
+  .industry-bar-cta {
+    padding-block: 13px;
+  }
+}
+
+/* Phones held sideways: little height to spare, so the stuck bar slims down */
+@media (max-height: 500px) and (orientation: landscape) {
+  .industry-bar {
+    padding: 4px 0;
+  }
+}
+
+/* The narrowest phones: the contact heading's longest word must fit */
+@media (max-width: 360px) {
+  .contact-panel > * {
+    min-width: 0;
+  }
+
+  .contact-panel h2 {
+    font-size: 11.5vw;
+  }
 }

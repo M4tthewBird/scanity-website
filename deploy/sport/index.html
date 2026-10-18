@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <title>3D modely sportovišť a kulturních prostor | Scanity</title>
+  <meta name="description" content="Výběr sedadla ve 3D se skutečným výhledem, prohlídka skyboxů a prémiových prostor, anotace a napojení na prodej vstupenek.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../index.css">
+  <link rel="canonical" href="https://scanity.cz/sport/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scanity">
+  <meta property="og:url" content="https://scanity.cz/sport/">
+  <meta property="og:title" content="3D modely sportovišť a kulturních prostor | Scanity">
+  <meta property="og:description" content="Výběr sedadla ve 3D se skutečným výhledem, prohlídka skyboxů a prémiových prostor, anotace a napojení na prodej vstupenek.">
+  <meta property="og:image" content="https://scanity.cz/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo Scanity a nápis Tvoříme digitální kopie reálného světa">
+  <meta property="og:locale" content="cs_CZ">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+  <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
+  <main id="top">
+    <header class="site-header shell">
+      <a href="../" aria-label="Domovská stránka Scanity" class="brand">
+          <img
+              src="../assets/scanity_logo.svg" width="31" height="54"
+              alt="Scanity"
+              class="scanity-logo">
+          <span>Scanity</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Hlavní navigace">
+        <a href="../#platform">Řešení</a>
+        <div class="nav-dropdown" id="industryDropdown">
+          <button type="button" class="nav-dropdown-toggle" id="industryToggle" aria-expanded="false" aria-controls="industryMenu">Využití <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div class="nav-menu" id="industryMenu">
+            <a href="../reality/">
+              <span class="nav-menu-title">Realitní trh</span>
+              <span class="nav-menu-text">Fotky, půdorys, video průlet a 3D model k inzerátu</span>
+            </a>
+            <a href="../sport/" aria-current="page">
+              <span class="nav-menu-title">Sportoviště a kulturní eventy</span>
+              <span class="nav-menu-text">Výběr sedadla ve 3D, skyboxy a prémiové prostory</span>
+            </a>
+            <a href="../produkty/">
+              <span class="nav-menu-title">Produkty & e-shopy</span>
+              <span class="nav-menu-text">3D modely a fotky pro celé portfolio produktů</span>
+            </a>
+            <a href="../hotely/">
+              <span class="nav-menu-title">Hotely & ubytování</span>
+              <span class="nav-menu-text">Pokoje a prostory k prohlédnutí před rezervací</span>
+            </a>
+            <a href="../stavebnictvi/">
+              <span class="nav-menu-title">Stavebnictví & správa budov</span>
+              <span class="nav-menu-text">Digitální dvojče stavby a historie jejího stavu</span>
+            </a>
+            <a class="nav-menu-all" href="../#solutions">Přehled všech využití <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="listbox" aria-expanded="false">
+            CS
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu" role="listbox">
+            <li role="option" aria-selected="true"><a href="./">CS</a></li>
+            <li role="option" aria-selected="false"><a href="../en/">EN</a></li>
+          </ul>
+        </div>
+        <a class="nav-contact" href="#contact">Kontaktujte nás</a>
+        <a class="button button-dark button-small" href="#ukazka">Zobrazit ukázku <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+      </div>
+      <button class="menu-button" type="button" aria-label="Otevřít navigaci" aria-expanded="false" aria-controls="mobileNav" id="menuToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+      </button>
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="../#platform">Řešení</a>
+        <a href="../#solutions">Využití</a>
+        <div class="mobile-subnav">
+          <a href="../reality/">Realitní trh</a>
+          <a href="../sport/" aria-current="page">Sportoviště a kulturní eventy</a>
+          <a href="../produkty/">Produkty & e-shopy</a>
+          <a href="../hotely/">Hotely & ubytování</a>
+          <a href="../stavebnictvi/">Stavebnictví & správa budov</a>
+        </div>
+        <a href="#contact">Kontaktujte nás</a>
+        <div class="mobile-lang">
+          <a href="./" class="is-active">CS</a>
+          <a href="../en/">EN</a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="industry-bar" id="industryBar">
+      <div class="industry-bar-inner shell">
+        <nav class="industry-nav" aria-label="Odvětví">
+          <a href="../reality/">Realitní trh</a>
+          <a href="../sport/" aria-current="page">Sport a eventy</a>
+          <a href="../produkty/">Produkty</a>
+          <a href="../hotely/">Hotely</a>
+          <a href="../stavebnictvi/">Stavebnictví</a>
+        </nav>
+        <a class="button button-dark button-small industry-bar-cta" href="#contact">Domluvit sken <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+      </div>
+    </div>
+
+    <section class="industry-hero shell">
+      <h1 class="reveal reveal-2">Vstupenku koupí s jistotou, ne naslepo podle plánku.</h1>
+      <p class="hero-description reveal reveal-3">Návštěvník si projde halu, „sedne si“ na své místo a uvidí skutečný výhled: vzdálenost od plochy, úhel pohledu i to, jak blízko bude pódium.</p>
+      <div class="hero-actions reveal reveal-3">
+        <a class="button button-dark" href="#contact">Domluvit sken <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+        <a class="button button-ghost" href="#ukazka">Vyzkoušet 3D model</a>
+      </div>
+    </section>
+
+    <section class="industry-section shell" id="data" aria-labelledby="data-title">
+      <div class="industry-section-head">
+        <h2 id="data-title">Co říkají data z trhu</h2>
+        <p>Čísla pocházejí ze studií z trhu, převážně z USA, a část z nich zveřejnili sami dodavatelé 3D technologií. Nejde o výsledky Scanity. Nezávislých studií je v tomto odvětví zatím málo, většinu čísel zveřejňují dodavatelé technologií pro prodej vstupenek.</p>
+      </div>
+      <div class="stat-grid stat-count-4">
+        <article class="stat">
+          <p class="stat-value"><span class="stat-prefix">o</span>20<span class="stat-unit">%</span><sup class="stat-ref"><a href="#zdroj-1" aria-label="Zdroj 1">1</a></sup></p>
+          <p class="stat-label">vyšší konverze prodeje vstupenek po zavedení 3D mapy sedadel</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">25<span class="stat-of">z</span>30<sup class="stat-ref"><a href="#zdroj-2" aria-label="Zdroj 2">2</a></sup></p>
+          <p class="stat-label">klubů baseballové ligy MLB prodává vstupenky přes 3D mapu stadionu</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value"><span class="stat-prefix">o</span>7,6<span class="stat-unit">%</span><sup class="stat-ref"><a href="#zdroj-3" aria-label="Zdroj 3">3</a></sup></p>
+          <p class="stat-label">vyšší konverze u pořadatelů s náhledem výhledu ze sedadla</p>
+        </article>
+        <article class="stat">
+          <p class="stat-value">17<span class="stat-unit">%</span><sup class="stat-ref"><a href="#zdroj-4" aria-label="Zdroj 4">4</a></sup></p>
+          <p class="stat-label">organizátorů akcí vidí ve 3D a virtuálních prohlídkách největší prostor ke zlepšení nabídek míst konání</p>
+        </article>
+      </div>
+      <ol class="stat-footnotes">
+        <li id="zdroj-1">Fever; předprodej zároveň vzrostl o 30 %. Uvádí <a href="https://3ddigitalvenue.com/why-virtual-3d-maps-for-live-events-are-commercial-infrastructure-not-just-visualization/" target="_blank" rel="noopener">3D Digital Venue</a>, dodavatel technologie.</li>
+        <li id="zdroj-2"><a href="https://3ddigitalvenue.com/why-virtual-3d-maps-for-live-events-are-commercial-infrastructure-not-just-visualization/" target="_blank" rel="noopener">3D Digital Venue</a>: 25 z 30 klubů MLB má plně integrované 3D mapy napojené na prodej vstupenek.</li>
+        <li id="zdroj-3"><a href="https://www.tickx.com/solutions/view-from-seat" target="_blank" rel="noopener">TickX</a>, dodavatel systému View from Seat; metodiku neuvádí.</li>
+        <li id="zdroj-4">Cvent Planner Sourcing Report 2025, uvádí <a href="https://www.cvent.com/en/blog/hospitality/virtual-venue-tours" target="_blank" rel="noopener">Cvent</a>.</li>
+      </ol>
+    </section>
+
+    <section class="industry-section shell" id="deliver" aria-labelledby="deliver-title">
+      <div class="industry-section-head">
+        <h2 id="deliver-title">Co pro vás postavíme</h2>
+      </div>
+      <ul class="deliver-list">
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
+          <div>
+            <h3>Skutečný 3D prostor</h3>
+            <p>Žádné přeskakování mezi pevnými body ani 360° fotky. Návštěvník se volně pohybuje a rozhlíží z jakéhokoli místa, v prohlížeči i v mobilu.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"></path><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"></path><path d="M5 18v2"></path><path d="M19 18v2"></path></svg></span>
+          <div>
+            <h3>Výběr sedadla se skutečným výhledem</h3>
+            <p>Model drží reálné měřítko celé haly. Návštěvník si projde sektory a z vybraného místa uvidí přesný výhled.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg></span>
+          <div>
+            <h3>Napojení na prodej vstupenek</h3>
+            <p>Prohlídku propojíme s vaším prodejním systémem, takže vybrané místo jde rovnou koupit.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+          <div>
+            <h3>Anotace a minimapa</h3>
+            <p>Body v prostoru přenesou návštěvníka jedním kliknutím do sektoru, skyboxu nebo na klubové patro. Minimapa ukazuje, kde se v hale právě nachází.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+          <div>
+            <h3>Skyboxy a klubová sedadla</h3>
+            <p>Firmy si prémiové prostory projdou ještě před osobní prohlídkou, prodej je tak rychlejší.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg></span>
+          <div>
+            <h3>Konfigurace podle typu akce</h3>
+            <p>Jeden model upravíme pro různá uspořádání haly, ať jde o hokej, nebo koncert s pódiem.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg></span>
+          <div>
+            <h3>Cesty na lezecké stěně</h3>
+            <p>Cestu vybranou ze seznamu zvýrazníme přímo ve 3D. Lezci si nové cesty prohlédnou před návštěvou, nováčci, rodiče i organizátoři firemních akcí vidí, jak to u vás vypadá.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg></span>
+          <div>
+            <h3>Rezervace přímo v prohlídce</h3>
+            <p>Z anotace si návštěvník rovnou zarezervuje termín, jako v naší ukázce soukromé posilovny.</p>
+          </div>
+        </li>
+        <li>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></svg></span>
+          <div>
+            <h3>Ve vaší značce, na míru</h3>
+            <p>Prohlížeč je náš vlastní vývoj. Design přizpůsobíme brandingu klubu nebo haly a formát upravíme podle toho, co potřebujete.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="industry-section industry-viewer shell" id="ukazka" aria-labelledby="viewer-title">
+      <div class="industry-section-head">
+        <h2 id="viewer-title">Vyzkoušejte si to na našich modelech.</h2>
+        <p>Katedrála ukazuje, jak model vypadá ve velkém formátu. Na soukromé posilovně uvidíte plovoucí anotace s detaily prostoru a okamžitou rezervaci termínu.</p>
+      </div>
+
+      <div class="demo-viewer-switch" id="viewerSwitch" role="tablist" aria-label="Vyberte 3D snímek">
+        <button type="button" class="viewer-switch-btn is-active" data-id="sanctuaire" role="tab" aria-controls="demoViewerFrame" aria-selected="true">Katedrála z ptačí perspektivy</button>
+        <button type="button" class="viewer-switch-btn" data-id="ikka_gym" role="tab" aria-controls="demoViewerFrame" aria-selected="false">Private Gym</button>
+      </div>
+
+      <div class="demo-viewer-frame" id="demoViewerFrame" role="tabpanel">
+        <iframe
+          class="demo-viewer"
+          data-src="https://viewer.scanity.cz/?id=sanctuaire"
+          title="Interaktivní 3D snímek Scanity"
+          allow="fullscreen; xr-spatial-tracking"
+        ></iframe>
+        <div class="viewer-loading">
+          <div class="viewer-loading-beam" aria-hidden="true"></div>
+          <span class="viewer-loading-status" role="status" aria-live="polite" data-loading-text="Načítáme 3D snímek…"></span>
+        </div>
+        <button type="button" class="viewer-launch" id="viewerLaunchBtn">
+          <span class="viewer-launch-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+          </span>
+          <span class="viewer-launch-copy">
+            <span class="viewer-launch-label">Načíst 3D prohlížeč</span>
+            <span class="viewer-launch-hint">
+              <span class="hint-text-pointer">Tažením prostor otočíte, kolečkem přiblížíte</span>
+              <span class="hint-text-touch">Přejetím prstem prostor otočíte, sevřením přiblížíte</span>
+            </span>
+          </span>
+        </button>
+        <div class="viewer-hint" id="viewerHint" role="status">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move" aria-hidden="true"><path d="M12 2v20"></path><path d="m15 19-3 3-3-3"></path><path d="m19 9 3 3-3 3"></path><path d="M2 12h20"></path><path d="m5 9-3 3 3 3"></path><path d="m9 5 3-3 3 3"></path></svg>
+          <span class="hint-text-pointer">Tažením otočíte pohled, kolečkem přiblížíte</span>
+          <span class="hint-text-touch">Přejetím prstem se rozhlédnete, sevřením přiblížíte</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TODO: Vlastní case study Scanity ze sportoviště nebo kulturního prostoru. Doplnit z reálných dat, pak odstranit atribut hidden. -->
+    <section class="industry-section shell" id="case-study" aria-labelledby="case-study-title" hidden>
+      <div class="industry-section-head">
+        <h2 id="case-study-title">Výsledky Scanity</h2>
+        <p>TODO: popis projektu a změřené výsledky.</p>
+      </div>
+      <div class="stat-grid">
+        <!-- TODO: stat karty s vlastními čísly Scanity (stejná struktura jako výše, zdroj = vlastní měření) -->
+      </div>
+    </section>
+
+    <section class="contact-section shell" id="contact">
+      <div class="contact-panel">
+        <div>
+          <h2>Domluvme sken vaší haly.</h2>
+        </div>
+        <div class="contact-action">
+          <p>Napište nám, o jaký stadion, halu, lezeckou stěnu nebo kulturní prostor jde. Ozveme se a nastíníme konkrétní podobu řešení.</p>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="cfName">Celé jméno</label>
+              <input type="text" id="cfName" name="name" placeholder="Jana Nováková" autocomplete="name" aria-describedby="cfName-error" required>
+              <span class="field-error" id="cfName-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfEmail">Pracovní e-mail</label>
+              <input type="email" id="cfEmail" name="email" placeholder="jana@firma.cz" autocomplete="email" aria-describedby="cfEmail-error" required>
+              <span class="field-error" id="cfEmail-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfCompany">Společnost</label>
+              <input type="text" id="cfCompany" name="company" placeholder="Název společnosti" autocomplete="organization">
+            </div>
+            <div class="form-field">
+              <label for="cfPhone">Telefon (nepovinné)</label>
+              <input type="tel" id="cfPhone" name="phone" placeholder="+420 123 456 789" autocomplete="tel">
+            </div>
+            <div class="form-field">
+              <label for="cfMessage">Co byste chtěli zachytit?</label>
+              <textarea id="cfMessage" name="message" rows="3" placeholder="Např. multifunkční hala, výběr sedadel pro hokej i koncerty"></textarea>
+            </div>
+            <input type="hidden" name="time">
+            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="contact-submit">
+              Odeslat zprávu
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+            </button>
+            <p class="form-reassurance">Ozveme se vám obvykle do 1 pracovního dne.
+              <span class="form-privacy">Údaje použijeme jen k odpovědi na vaši poptávku. Více v <a href="../ochrana-osobnich-udaju.html">zásadách ochrany osobních údajů</a>.</span></p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="contact-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+
+    <footer class="site-footer" id="company">
+      <div class="shell footer-grid">
+        <div class="footer-top">
+          <a href="../" aria-label="Domovská stránka Scanity" class="brand">
+            <img src="../assets/scanity_logo.svg" width="31" height="54" alt="Scanity" class="scanity-logo">
+            <span>Scanity</span>
+          </a>
+          <p>Tvoříme přesné a fotorealistické 3D kopie reálného světa.</p>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Scanity</span>
+          <span><a href="../ochrana-osobnich-udaju.html">Ochrana soukromí</a> · <a href="../podminky.html">Podmínky</a></span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="../index.js"></script>
+</body>
+</html>

@@ -36,14 +36,39 @@
     <header class="site-header shell">
       <a href="#top" aria-label="Domovská stránka Scanity" class="brand">
           <img
-              src="assets/scanity_logo.svg"
+              src="assets/scanity_logo.svg" width="31" height="54"
               alt="Scanity"
               class="scanity-logo">
           <span>Scanity</span>
       </a>
       <nav class="desktop-nav" aria-label="Hlavní navigace">
-        <a href="#platform">Řešení <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></a>
-        <a href="#solutions">Využití</a>
+        <a href="#platform">Řešení</a>
+        <div class="nav-dropdown" id="industryDropdown">
+          <button type="button" class="nav-dropdown-toggle" id="industryToggle" aria-expanded="false" aria-controls="industryMenu">Využití <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div class="nav-menu" id="industryMenu">
+            <a href="reality/">
+              <span class="nav-menu-title">Realitní trh</span>
+              <span class="nav-menu-text">Fotky, půdorys, video průlet a 3D model k inzerátu</span>
+            </a>
+            <a href="sport/">
+              <span class="nav-menu-title">Sportoviště a kulturní eventy</span>
+              <span class="nav-menu-text">Výběr sedadla ve 3D, skyboxy a prémiové prostory</span>
+            </a>
+            <a href="produkty/">
+              <span class="nav-menu-title">Produkty & e-shopy</span>
+              <span class="nav-menu-text">3D modely a fotky pro celé portfolio produktů</span>
+            </a>
+            <a href="hotely/">
+              <span class="nav-menu-title">Hotely & ubytování</span>
+              <span class="nav-menu-text">Pokoje a prostory k prohlédnutí před rezervací</span>
+            </a>
+            <a href="stavebnictvi/">
+              <span class="nav-menu-title">Stavebnictví & správa budov</span>
+              <span class="nav-menu-text">Digitální dvojče stavby a historie jejího stavu</span>
+            </a>
+            <a class="nav-menu-all" href="#solutions">Přehled všech využití <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          </div>
+        </div>
       </nav>
       <div class="header-actions">
         <div class="lang-switch" id="langSwitch">
@@ -65,6 +90,13 @@
       <nav class="mobile-nav" id="mobileNav">
         <a href="#platform">Řešení</a>
         <a href="#solutions">Využití</a>
+        <div class="mobile-subnav">
+          <a href="reality/">Realitní trh</a>
+          <a href="sport/">Sportoviště a kulturní eventy</a>
+          <a href="produkty/">Produkty & e-shopy</a>
+          <a href="hotely/">Hotely & ubytování</a>
+          <a href="stavebnictvi/">Stavebnictví & správa budov</a>
+        </div>
         <a href="#contact">Kontaktujte nás</a>
         <div class="mobile-lang">
           <a href="index.html" class="is-active">CS</a>
@@ -185,7 +217,7 @@
 
       <div class="demo-viewer-switch" id="viewerSwitch" role="tablist" aria-label="Vyberte 3D snímek">
         <button type="button" class="viewer-switch-btn is-active" data-id="ikka_gym" role="tab" aria-controls="demoViewerFrame" aria-selected="true">Private Gym</button>
-        <button type="button" class="viewer-switch-btn" data-id="sanctuaire" role="tab" aria-controls="demoViewerFrame" aria-selected="false">Katedrála z ptáčí perspektivy</button>
+        <button type="button" class="viewer-switch-btn" data-id="sanctuaire" role="tab" aria-controls="demoViewerFrame" aria-selected="false">Katedrála z ptačí perspektivy</button>
         <button type="button" class="viewer-switch-btn" data-id="face_shield" role="tab" aria-controls="demoViewerFrame" aria-selected="false">Ochranný štít</button>
       </div>
 
@@ -227,26 +259,45 @@
       </div>
 
       <div class="shell use-case-list">
-        <article class="use-case">
+        <a class="use-case" href="reality/">
           <span class="use-number">01</span>
-          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
-          <div><small>Digitální dvojčata</small><h3>Zachyťte prostor přesně takový, jaký je.</h3></div>
-          <p>Vytváříme přesné 3D repliky, které můžete procházet, měřit a využít pro dokumentaci, plánování i vzdálenou spolupráci.</p>
-        </article>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span>
+          <div><small>Realitní trh</small><h3>Kompletní balíček k inzerátu.</h3></div>
+          <p>Kompletní podklady k inzerátu z jednoho skenu: profesionální fotky, půdorys s rozměry, video průlet a 3D model.</p>
+          <span class="use-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+        </a>
 
-        <article class="use-case">
+        <a class="use-case" href="sport/">
           <span class="use-number">02</span>
-          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera" aria-hidden="true"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path><circle cx="12" cy="13" r="3"></circle></svg></span>
-          <div><small>Snímání nemovitostí</small><h3>Ať každá nabídka působí jako naživo.</h3></div>
-          <p>Vytvoříme vám virtuální prohlídku, ve které si zájemci mohou prostor projít odkudkoli.</p>
-        </article>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"></path><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"></path><path d="M18 9h1.5a1 1 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"></path><path d="M6 9H4.5a1 1 0 0 1 0-5H6"></path></svg></span>
+          <div><small>Sportoviště a kulturní eventy</small><h3>Vstupenku koupí s jistotou.</h3></div>
+          <p>Výběr sedadla ve 3D se skutečným výhledem, prohlídka skyboxů a klubových prostor, anotace i napojení na prodej vstupenek.</p>
+          <span class="use-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+        </a>
 
-        <article class="use-case">
+        <a class="use-case" href="produkty/">
           <span class="use-number">03</span>
-          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg></span>
-          <div><small>Kontroly</small><h3>Mějte stav pod kontrolou odkudkoli.</h3></div>
-          <p>Vytvoříme detailní 3D model vysílačů, staveb i infrastruktury. Prohlédněte si jejich stav a sledujte změny bez nutnosti být přímo na místě.</p>
-        </article>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><path d="M12 22V12"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><path d="m7.5 4.27 9 5.15"></path></svg></span>
+          <div><small>Produkty & e-shopy</small><h3>Produkt, který si zákazník otočí ze všech stran.</h3></div>
+          <p>Od jednoho produktu po celé portfolio: 3D modely pro e-shop a produktové fotky z libovolného úhlu.</p>
+          <span class="use-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+        </a>
+
+        <a class="use-case" href="hotely/">
+          <span class="use-number">04</span>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path><path d="M12 4v6"></path><path d="M2 18h20"></path></svg></span>
+          <div><small>Hotely & ubytování</small><h3>Pokoj si host projde dřív, než rezervuje.</h3></div>
+          <p>Pokoje, wellness i restauraci si host projde online a rezervuje s jistotou.</p>
+          <span class="use-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+        </a>
+
+        <a class="use-case" href="stavebnictvi/">
+          <span class="use-number">05</span>
+          <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"></path><path d="M14 6a6 6 0 0 1 6 6v3"></path><path d="M4 15v-3a6 6 0 0 1 6-6"></path><rect x="2" y="15" width="20" height="4" rx="1"></rect></svg></span>
+          <div><small>Stavebnictví & správa budov</small><h3>Stavbu projdete z kanceláře.</h3></div>
+          <p>Digitální dvojče stavby nebo objektu: méně cest na stavbu, rychlejší dokumentace a historie stavu v každé fázi.</p>
+          <span class="use-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+        </a>
       </div>
     </section>
 
@@ -300,7 +351,7 @@
       <div class="shell footer-grid">
         <div class="footer-top">
           <a href="#top" aria-label="Domovská stránka Scanity" class="brand">
-            <img src="assets/scanity_logo.svg" alt="Scanity" class="scanity-logo">
+            <img src="assets/scanity_logo.svg" width="31" height="54" alt="Scanity" class="scanity-logo">
             <span>Scanity</span>
           </a>
           <p>Tvoříme přesné a fotorealistické 3D kopie reálného světa.</p>

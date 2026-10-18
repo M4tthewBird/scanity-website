@@ -36,4 +36,24 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://scanity.cz/en/terms.html"/>
     <lastmod>2026-10-12</lastmod>
   </url>
+  <url>
+    <loc>https://scanity.cz/reality/</loc>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
+    <loc>https://scanity.cz/stavebnictvi/</loc>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
+    <loc>https://scanity.cz/sport/</loc>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
+    <loc>https://scanity.cz/produkty/</loc>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
+    <loc>https://scanity.cz/hotely/</loc>
+    <lastmod>2026-10-18</lastmod>
+  </url>
 </urlset>
