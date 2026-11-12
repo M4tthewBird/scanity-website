@@ -10,5 +10,15 @@ if %ERRORLEVEL% GEQ 8 (
     pause
     exit /b 1
 )
+rem Secret pages (private-pages\, kept out of git because the repo is public) go to the site's root:
+rem private-pages\<name>\ becomes scanity.cz/<name>/
+if exist private-pages (
+    robocopy private-pages netlify-upload /E /XF README.txt /NFL /NDL /NJH /NJS /NP >nul
+    if errorlevel 8 (
+        echo Kopirovani tajnych stranek selhalo.
+        pause
+        exit /b 1
+    )
+)
 echo Hotovo: slozka netlify-upload je pripravena. Pretahni ji do Netlify (Deploys).
 start "" explorer "%~dp0netlify-upload"

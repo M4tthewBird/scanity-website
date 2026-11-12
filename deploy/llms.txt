@@ -1,0 +1,31 @@
+# Scanity
+
+> Scanity (Czech Republic) creates accurate, photorealistic 3D scans of real spaces and objects — from a piece of jewellery to a whole building. We come to the site, capture it and process the footage into a 3D model (Gaussian splatting) that anyone can walk through in a web browser or on a phone, with no app and no equipment on the client's side. From the same scan we deliver photos, floor plans with dimensions, video fly-throughs and 3D models.
+
+Scanity is based in the Czech Republic; the website is in Czech and English. Contact: matyas.ptacek@scanity.cz or the form at https://scanity.cz/#contact.
+
+Česky: Scanity dělá 3D skenování prostorů, budov a produktů. Fotorealistické virtuální prohlídky, digitální dvojčata, půdorysy, fotky a 3D modely pro reality, hotely, stavebnictví, sportoviště a e-shopy. Sken i zpracování zajistíme.
+
+## How it works
+
+- **We scan the space:** our team comes to the site and captures every detail; the client needs no equipment.
+- **We process everything:** the footage is reconstructed and optimised into an accurate, photorealistic 3D model.
+- **View it from anywhere:** visitors move freely through the model in the browser — no jumping between fixed points and no 360° photos.
+
+## Uses
+
+- [Real estate](https://scanity.cz/en/real-estate/): everything a listing needs from a single scan — professional photos, a dimensioned floor plan, a video walkthrough and a 3D model of the property. Czech: [Realitní trh](https://scanity.cz/reality/)
+- [Sports venues and event spaces](https://scanity.cz/en/venues-events/): seat selection in 3D with the real view, tours of skyboxes and premium spaces, annotations and a link to the ticketing system. Czech: [Sportoviště a kulturní eventy](https://scanity.cz/sport/)
+- [Products and online stores](https://scanity.cz/en/products/): photorealistic 3D models and product photos for a single product or a whole range. Czech: [Produkty a e-shopy](https://scanity.cz/produkty/)
+- [Hotels and accommodation](https://scanity.cz/en/hotels/): guests walk through the room, spa and restaurant before they book. Czech: [Hotely a ubytování](https://scanity.cz/hotely/)
+- [Construction and building management](https://scanity.cz/en/construction/): a digital twin of a building or site you can walk through from the office, with a history of its state. Czech: [Stavebnictví a správa budov](https://scanity.cz/stavebnictvi/)
+
+## Main pages
+
+- [Scanity (English)](https://scanity.cz/en/): overview, live 3D demo, contact
+- [Scanity (Czech)](https://scanity.cz/): přehled, 3D ukázka, kontakt
+
+## Optional
+
+- [Privacy policy](https://scanity.cz/en/privacy.html)
+- [Terms of use](https://scanity.cz/en/terms.html)
