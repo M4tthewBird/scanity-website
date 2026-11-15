@@ -2,7 +2,7 @@
 
 > Scanity (Czech Republic) creates accurate, photorealistic 3D scans of real spaces and objects — from a piece of jewellery to a whole building. We come to the site, capture it and process the footage into a 3D model (Gaussian splatting) that anyone can walk through in a web browser or on a phone, with no app and no equipment on the client's side. From the same scan we deliver photos, floor plans with dimensions, video fly-throughs and 3D models.
 
-Scanity is based in the Czech Republic; the website is in Czech and English. Contact: matyas.ptacek@scanity.cz or the form at https://scanity.cz/#contact.
+Scanity is based in the Czech Republic and was founded by Matyáš Ptáček and Jaroslav Svoboda. It works in the Czech Republic, in Slovakia and, by arrangement, abroad. The website is in Czech and English. Contact: matyas.ptacek@scanity.cz or the form at https://scanity.cz/#contact.
 
 Česky: Scanity dělá 3D skenování prostorů, budov a produktů. Fotorealistické virtuální prohlídky, digitální dvojčata, půdorysy, fotky a 3D modely pro reality, hotely, stavebnictví, sportoviště a e-shopy. Sken i zpracování zajistíme.
 
@@ -11,6 +11,13 @@ Scanity is based in the Czech Republic; the website is in Czech and English. Con
 - **We scan the space:** our team comes to the site and captures every detail; the client needs no equipment.
 - **We process everything:** the footage is reconstructed and optimised into an accurate, photorealistic 3D model.
 - **View it from anywhere:** visitors move freely through the model in the browser — no jumping between fixed points and no 360° photos.
+
+## What clients get
+
+- A link to the 3D viewer to share, and the model on their own website: as an iframe, or right in the page as a native element (no window in a window).
+- From the same scan: photos, a floor plan and a video walkthrough.
+- Visitors need no app: it opens in an ordinary browser on a computer, tablet or phone.
+- Price on request, by the size and scope of the job; dates agreed in advance. Quote: https://scanity.cz/#contact
 
 ## Uses
 
@@ -24,6 +31,8 @@ Scanity is based in the Czech Republic; the website is in Czech and English. Con
 
 - [Scanity (English)](https://scanity.cz/en/): overview, live 3D demo, contact
 - [Scanity (Czech)](https://scanity.cz/): přehled, 3D ukázka, kontakt
+- [FAQ (English)](https://scanity.cz/en/faq/)
+- [Časté otázky (Czech)](https://scanity.cz/caste-otazky/)
 
 ## Optional
 

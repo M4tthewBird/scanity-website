@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+  <link rel="icon" href="../favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <title>Časté otázky o 3D skenování | Scanity</title>
+  <meta name="description" content="Jak probíhá 3D skenování, co dostanete, jak model vložíte na web, kolik to stojí a kde působíme. Odpovědi na nejčastější otázky.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../index.css">
+  <link rel="stylesheet" href="../faq.css">
+  <link rel="canonical" href="https://scanity.cz/caste-otazky/">
+  <link rel="alternate" hreflang="cs" href="https://scanity.cz/caste-otazky/">
+  <link rel="alternate" hreflang="en" href="https://scanity.cz/en/faq/">
+  <link rel="alternate" hreflang="x-default" href="https://scanity.cz/caste-otazky/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scanity">
+  <meta property="og:url" content="https://scanity.cz/caste-otazky/">
+  <meta property="og:title" content="Časté otázky o 3D skenování | Scanity">
+  <meta property="og:description" content="Jak probíhá 3D skenování, co dostanete, jak model vložíte na web, kolik to stojí a kde působíme. Odpovědi na nejčastější otázky.">
+  <meta property="og:image" content="https://scanity.cz/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo Scanity a nápis Tvoříme digitální kopie reálného světa">
+  <meta property="og:locale" content="cs_CZ">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"cs","mainEntity":[{"@type":"Question","name":"Co je 3D sken od Scanity?","acceptedAnswer":{"@type":"Answer","text":"Fotorealistická 3D kopie skutečného prostoru nebo předmětu, od šperku až po celou budovu. Prostorem se v prohlížeči volně pohybujete a rozhlížíte, žádné přeskakování mezi pevnými body ani 360° fotky."}},{"@type":"Question","name":"Jak skenování probíhá?","acceptedAnswer":{"@type":"Answer","text":"Přijedeme na místo a prostor naskenujeme. Na vaší straně není potřeba žádné vybavení. Záznam pak zpracujeme do přesného a fotorealistického 3D modelu."}},{"@type":"Question","name":"Co dostanu?","acceptedAnswer":{"@type":"Answer","text":"Odkaz na 3D prohlížeč, který můžete sdílet. Model si můžete vložit i na vlastní web: jako okno (iframe), nebo přímo do stránky tak, aby vypadal jako její součást. Z jednoho skenu umíme připravit také fotky, půdorys a video průlet."}},{"@type":"Question","name":"Potřebují návštěvníci aplikaci?","acceptedAnswer":{"@type":"Answer","text":"Ne. 3D model se otevře v běžném prohlížeči na počítači, tabletu i mobilu."}},{"@type":"Question","name":"Kolik to stojí?","acceptedAnswer":{"@type":"Answer","text":"Cena závisí na velikosti a rozsahu zakázky. Napište nám, co potřebujete naskenovat, a pošleme vám nezávaznou nabídku."}},{"@type":"Question","name":"Jak dlouho to trvá?","acceptedAnswer":{"@type":"Answer","text":"Podle rozsahu zakázky. Termín skenování i dodání domluvíme předem."}},{"@type":"Question","name":"Kde působíte?","acceptedAnswer":{"@type":"Answer","text":"V Česku, na Slovensku a po domluvě i v zahraničí."}},{"@type":"Question","name":"Co všechno skenujete?","acceptedAnswer":{"@type":"Answer","text":"Byty a domy k prodeji, hotely, sportoviště a kulturní prostory, stavby a budovy i produkty pro e-shopy."}},{"@type":"Question","name":"Kdo za Scanity stojí?","acceptedAnswer":{"@type":"Answer","text":"Scanity založili Matyáš Ptáček a Jaroslav Svoboda."}}],"url":"https://scanity.cz/caste-otazky/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Scanity","item":"https://scanity.cz/"},{"@type":"ListItem","position":2,"name":"Časté otázky","item":"https://scanity.cz/caste-otazky/"}]}</script>
+  <script src="../analytics.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#top">Přeskočit na obsah</a>
+  <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
+    <header class="site-header shell">
+      <a href="../" aria-label="Domovská stránka Scanity" class="brand">
+          <img
+              src="../assets/scanity_logo.svg" width="31" height="54"
+              alt="Scanity"
+              class="scanity-logo">
+          <span>Scanity</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Hlavní navigace">
+        <a href="../#platform">Řešení</a>
+        <div class="nav-dropdown" id="industryDropdown">
+          <button type="button" class="nav-dropdown-toggle" id="industryToggle" aria-expanded="false" aria-controls="industryMenu">Využití <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div class="nav-menu" id="industryMenu">
+            <a href="../reality/">
+              <span class="nav-menu-title">Realitní trh</span>
+              <span class="nav-menu-text">Fotky, půdorys, video průlet a 3D model k inzerátu</span>
+            </a>
+            <a href="../sport/">
+              <span class="nav-menu-title">Sportoviště a kulturní eventy</span>
+              <span class="nav-menu-text">Výběr sedadla ve 3D, skyboxy a prémiové prostory</span>
+            </a>
+            <a href="../produkty/">
+              <span class="nav-menu-title">Produkty & e-shopy</span>
+              <span class="nav-menu-text">3D modely a fotky pro celé portfolio produktů</span>
+            </a>
+            <a href="../hotely/">
+              <span class="nav-menu-title">Hotely & ubytování</span>
+              <span class="nav-menu-text">Pokoje a prostory k prohlédnutí před rezervací</span>
+            </a>
+            <a href="../stavebnictvi/">
+              <span class="nav-menu-title">Stavebnictví & správa budov</span>
+              <span class="nav-menu-text">Digitální dvojče stavby a historie jejího stavu</span>
+            </a>
+            <a class="nav-menu-all" href="../#solutions">Přehled všech využití <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-toggle" id="langToggle" aria-expanded="false" aria-controls="langMenu" aria-label="Jazyk: čeština">
+            CS
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu">
+            <li><a href="./" lang="cs" hreflang="cs" aria-current="true">CS</a></li>
+            <li><a href="../en/faq/" lang="en" hreflang="en">EN</a></li>
+          </ul>
+        </div>
+        <a class="nav-contact" href="#contact">Kontaktujte nás</a>
+        <a class="button button-dark button-small" href="#model">Zobrazit ukázku <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+      </div>
+      <button class="menu-button" type="button" aria-label="Otevřít navigaci" aria-expanded="false" aria-controls="mobileNav" id="menuToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+      </button>
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="../#platform">Řešení</a>
+        <a href="../#solutions">Využití</a>
+        <div class="mobile-subnav">
+          <a href="../reality/">Realitní trh</a>
+          <a href="../sport/">Sportoviště a kulturní eventy</a>
+          <a href="../produkty/">Produkty & e-shopy</a>
+          <a href="../hotely/">Hotely & ubytování</a>
+          <a href="../stavebnictvi/">Stavebnictví & správa budov</a>
+        </div>
+        <a href="#contact">Kontaktujte nás</a>
+        <div class="mobile-lang">
+          <a href="./" lang="cs" hreflang="cs" class="is-active" aria-current="true">CS</a>
+          <a href="../en/faq/" lang="en" hreflang="en">EN</a>
+        </div>
+      </nav>
+    </header>
+
+  <main id="top">
+    <section class="faq-section shell" id="faq">
+      <div class="faq-heading">
+        <h1>Časté otázky</h1>
+        <p>Na co se lidé nejčastěji ptají, než si objednají první sken.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Co je 3D sken od Scanity?</summary>
+          <div class="faq-answer"><p>Fotorealistická 3D kopie skutečného prostoru nebo předmětu, od šperku až po celou budovu. Prostorem se v prohlížeči volně pohybujete a rozhlížíte, žádné přeskakování mezi pevnými body ani 360° fotky.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Jak skenování probíhá?</summary>
+          <div class="faq-answer"><p>Přijedeme na místo a prostor naskenujeme. Na vaší straně není potřeba žádné vybavení. Záznam pak zpracujeme do přesného a fotorealistického 3D modelu.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Co dostanu?</summary>
+          <div class="faq-answer"><p>Odkaz na 3D prohlížeč, který můžete sdílet. Model si můžete vložit i na vlastní web: jako okno (iframe), nebo přímo do stránky tak, aby vypadal jako její součást. Z jednoho skenu umíme připravit také fotky, půdorys a video průlet.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Potřebují návštěvníci aplikaci?</summary>
+          <div class="faq-answer"><p>Ne. 3D model se otevře v běžném prohlížeči na počítači, tabletu i mobilu.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Kolik to stojí?</summary>
+          <div class="faq-answer"><p>Cena závisí na velikosti a rozsahu zakázky. <a href="#contact">Napište nám</a>, co potřebujete naskenovat, a pošleme vám nezávaznou nabídku.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Jak dlouho to trvá?</summary>
+          <div class="faq-answer"><p>Podle rozsahu zakázky. Termín skenování i dodání domluvíme předem.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Kde působíte?</summary>
+          <div class="faq-answer"><p>V Česku, na Slovensku a po domluvě i v zahraničí.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Co všechno skenujete?</summary>
+          <div class="faq-answer"><p>Byty a domy k prodeji (<a href="../reality/">reality</a>), <a href="../hotely/">hotely</a>, <a href="../sport/">sportoviště a kulturní prostory</a>, <a href="../stavebnictvi/">stavby a budovy</a> i <a href="../produkty/">produkty pro e-shopy</a>.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Kdo za Scanity stojí?</summary>
+          <div class="faq-answer"><p>Scanity založili Matyáš Ptáček a Jaroslav Svoboda.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="contact-section shell" id="contact">
+      <div class="contact-panel">
+        <div>
+          <h2>Máte objekt nebo prostor, který chcete převést do 3D?</h2>
+        </div>
+        <div class="contact-action">
+          <p>Řekněte nám, co chcete převést do 3D, a společně najdeme nejlepší řešení.</p>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="cfName">Celé jméno</label>
+              <input type="text" id="cfName" name="name" placeholder="Jana Nováková" autocomplete="name" aria-describedby="cfName-error" required>
+              <span class="field-error" id="cfName-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfEmail">Pracovní e-mail</label>
+              <input type="email" id="cfEmail" name="email" placeholder="jana@firma.cz" autocomplete="email" aria-describedby="cfEmail-error" required>
+              <span class="field-error" id="cfEmail-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfCompany">Společnost</label>
+              <input type="text" id="cfCompany" name="company" placeholder="Název společnosti" autocomplete="organization">
+            </div>
+            <div class="form-field">
+              <label for="cfPhone">Telefon (nepovinné)</label>
+              <input type="tel" id="cfPhone" name="phone" placeholder="+420 123 456 789" autocomplete="tel">
+            </div>
+            <div class="form-field">
+              <label for="cfMessage">Co byste chtěli zachytit?</label>
+              <textarea id="cfMessage" name="message" rows="3" placeholder="Napište nám něco o vašem projektu"></textarea>
+            </div>
+            <input type="hidden" name="time">
+            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="contact-submit">
+              Odeslat zprávu
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+            </button>
+            <p class="form-reassurance">Ozveme se vám obvykle do 1 pracovního dne.
+              <span class="form-privacy">Údaje použijeme jen k odpovědi na vaši poptávku. Více v <a href="../ochrana-osobnich-udaju.html">zásadách ochrany osobních údajů</a>.</span></p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="contact-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+  </main>
+
+    <footer class="site-footer" id="company">
+      <div class="shell footer-grid">
+        <div class="footer-top">
+          <a href="../" aria-label="Domovská stránka Scanity" class="brand">
+            <img src="../assets/scanity_logo.svg" width="31" height="54" alt="Scanity" class="scanity-logo">
+            <span>Scanity</span>
+          </a>
+          <p>Tvoříme přesné a fotorealistické 3D kopie reálného světa.</p>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Scanity</span>
+          <span><a href="../caste-otazky/">Časté otázky</a> · <a href="../ochrana-osobnich-udaju.html">Ochrana soukromí</a> · <a href="../podminky.html">Podmínky</a></span>
+        </div>
+      </div>
+    </footer>
+
+  <script src="../index.js"></script>
+</body>
+</html>

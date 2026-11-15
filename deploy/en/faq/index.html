@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f7">
+  <link rel="icon" type="image/png" sizes="96x96" href="../../favicon-96x96.png">
+  <link rel="icon" href="../../favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../../site.webmanifest">
+  <title>FAQ: 3D scanning and virtual tours | Scanity</title>
+  <meta name="description" content="How 3D scanning works, what you get, how to put the model on your website, what it costs and where we work. Answers to the most common questions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../index.css">
+  <link rel="stylesheet" href="../../faq.css">
+  <link rel="canonical" href="https://scanity.cz/en/faq/">
+  <link rel="alternate" hreflang="cs" href="https://scanity.cz/caste-otazky/">
+  <link rel="alternate" hreflang="en" href="https://scanity.cz/en/faq/">
+  <link rel="alternate" hreflang="x-default" href="https://scanity.cz/caste-otazky/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Scanity">
+  <meta property="og:url" content="https://scanity.cz/en/faq/">
+  <meta property="og:title" content="FAQ: 3D scanning and virtual tours | Scanity">
+  <meta property="og:description" content="How 3D scanning works, what you get, how to put the model on your website, what it costs and where we work. Answers to the most common questions.">
+  <meta property="og:image" content="https://scanity.cz/assets/og-image-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Scanity logo and the line We create digital copies of the real world">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"en","mainEntity":[{"@type":"Question","name":"What is a 3D scan from Scanity?","acceptedAnswer":{"@type":"Answer","text":"A photorealistic 3D copy of a real space or object, from a piece of jewellery to a whole building. You move and look around freely in the browser: no jumping between fixed points and no 360° photos."}},{"@type":"Question","name":"How does the scanning work?","acceptedAnswer":{"@type":"Answer","text":"We come to the site and scan the space. You need no equipment of your own. We then process the footage into an accurate, photorealistic 3D model."}},{"@type":"Question","name":"What do I get?","acceptedAnswer":{"@type":"Answer","text":"A link to the 3D viewer that you can share. You can also put the model on your own website: as a window (iframe), or right in the page so that it looks like part of it. From the same scan we can also make photos, a floor plan and a video walkthrough."}},{"@type":"Question","name":"Do visitors need an app?","acceptedAnswer":{"@type":"Answer","text":"No. The 3D model opens in an ordinary browser on a computer, tablet or phone."}},{"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"The price depends on the size and scope of the job. Tell us what you need scanned and we will send you a quote with no obligation."}},{"@type":"Question","name":"How long does it take?","acceptedAnswer":{"@type":"Answer","text":"It depends on the scope of the job. We agree the dates of the scan and of the delivery in advance."}},{"@type":"Question","name":"Where do you work?","acceptedAnswer":{"@type":"Answer","text":"In the Czech Republic, in Slovakia and, by arrangement, abroad."}},{"@type":"Question","name":"What do you scan?","acceptedAnswer":{"@type":"Answer","text":"Homes for sale, hotels, sports venues and event spaces, construction sites and buildings, and products for online stores."}},{"@type":"Question","name":"Who is behind Scanity?","acceptedAnswer":{"@type":"Answer","text":"Scanity was founded by Matyáš Ptáček and Jaroslav Svoboda."}}],"url":"https://scanity.cz/en/faq/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Scanity","item":"https://scanity.cz/en/"},{"@type":"ListItem","position":2,"name":"FAQ","item":"https://scanity.cz/en/faq/"}]}</script>
+  <script src="../../analytics.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <canvas class="point-cloud" id="pointCloud" aria-hidden="true"></canvas>
+    <header class="site-header shell">
+      <a href="../" aria-label="Scanity home" class="brand">
+          <img
+              src="../../assets/scanity_logo.svg" width="31" height="54"
+              alt="Scanity"
+              class="scanity-logo">
+          <span>Scanity</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="../#platform">Platform</a>
+        <div class="nav-dropdown" id="industryDropdown">
+          <button type="button" class="nav-dropdown-toggle" id="industryToggle" aria-expanded="false" aria-controls="industryMenu">Solutions <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div class="nav-menu" id="industryMenu">
+            <a href="../real-estate/">
+              <span class="nav-menu-title">Real estate</span>
+              <span class="nav-menu-text">Photos, floor plan, video walkthrough and 3D model for listings</span>
+            </a>
+            <a href="../venues-events/">
+              <span class="nav-menu-title">Venues & cultural events</span>
+              <span class="nav-menu-text">Seat selection in 3D, skyboxes and premium spaces</span>
+            </a>
+            <a href="../products/">
+              <span class="nav-menu-title">Products & e-commerce</span>
+              <span class="nav-menu-text">3D models and photos for your whole product range</span>
+            </a>
+            <a href="../hotels/">
+              <span class="nav-menu-title">Hotels & hospitality</span>
+              <span class="nav-menu-text">Rooms and spaces to explore before booking</span>
+            </a>
+            <a href="../construction/">
+              <span class="nav-menu-title">Construction & facilities</span>
+              <span class="nav-menu-text">A digital twin of the site and its history</span>
+            </a>
+            <a class="nav-menu-all" href="../#solutions">All solutions <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" class="lang-toggle" id="langToggle" aria-expanded="false" aria-controls="langMenu" aria-label="Language: English">
+            EN
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <ul class="lang-menu" id="langMenu">
+            <li><a href="../../caste-otazky/" lang="cs" hreflang="cs">CS</a></li>
+            <li><a href="./" lang="en" hreflang="en" aria-current="true">EN</a></li>
+          </ul>
+        </div>
+        <a class="nav-contact" href="#contact">Contact us</a>
+        <a class="button button-dark button-small" href="#model">Try demo <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+      </div>
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileNav" id="menuToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+      </button>
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="../#platform">Platform</a>
+        <a href="../#solutions">Solutions</a>
+        <div class="mobile-subnav">
+          <a href="../real-estate/">Real estate</a>
+          <a href="../venues-events/">Venues & cultural events</a>
+          <a href="../products/">Products & e-commerce</a>
+          <a href="../hotels/">Hotels & hospitality</a>
+          <a href="../construction/">Construction & facilities</a>
+        </div>
+        <a href="#contact">Contact us</a>
+        <div class="mobile-lang">
+          <a href="../../caste-otazky/" lang="cs" hreflang="cs">CS</a>
+          <a href="./" lang="en" hreflang="en" class="is-active" aria-current="true">EN</a>
+        </div>
+      </nav>
+    </header>
+
+  <main id="top">
+    <section class="faq-section shell" id="faq">
+      <div class="faq-heading">
+        <h1>Frequently asked questions</h1>
+        <p>What people ask most before they order their first scan.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>What is a 3D scan from Scanity?</summary>
+          <div class="faq-answer"><p>A photorealistic 3D copy of a real space or object, from a piece of jewellery to a whole building. You move and look around freely in the browser: no jumping between fixed points and no 360° photos.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>How does the scanning work?</summary>
+          <div class="faq-answer"><p>We come to the site and scan the space. You need no equipment of your own. We then process the footage into an accurate, photorealistic 3D model.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>What do I get?</summary>
+          <div class="faq-answer"><p>A link to the 3D viewer that you can share. You can also put the model on your own website: as a window (iframe), or right in the page so that it looks like part of it. From the same scan we can also make photos, a floor plan and a video walkthrough.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Do visitors need an app?</summary>
+          <div class="faq-answer"><p>No. The 3D model opens in an ordinary browser on a computer, tablet or phone.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>How much does it cost?</summary>
+          <div class="faq-answer"><p>The price depends on the size and scope of the job. <a href="#contact">Tell us</a> what you need scanned and we will send you a quote with no obligation.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>How long does it take?</summary>
+          <div class="faq-answer"><p>It depends on the scope of the job. We agree the dates of the scan and of the delivery in advance.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Where do you work?</summary>
+          <div class="faq-answer"><p>In the Czech Republic, in Slovakia and, by arrangement, abroad.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>What do you scan?</summary>
+          <div class="faq-answer"><p>Homes for sale (<a href="../real-estate/">real estate</a>), <a href="../hotels/">hotels</a>, <a href="../venues-events/">sports venues and event spaces</a>, <a href="../construction/">construction sites and buildings</a> and <a href="../products/">products for online stores</a>.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Who is behind Scanity?</summary>
+          <div class="faq-answer"><p>Scanity was founded by Matyáš Ptáček and Jaroslav Svoboda.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="contact-section shell" id="contact">
+      <div class="contact-panel">
+        <div>
+          <h2>Do you have an object or space you'd like us to turn into 3D?</h2>
+        </div>
+        <div class="contact-action">
+          <p>Tell us what you'd like to turn into 3D, and we'll find the best solution together.</p>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="cfName">Full name</label>
+              <input type="text" id="cfName" name="name" placeholder="Jane Doe" autocomplete="name" aria-describedby="cfName-error" required>
+              <span class="field-error" id="cfName-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfEmail">Work email</label>
+              <input type="email" id="cfEmail" name="email" placeholder="jane@company.com" autocomplete="email" aria-describedby="cfEmail-error" required>
+              <span class="field-error" id="cfEmail-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="cfCompany">Company</label>
+              <input type="text" id="cfCompany" name="company" placeholder="Company name" autocomplete="organization">
+            </div>
+            <div class="form-field">
+              <label for="cfPhone">Phone (optional)</label>
+              <input type="tel" id="cfPhone" name="phone" placeholder="+420 123 456 789" autocomplete="tel">
+            </div>
+            <div class="form-field">
+              <label for="cfMessage">What would you like to capture?</label>
+              <textarea id="cfMessage" name="message" rows="3" placeholder="Tell us a bit about your project"></textarea>
+            </div>
+            <input type="hidden" name="time">
+            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="contact-submit">
+              Send message
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
+            </button>
+            <p class="form-reassurance">We usually get back to you within 1 business day.
+              <span class="form-privacy">We use your details only to reply to your enquiry. See our <a href="../privacy.html">privacy policy</a>.</span></p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="contact-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+  </main>
+
+    <footer class="site-footer" id="company">
+      <div class="shell footer-grid">
+        <div class="footer-top">
+          <a href="../" aria-label="Scanity home" class="brand">
+            <img src="../../assets/scanity_logo.svg" width="31" height="54" alt="Scanity" class="scanity-logo">
+            <span>Scanity</span>
+          </a>
+          <p>We create accurate, photorealistic 3D copies of the real world.</p>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Scanity</span>
+          <span><a href="../faq/">FAQ</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></span>
+        </div>
+      </div>
+    </footer>
+
+  <script src="../../index.js"></script>
+</body>
+</html>
