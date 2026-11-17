@@ -1,0 +1,25 @@
+/* --- Hero film: the intro video, looping and muted, in place of the old teaser --- */
+
+/* the film brings its own frame (a rounded card in a thin rim, dark or light by scene); the video is
+   enlarged just enough that the rim falls outside the box, which shows only the card inside it */
+.hero-film {
+  max-width: 760px;
+  background: var(--surface-hero);
+  border: 0;
+}
+
+.hero-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* the rim is 18 of 1080 px at the top and bottom: 1 / (1 - 2 * 18 / 1080) = 1.034, plus a hair */
+  scale: 1.04;
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .hero-film {
+    border-radius: 20px;
+  }
+}

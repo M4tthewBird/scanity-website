@@ -1,3 +1,6 @@
 netlify-upload
 scanity-podklady/
 private-pages/
+
+# Local Netlify folder
+.netlify

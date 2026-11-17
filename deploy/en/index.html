@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../index.css">
+  <link rel="stylesheet" href="../hero-video.css">
   <link rel="canonical" href="https://scanity.cz/en/">
   <link rel="alternate" hreflang="cs" href="https://scanity.cz/">
   <link rel="alternate" hreflang="en" href="https://scanity.cz/en/">
@@ -119,13 +120,10 @@
         </div>
       </div>
 
-      <a class="hero-visual reveal reveal-4" href="#demo" aria-label="View the interactive 3D demo">
-        <div class="teaser-glow" aria-hidden="true"></div>
-        <span class="teaser-badge">See how we scan the real world</span>
-        <div class="teaser-play" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-        </div>
-        <div class="visual-caption">From small objects to entire spaces — see how we turn the real world into accurate, photorealistic 3D models.</div>
+      <a class="hero-visual hero-film reveal reveal-4" href="#demo" aria-label="View the interactive 3D demo">
+        <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="../assets/video/poster-en.webp" title="Scanity intro video" aria-hidden="true" disablepictureinpicture>
+          <source src="../assets/video/scanity-intro-en-720p.mp4" type="video/mp4">
+        </video>
       </a>
     </section>
 
@@ -373,5 +371,6 @@
     </footer>
 
   <script src="../index.js"></script>
+  <script src="../hero-video.js" defer></script>
 </body>
 </html>
