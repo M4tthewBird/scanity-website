@@ -556,7 +556,7 @@ const scrollNavDots = document.getElementById('scrollNavDots');
 const scrollNavFitsViewport = window.matchMedia('(min-width: 1000.02px)').matches;
 
 if (scrollNavUp && scrollNavDown && scrollNavFitsViewport) {
-  const stops = ['top', 'platform', 'demo', 'solutions', 'contact', 'company']
+  const stops = ['top', 'film', 'platform', 'demo', 'solutions', 'contact', 'company']
     .map((id) => document.getElementById(id))
     .filter(Boolean)
     .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));

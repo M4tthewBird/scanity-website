@@ -1,0 +1,256 @@
+/* --- Hero swarm: the first screen is the headline beside the Scanity logo, drawn as a swarm of points in
+   Scanity blue (hero-swarm.js); the intro film follows below. Phones keep the plain hero: headline, text and
+   buttons, then the film. */
+
+.hero-swarm {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  /* the headline sits in the middle of the first screen, level with the logo's middle */
+  align-content: center;
+  align-items: center;
+  column-gap: clamp(24px, 4vw, 72px);
+  min-height: calc(100svh - 60px);
+  padding: 16px 0 104px;
+}
+
+.hero-swarm .hero-copy {
+  max-width: 720px;
+  margin: 0;
+  text-align: left;
+}
+
+.hero-swarm h1 {
+  font-size: clamp(3.4rem, 6vw, 6rem);
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.hero-swarm .hero-description {
+  max-width: 34rem;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.hero-swarm .hero-actions {
+  justify-content: flex-start;
+}
+
+/* tall enough that the logo keeps a margin for the points the cursor scatters */
+.hero-swarm-stage {
+  position: relative;
+  min-width: 0;
+  height: clamp(420px, 76svh, 880px);
+}
+
+/* where WebGL is missing: the logo as a plain image */
+.hero-swarm-fallback {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: 46%;
+  margin: auto;
+}
+
+.hero-swarm.is-static .hero-swarm-fallback {
+  display: block;
+}
+
+/* --- the way down: to the film, then everything else --- */
+
+.hero-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 17px 11px 19px;
+  translate: -50% 0;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--white) 50%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.hero-scroll svg {
+  flex: none;
+  animation: hero-scroll-nudge 2.6s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
+}
+
+@keyframes hero-scroll-nudge {
+  0%, 100% { transform: translateY(-2px); }
+  50% { transform: translateY(3px); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-scroll:hover {
+    color: var(--white);
+    background: var(--blue);
+    border-color: var(--blue);
+  }
+}
+
+/* the second screen: a heading, the intro film at its own size, and the industry bar closing it off */
+.film-section {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: calc(100svh - 60px);
+  padding-bottom: 28px;
+  /* the page keeps 20px of air under the header for anchors; this screen lands flush under it instead */
+  scroll-margin-top: -20px;
+}
+
+.film-body {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: clamp(24px, 4svh, 40px);
+  padding: 40px 0;
+}
+
+.film-heading {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  max-width: 1120px;
+  text-align: center;
+}
+
+.film-heading h2 {
+  margin: 0;
+  font-size: clamp(2.4rem, 4.2vw, 4.4rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+/* what a scan comes with: plain words, parted by hairlines */
+.film-deliverables {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 8px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.film-deliverables li {
+  padding: 0 20px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.film-deliverables li + li {
+  border-left: 1px solid var(--line);
+}
+
+/* its earlier size, shrinking on short screens so heading, film and bar share one */
+.film-section .hero-film {
+  width: min(100%, 760px, calc((100svh - 450px) * 16 / 9));
+  max-width: none;
+  margin: 0;
+}
+
+.film-section .trust-strip {
+  margin-top: 0;
+}
+
+/* --- tablets: one column, the swarm above the headline --- */
+
+@media (max-width: 1000px) {
+  .hero-swarm {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 8px;
+  }
+
+  .hero-swarm-stage {
+    order: -1;
+    height: clamp(260px, 40svh, 520px);
+  }
+
+  .hero-swarm .hero-copy {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-swarm .hero-description {
+    margin: 0 auto;
+  }
+
+  .hero-swarm .hero-actions {
+    justify-content: center;
+  }
+}
+
+/* --- phones: the hero as it was before the swarm --- */
+
+@media (max-width: 760px) {
+  .hero-swarm {
+    display: block;
+    min-height: 0;
+    padding: 68px 0 0;
+  }
+
+  .hero-swarm .hero-copy {
+    margin: 0 auto 35px;
+  }
+
+  .hero-swarm h1 {
+    font-size: clamp(3.5rem, 15vw, 5.8rem);
+    line-height: 1.1;
+    text-wrap: wrap;
+  }
+
+  .hero-swarm-stage,
+  .hero-scroll {
+    display: none;
+  }
+
+  /* phones: the film right under the hero's buttons and the bar after it, as before */
+  .film-section {
+    display: block;
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  .film-body {
+    display: block;
+    padding: 0;
+  }
+
+  .film-heading {
+    display: none;
+  }
+
+  .film-section .hero-film {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .film-section .trust-strip {
+    margin-top: 80px;
+  }
+}
+
+/* short landscape screens: no room for a full-height hero */
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero-swarm,
+  .film-section {
+    min-height: 0;
+  }
+
+  .hero-scroll {
+    display: none;
+  }
+}

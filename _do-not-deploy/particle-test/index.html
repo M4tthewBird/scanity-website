@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="cs" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Hejno bodů – test | Scanity</title>
+  <link rel="icon" href="img/scanity-logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="test.css">
+</head>
+<body>
+  <header class="site-header shell">
+    <a href="#top" class="brand" aria-label="Scanity">
+      <img src="img/scanity-logo.svg" width="31" height="54" alt="" class="scanity-logo">
+      <span>Scanity</span>
+    </a>
+    <p class="test-tag">Test: hejno bodů</p>
+    <div class="header-end">
+      <div class="theme-switch" role="group" aria-label="Pozadí stránky">
+        <button type="button" data-theme-set="light" aria-pressed="true">Světlé</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false">Tmavé</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <h1>Tvoříme digitální kopie reálného světa</h1>
+        <p class="hero-description">Měníme reálné objekty a prostory v přesné, fotorealistické 3D modely. Od šperku až po celou budovu – později si je pak můžete prohlédnout a pracovat na nich odkudkoliv.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#top">Zobrazit ukázku <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          <a class="button button-ghost" href="#top">Kontaktujte nás</a>
+        </div>
+      </div>
+
+      <div class="hero-visual swarm-stage" id="stage">
+        <div class="swarm" id="swarm"></div>
+        <p class="swarm-hint" id="hint">Najeď myší a klikni pro další obrázek</p>
+      </div>
+    </section>
+  </main>
+
+  <details class="tune" id="tune" open>
+    <summary>Nastavení</summary>
+    <form class="tune-body" id="tuneForm">
+      <fieldset class="tune-pics">
+        <legend>Obrázky (střídají se, max. 4)</legend>
+        <label class="check"><input type="checkbox" name="pic" value="logo" checked> Logo Scanity</label>
+        <label class="check"><input type="checkbox" name="pic" value="stit-1" checked> Štít zepředu</label>
+        <label class="check"><input type="checkbox" name="pic" value="stit-2" checked> Štít z boku</label>
+        <div id="ownPics"></div>
+        <label class="file-button">Přidat vlastní obrázek…<input type="file" id="ownFile" accept="image/*"></label>
+      </fieldset>
+
+      <label class="field">Tvar
+        <select name="form">
+          <option value="auto" selected>Logo plné, fotky reliéf</option>
+          <option value="solid">Vše plné (deska)</option>
+          <option value="flat">Vše reliéf</option>
+        </select>
+      </label>
+      <label class="field">Barva bodů
+        <select name="colorMode">
+          <option value="auto" selected>Podle pozadí</option>
+          <option value="original">Z obrázku</option>
+          <option value="solid">Modrá Scanity</option>
+        </select>
+      </label>
+      <label class="field">Přechod
+        <select name="transition">
+          <option value="burst" selected>Výbuch</option>
+          <option value="sweep">Stírání zleva</option>
+          <option value="dust">Prach</option>
+        </select>
+      </label>
+      <label class="field">Další obrázek
+        <select name="advance">
+          <option value="both" selected>Časovač i klik</option>
+          <option value="auto">Časovač</option>
+          <option value="click">Klik</option>
+          <option value="off">Vypnuto</option>
+        </select>
+      </label>
+
+      <label class="field range">Počet bodů <output data-for="points"></output>
+        <input type="range" name="points" min="10000" max="250000" step="5000" value="120000">
+      </label>
+      <label class="field range">Velikost bodu <output data-for="size"></output>
+        <input type="range" name="size" min="0.5" max="4" step="0.1" value="1.2">
+      </label>
+      <label class="field range">Velikost obrázku <output data-for="scale"></output>
+        <input type="range" name="scale" min="0.2" max="1.5" step="0.05" value="0.7">
+      </label>
+      <label class="field range">Hloubka <output data-for="depth"></output>
+        <input type="range" name="depth" min="0" max="1" step="0.05" value="0.6">
+      </label>
+      <label class="field range">Natočení ke kurzoru <output data-for="tilt"></output>
+        <input type="range" name="tilt" min="0" max="70" step="1" value="40">
+      </label>
+      <label class="field range">Odstrčení myší <output data-for="push"></output>
+        <input type="range" name="push" min="0" max="1" step="0.05" value="0.5">
+      </label>
+      <label class="field range">Dosah myši <output data-for="radius"></output>
+        <input type="range" name="radius" min="40" max="400" step="5" value="140">
+      </label>
+      <label class="field range">Rychlost <output data-for="speed"></output>
+        <input type="range" name="speed" min="0.3" max="2.5" step="0.1" value="1">
+      </label>
+      <label class="field range">Interval <output data-for="interval"></output>
+        <input type="range" name="interval" min="2" max="20" step="0.5" value="5">
+      </label>
+      <label class="field range">Vlnění v klidu <output data-for="drift"></output>
+        <input type="range" name="drift" min="0" max="1" step="0.05" value="0.3">
+      </label>
+      <label class="field range">Značky <output data-for="markers"></output>
+        <input type="range" name="markers" min="0" max="16" step="1" value="8">
+      </label>
+
+      <div class="checks">
+        <label class="check"><input type="checkbox" name="coordinates" checked> Souřadnice</label>
+        <label class="check"><input type="checkbox" name="links" checked> Spojnice</label>
+        <label class="check"><input type="checkbox" name="count" checked> Počet bodů</label>
+        <label class="check"><input type="checkbox" name="frame" checked> Rámeček jako u videa</label>
+      </div>
+
+      <div class="tune-actions">
+        <button type="button" class="button button-small button-dark" id="nextPic">Další obrázek</button>
+        <button type="button" class="button button-small button-ghost" id="reset">Výchozí</button>
+      </div>
+    </form>
+  </details>
+
+  <script type="module" src="test.js"></script>
+</body>
+</html>

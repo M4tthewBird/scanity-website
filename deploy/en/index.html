@@ -16,6 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../index.css">
   <link rel="stylesheet" href="../hero-video.css">
+  <link rel="stylesheet" href="../hero-swarm.css">
   <link rel="canonical" href="https://scanity.cz/en/">
   <link rel="alternate" hreflang="cs" href="https://scanity.cz/">
   <link rel="alternate" hreflang="en" href="https://scanity.cz/en/">
@@ -110,7 +111,7 @@
     </header>
 
   <main id="top">
-    <section class="hero shell">
+    <section class="hero hero-swarm shell">
       <div class="hero-copy">
         <h1 class="reveal reveal-2">We create digital copies of the real world.</h1>
         <p class="hero-description reveal reveal-3">We turn real objects and spaces into accurate, photorealistic 3D models — from a piece of jewelry to an entire building. You can then view and work with them from anywhere, whenever you need to.</p>
@@ -120,47 +121,67 @@
         </div>
       </div>
 
-      <a class="hero-visual hero-film reveal reveal-4" href="#demo" aria-label="View the interactive 3D demo">
-        <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="../assets/video/poster-en.webp" title="Scanity intro video" aria-hidden="true" disablepictureinpicture>
-          <source src="../assets/video/scanity-intro-en-720p.mp4" type="video/mp4">
-        </video>
-      </a>
+      <div class="hero-swarm-stage" data-logo="../assets/scanity-logo-points.svg">
+        <img class="hero-swarm-fallback" src="../assets/scanity_logo.svg" width="31" height="54" alt="">
+      </div>
+
+      <a class="hero-scroll" href="#film">Scroll down <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg></a>
     </section>
 
-    <section class="trust-strip">
-      <div class="trust-track">
-        <div class="trust-row">
-          <strong>Architecture</strong>
-          <strong>Construction</strong>
-          <strong>Real Estate</strong>
-          <strong>Cultural Heritage</strong>
-          <strong>Jewelry</strong>
-          <strong>Golf Courses</strong>
-          <strong>Manufacturing</strong>
-          <strong>E-commerce</strong>
-          <strong>Infrastructure</strong>
+    <section class="film-section" id="film" aria-labelledby="filmTitle">
+      <div class="film-body shell">
+        <div class="film-heading">
+          <h2 id="filmTitle">More than a 3D model.</h2>
+          <ul class="film-deliverables" aria-label="What we deliver">
+            <li>3D model</li>
+            <li>Floor plan</li>
+            <li>Photography</li>
+            <li>Fly-through video</li>
+            <li>Integration into your website</li>
+          </ul>
         </div>
-        <div class="trust-row" aria-hidden="true">
-          <strong>Architecture</strong>
-          <strong>Construction</strong>
-          <strong>Real Estate</strong>
-          <strong>Cultural Heritage</strong>
-          <strong>Jewelry</strong>
-          <strong>Golf Courses</strong>
-          <strong>Manufacturing</strong>
-          <strong>E-commerce</strong>
-          <strong>Infrastructure</strong>
-        </div>
-        <div class="trust-row" aria-hidden="true">
-          <strong>Architecture</strong>
-          <strong>Construction</strong>
-          <strong>Real Estate</strong>
-          <strong>Cultural Heritage</strong>
-          <strong>Jewelry</strong>
-          <strong>Golf Courses</strong>
-          <strong>Manufacturing</strong>
-          <strong>E-commerce</strong>
-          <strong>Infrastructure</strong>
+        <a class="hero-visual hero-film" href="#demo" aria-label="View the interactive 3D demo">
+          <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="../assets/video/poster-en.webp" title="Scanity intro video" aria-hidden="true" disablepictureinpicture>
+            <source src="../assets/video/scanity-intro-en-720p.mp4" type="video/mp4">
+          </video>
+        </a>
+      </div>
+
+      <div class="trust-strip">
+        <div class="trust-track">
+          <div class="trust-row">
+            <strong>Architecture</strong>
+            <strong>Construction</strong>
+            <strong>Real Estate</strong>
+            <strong>Cultural Heritage</strong>
+            <strong>Jewelry</strong>
+            <strong>Golf Courses</strong>
+            <strong>Manufacturing</strong>
+            <strong>E-commerce</strong>
+            <strong>Infrastructure</strong>
+          </div>
+          <div class="trust-row" aria-hidden="true">
+            <strong>Architecture</strong>
+            <strong>Construction</strong>
+            <strong>Real Estate</strong>
+            <strong>Cultural Heritage</strong>
+            <strong>Jewelry</strong>
+            <strong>Golf Courses</strong>
+            <strong>Manufacturing</strong>
+            <strong>E-commerce</strong>
+            <strong>Infrastructure</strong>
+          </div>
+          <div class="trust-row" aria-hidden="true">
+            <strong>Architecture</strong>
+            <strong>Construction</strong>
+            <strong>Real Estate</strong>
+            <strong>Cultural Heritage</strong>
+            <strong>Jewelry</strong>
+            <strong>Golf Courses</strong>
+            <strong>Manufacturing</strong>
+            <strong>E-commerce</strong>
+            <strong>Infrastructure</strong>
+          </div>
         </div>
       </div>
     </section>
@@ -372,5 +393,6 @@
 
   <script src="../index.js"></script>
   <script src="../hero-video.js" defer></script>
+  <script type="module" src="../hero-swarm.js"></script>
 </body>
 </html>

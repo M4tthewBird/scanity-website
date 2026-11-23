@@ -16,6 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="hero-video.css">
+  <link rel="stylesheet" href="hero-swarm.css">
   <link rel="canonical" href="https://scanity.cz/">
   <link rel="alternate" hreflang="cs" href="https://scanity.cz/">
   <link rel="alternate" hreflang="en" href="https://scanity.cz/en/">
@@ -86,7 +87,7 @@
           </ul>
         </div>
         <a class="nav-contact" href="#contact">Kontaktujte nás</a>
-        <a class="button button-dark button-small" href="#demo">Zobrazit ukázku <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+        <a class="button button-dark button-small" href="#demo">Prohlédněte si naše projekty <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
       </div>
       <button class="menu-button" type="button" aria-label="Otevřít navigaci" aria-expanded="false" aria-controls="mobileNav" id="menuToggle">
         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
@@ -110,57 +111,77 @@
     </header>
 
   <main id="top">
-    <section class="hero shell">
+    <section class="hero hero-swarm shell">
       <div class="hero-copy">
         <h1 class="reveal reveal-2">Tvoříme digitální kopie reálného světa</h1>
         <p class="hero-description reveal reveal-3">Měníme reálné objekty a prostory v přesné, fotorealistické 3D modely. Od šperku až po celou budovu – později si je pak můžete prohlédnout a pracovat na nich odkudkoliv.</p>
         <div class="hero-actions reveal reveal-3">
-          <a class="button button-dark" href="#demo">Zobrazit ukázku <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          <a class="button button-dark" href="#demo">Prohlédněte si naše projekty <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
           <a class="button button-ghost" href="#contact">Kontaktujte nás</a>
         </div>
       </div>
 
-      <a class="hero-visual hero-film reveal reveal-4" href="#demo" aria-label="Zobrazit interaktivní 3D ukázku">
-        <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/video/poster-cs.webp" title="Úvodní video Scanity" aria-hidden="true" disablepictureinpicture>
-          <source src="assets/video/scanity-intro-cs-720p.mp4" type="video/mp4">
-        </video>
-      </a>
+      <div class="hero-swarm-stage" data-logo="assets/scanity-logo-points.svg">
+        <img class="hero-swarm-fallback" src="assets/scanity_logo.svg" width="31" height="54" alt="">
+      </div>
+
+      <a class="hero-scroll" href="#film">Posuňte dolů <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg></a>
     </section>
 
-    <section class="trust-strip">
-      <div class="trust-track">
-        <div class="trust-row">
-          <strong>Architektura</strong>
-          <strong>Stavebnictví</strong>
-          <strong>Reality</strong>
-          <strong>Kulturní dědictví</strong>
-          <strong>Šperky</strong>
-          <strong>Golfová hřiště</strong>
-          <strong>Výroba</strong>
-          <strong>E-commerce</strong>
-          <strong>Infrastruktura</strong>
+    <section class="film-section" id="film" aria-labelledby="filmTitle">
+      <div class="film-body shell">
+        <div class="film-heading">
+          <h2 id="filmTitle">Víc než jen 3D model.</h2>
+          <ul class="film-deliverables" aria-label="Co dodáváme">
+            <li>3D model</li>
+            <li>Půdorys</li>
+            <li>Fotografie</li>
+            <li>Video průlet</li>
+            <li>Integrace na váš web</li>
+          </ul>
         </div>
-        <div class="trust-row" aria-hidden="true">
-          <strong>Architektura</strong>
-          <strong>Stavebnictví</strong>
-          <strong>Reality</strong>
-          <strong>Kulturní dědictví</strong>
-          <strong>Šperky</strong>
-          <strong>Golfová hřiště</strong>
-          <strong>Výroba</strong>
-          <strong>E-commerce</strong>
-          <strong>Infrastruktura</strong>
-        </div>
-        <div class="trust-row" aria-hidden="true">
-          <strong>Architektura</strong>
-          <strong>Stavebnictví</strong>
-          <strong>Reality</strong>
-          <strong>Kulturní dědictví</strong>
-          <strong>Šperky</strong>
-          <strong>Golfová hřiště</strong>
-          <strong>Výroba</strong>
-          <strong>E-commerce</strong>
-          <strong>Infrastruktura</strong>
+        <a class="hero-visual hero-film" href="#demo" aria-label="Zobrazit interaktivní 3D ukázku">
+          <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/video/poster-cs.webp" title="Úvodní video Scanity" aria-hidden="true" disablepictureinpicture>
+            <source src="assets/video/scanity-intro-cs-720p.mp4" type="video/mp4">
+          </video>
+        </a>
+      </div>
+
+      <div class="trust-strip">
+        <div class="trust-track">
+          <div class="trust-row">
+            <strong>Architektura</strong>
+            <strong>Stavebnictví</strong>
+            <strong>Reality</strong>
+            <strong>Kulturní dědictví</strong>
+            <strong>Šperky</strong>
+            <strong>Golfová hřiště</strong>
+            <strong>Výroba</strong>
+            <strong>E-commerce</strong>
+            <strong>Infrastruktura</strong>
+          </div>
+          <div class="trust-row" aria-hidden="true">
+            <strong>Architektura</strong>
+            <strong>Stavebnictví</strong>
+            <strong>Reality</strong>
+            <strong>Kulturní dědictví</strong>
+            <strong>Šperky</strong>
+            <strong>Golfová hřiště</strong>
+            <strong>Výroba</strong>
+            <strong>E-commerce</strong>
+            <strong>Infrastruktura</strong>
+          </div>
+          <div class="trust-row" aria-hidden="true">
+            <strong>Architektura</strong>
+            <strong>Stavebnictví</strong>
+            <strong>Reality</strong>
+            <strong>Kulturní dědictví</strong>
+            <strong>Šperky</strong>
+            <strong>Golfová hřiště</strong>
+            <strong>Výroba</strong>
+            <strong>E-commerce</strong>
+            <strong>Infrastruktura</strong>
+          </div>
         </div>
       </div>
     </section>
@@ -372,5 +393,6 @@
 
   <script src="index.js"></script>
   <script src="hero-video.js" defer></script>
+  <script type="module" src="hero-swarm.js"></script>
 </body>
 </html>
