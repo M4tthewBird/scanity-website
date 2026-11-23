@@ -1933,6 +1933,13 @@ h1, h2, h3, p {
   .site-header .button-small {
     padding: 14px 16px;
   }
+
+  /* Phones get the plain body gradient: the drifting dots read as noise on a
+     small screen, and the cursor parallax that justifies them never fires
+     there. index.js also skips the draw loop. */
+  .point-cloud {
+    display: none;
+  }
 }
 
 /* The 3D viewer's control hints name a scroll wheel, which means nothing on a

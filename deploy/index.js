@@ -159,9 +159,12 @@ if (industryBar) {
 // only ever needs to draw a viewport's worth of points regardless of how long
 // the page is. Plain Canvas 2D (not WebGL) -- plenty for a few hundred soft
 // dots, and keeps this dependency-free like the rest of the site's vanilla JS.
+// Touch devices skip it entirely (hidden in index.css too) -- only the body
+// gradient shows there.
 const pointCloudCanvas = document.getElementById('pointCloud');
+const pointCloudEnabled = !window.matchMedia('(pointer: coarse)').matches;
 
-if (pointCloudCanvas) {
+if (pointCloudCanvas && pointCloudEnabled) {
   const pointCloudCtx = pointCloudCanvas.getContext('2d');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Phones get a lighter field at half the frame rate, and with data saver on
