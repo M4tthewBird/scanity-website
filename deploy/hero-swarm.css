@@ -22,7 +22,8 @@
 
 .hero-swarm h1 {
   font-size: clamp(3.4rem, 6vw, 6rem);
-  line-height: 1.04;
+  /* room for Czech accents: at 1.04 the á of "reálného" met the g of "digitální" above it */
+  line-height: 1.12;
   text-wrap: balance;
 }
 

@@ -1,0 +1,565 @@
+/* --- Hero v3: the villa by day or by night, under the same open index as v2 (hero-index.css: logo, "Využití",
+   "O nás"), which the header assembles itself from as the page scrolls (header-morph.js), plus EN and a day/night
+   switch. The photo sits low and to the right, a little pulled back, so the copy stands in the sky above the
+   house; around it the same photo, blurred, carries its colours to the edges. The change of light plays on a
+   canvas (day-night.js); the copy and the header follow (body.dark-hero is night). The next section rises over
+   the photo as a card. Tablets: the header stays, the index goes. Phones: the photo as a strip above the plain
+   hero, night only. (hero-scan.js) --- */
+
+.hero-scan {
+  --night: #0a0e17;
+  --zoom: 0.92;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--ink);
+  background: #c9d7e8;
+  transition: color 0.9s ease, background-color 1.2s ease;
+}
+
+.dark-hero .hero-scan {
+  color: var(--white);
+  background: #5d6478;
+}
+
+/* the photo: the blurred backdrop fills the stage, the sharp photo stands in a frame along the bottom right, its
+   top and left edges fading into the backdrop */
+.scan-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.scan-pic {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.scan-blur {
+  position: absolute;
+  inset: -4%;
+  width: 108%;
+  height: 108%;
+  /* (made from the photo's sky alone, so only sky shows above and beside the house) */
+  object-fit: cover;
+  object-position: 50% 50%;
+  filter: blur(18px) saturate(1.05);
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.scan-frame {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  aspect-ratio: 5504 / 3072;
+  transform: scale(var(--zoom));
+  transform-origin: 100% 100%;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 10%), linear-gradient(to right, transparent 0, #000 8%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 10%), linear-gradient(to right, transparent 0, #000 8%);
+  mask-composite: intersect;
+}
+
+.scan-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.scan-photo.is-shown,
+.scan-blur.is-shown {
+  opacity: 1;
+}
+
+/* without WebGL 2 (or with reduced motion) the photos simply cross-fade */
+.scan-frame.is-fading .scan-photo {
+  transition: opacity 1.2s ease;
+}
+
+.dn-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dn-canvas.is-playing {
+  opacity: 1;
+  transition: none;
+}
+
+/* veils that keep the copy legible, one for each light, and a dimmer for the way out */
+.scan-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+.scan-veil--night {
+  opacity: 0;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--night) 58%, transparent) 0%, color-mix(in srgb, var(--night) 30%, transparent) 34%, color-mix(in srgb, var(--night) 0%, transparent) 60%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--night) 46%, transparent), color-mix(in srgb, var(--night) 0%, transparent) 32%),
+    linear-gradient(to top, color-mix(in srgb, var(--night) 70%, transparent), color-mix(in srgb, var(--night) 0%, transparent) 28%);
+}
+
+.scan-veil--day {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, #eef3f9 70%, transparent) 0%, color-mix(in srgb, #eef3f9 40%, transparent) 34%, color-mix(in srgb, #eef3f9 0%, transparent) 60%),
+    linear-gradient(to top, color-mix(in srgb, #eef3f9 82%, transparent), color-mix(in srgb, #eef3f9 48%, transparent) 14%, color-mix(in srgb, #eef3f9 0%, transparent) 30%);
+}
+
+.dark-hero .scan-veil--night {
+  opacity: 1;
+}
+
+.dark-hero .scan-veil--day {
+  opacity: 0;
+}
+
+.scan-dim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--night);
+  opacity: 0;
+}
+
+/* the index over the photo: the logo, the two columns, EN and the switch */
+.scan-index {
+  position: relative;
+  z-index: 2;
+  grid-row: 1;
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: start;
+  column-gap: clamp(28px, 4vw, 64px);
+  padding-top: clamp(28px, 5svh, 48px);
+}
+
+.scan-index .index-logo {
+  justify-self: start;
+}
+
+.scan-index .index-columns {
+  column-gap: clamp(32px, 4vw, 64px);
+  padding-top: 6px;
+}
+
+/* (only what has colours of its own changes them over time; what inherits follows the hero as it changes, a
+   transition of its own would lag behind) */
+.index-logo span,
+.index-col-title,
+.scan-index .index-columns a,
+.scan-lead,
+.scan-foot,
+.scan-tagline {
+  transition: color 0.9s ease, border-color 0.9s ease;
+}
+
+.index-logo span {
+  color: var(--ink);
+}
+
+.index-logo img {
+  transition: filter 0.9s ease;
+}
+
+.scan-index .index-columns a {
+  color: var(--ink-soft);
+}
+
+/* (these reach the logo's and the titles' stand-ins in flight too, which sit outside the hero) */
+.dark-hero .index-logo img {
+  filter: invert(1);
+}
+
+.dark-hero .index-logo span,
+.dark-hero .index-col-title {
+  color: var(--white);
+}
+
+.dark-hero .scan-index .index-columns a {
+  color: color-mix(in srgb, var(--white) 70%, transparent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dark-hero .scan-index .index-columns a:hover {
+    color: var(--white);
+    text-decoration-color: color-mix(in srgb, var(--white) 40%, transparent);
+  }
+}
+
+.scan-lang {
+  margin-top: 6px;
+  padding: 0 0 0 clamp(20px, 2.5vw, 36px);
+  border-left: 1px solid color-mix(in srgb, currentColor 26%, transparent);
+  color: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scan-lang:hover {
+    color: var(--blue);
+  }
+}
+
+/* the day/night switch: a sun and a moon in a pill, a knob over the one in force */
+.dn-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 64px;
+  height: 32px;
+  margin-top: 2px;
+  padding: 0 8px;
+  color: inherit;
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.dn-toggle svg {
+  position: relative;
+  z-index: 1;
+  transition: color 0.5s ease;
+}
+
+.dn-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background: var(--ink);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--shadow) 25%, transparent);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.6s ease;
+}
+
+.dn-toggle .dn-sun {
+  color: var(--white);
+}
+
+.dn-toggle[aria-checked="true"] .dn-knob {
+  transform: translateX(32px);
+  background: var(--white);
+}
+
+.dn-toggle[aria-checked="true"] .dn-sun {
+  color: color-mix(in srgb, var(--white) 70%, transparent);
+}
+
+.dn-toggle[aria-checked="true"] .dn-moon {
+  color: var(--ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dn-toggle:hover {
+    background: color-mix(in srgb, currentColor 14%, transparent);
+  }
+}
+
+.dn-toggle:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* the copy, in the sky above the house: it starts under the logo, beside the index's columns */
+.scan-copy {
+  position: relative;
+  z-index: 1;
+  grid-row: 1 / 3;
+  grid-column: 1;
+  align-self: start;
+  padding-top: clamp(150px, 21svh, 230px);
+  pointer-events: none;
+}
+
+.scan-copy > * {
+  pointer-events: auto;
+}
+
+.scan-copy h1 {
+  max-width: 11ch;
+  margin: 0 0 24px;
+  font-size: clamp(3rem, 5.2vw, 5.4rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.scan-lead {
+  max-width: 29rem;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.dark-hero .scan-lead {
+  color: color-mix(in srgb, var(--white) 82%, transparent);
+}
+
+.scan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 30px;
+  margin-top: 32px;
+}
+
+.scan-textlink {
+  padding: 8px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scan-textlink:hover {
+    border-color: currentColor;
+  }
+}
+
+/* the bar along the bottom, light on the photo's dark ground in either light, clear of the rising card */
+.scan-foot {
+  position: relative;
+  z-index: 1;
+  grid-row: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 72px;
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+}
+
+.dark-hero .scan-foot {
+  color: color-mix(in srgb, var(--white) 84%, transparent);
+}
+
+.scan-tagline {
+  margin: 0;
+  padding: 4px 0 4px 18px;
+  border-left: 1px solid color-mix(in srgb, var(--ink) 30%, transparent);
+  font-size: 0.8rem;
+}
+
+.dark-hero .scan-tagline {
+  border-left-color: color-mix(in srgb, var(--white) 45%, transparent);
+}
+
+.scan-down {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 0.8rem;
+  transition: color 0.2s;
+}
+
+.scan-down svg {
+  animation: hero-scroll-nudge 2.6s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scan-down:hover {
+    color: var(--ink);
+  }
+
+  .dark-hero .scan-down:hover {
+    color: var(--white);
+  }
+}
+
+/* --- the way out: the next section rises over the photo as a card (the photo slows, deepens and dims under it,
+   hero-scan.js) --- */
+
+.has-hero-scan .film-section {
+  position: relative;
+  z-index: 2;
+  margin-top: -40px;
+  padding-top: 40px;
+  background: var(--cloud);
+  border-radius: 36px 36px 0 0;
+  box-shadow: 0 -28px 70px color-mix(in srgb, #04070d 32%, transparent);
+}
+
+/* --- the header over the night photo: dark glass, light type; back to its usual self once the card is under it --- */
+
+.has-hero-scan .site-header :is(.brand span, .brand img, .nav-dropdown-toggle, .lang-toggle, .nav-contact, .button-small, .menu-button) {
+  transition: color 0.35s, background-color 0.35s, border-color 0.35s, filter 0.35s;
+}
+
+.has-hero-scan .site-header:before {
+  transition: background-color 0.35s, border-color 0.35s;
+}
+
+.dark-hero .site-header.is-dark:before {
+  background: color-mix(in srgb, #0a0e17 72%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--white) 10%, transparent);
+}
+
+.dark-hero .site-header.is-dark .brand span {
+  color: var(--white);
+  -webkit-text-stroke-color: var(--white);
+}
+
+.dark-hero .site-header.is-dark .brand img {
+  filter: invert(1);
+}
+
+.dark-hero.morph .site-header.is-dark .desktop-nav,
+.dark-hero .site-header.is-dark .desktop-nav {
+  background: color-mix(in srgb, var(--white) calc(9% * var(--pill, 1)), transparent);
+  border-color: color-mix(in srgb, var(--white) calc(14% * var(--pill, 1)), transparent);
+  box-shadow: none;
+}
+
+.dark-hero .site-header.is-dark .nav-dropdown-toggle {
+  color: #c9d9ff;
+  background: color-mix(in srgb, var(--blue) 30%, transparent);
+}
+
+.dark-hero .site-header.is-dark .nav-dropdown-toggle--plain {
+  color: color-mix(in srgb, var(--white) 82%, transparent);
+  background: none;
+}
+
+.dark-hero .site-header.is-dark :is(.lang-toggle, .nav-contact) {
+  color: var(--white);
+  border-color: color-mix(in srgb, var(--white) 26%, transparent);
+}
+
+.dark-hero .site-header.is-dark .menu-button {
+  color: var(--white);
+}
+
+.dark-hero .site-header.is-dark .button-small {
+  color: var(--ink);
+  background: var(--white);
+}
+
+.dark-hero .soft-top {
+  background: linear-gradient(to bottom, color-mix(in srgb, #0a0e17 90%, transparent), color-mix(in srgb, #0a0e17 72%, transparent) 38%, color-mix(in srgb, #0a0e17 30%, transparent) 68%, transparent);
+}
+
+/* --- tablets: the site header stays, the index (and with it the switch) steps aside; the photo at full width --- */
+
+@media (max-width: 1000px) {
+  .scan-index {
+    display: none;
+  }
+
+  .hero-scan {
+    --zoom: 1;
+    grid-template-rows: 1fr auto;
+    padding-top: 60px;
+  }
+
+  .scan-copy {
+    grid-row: 1;
+    padding-top: clamp(32px, 7svh, 72px);
+  }
+
+  .scan-foot {
+    grid-row: 2;
+  }
+}
+
+/* --- phones: the photo as a strip, then the plain hero --- */
+
+@media (max-width: 760px) {
+  .hero-scan {
+    display: block;
+    min-height: 0;
+    padding-top: 54px;
+    color: var(--ink);
+    background: none;
+  }
+
+  .dark-hero .hero-scan {
+    color: var(--ink);
+    background: none;
+  }
+
+  .scan-stage,
+  .scan-pic {
+    position: relative;
+    inset: auto;
+    transform: none;
+  }
+
+  .scan-blur,
+  .scan-veil--night {
+    display: none;
+  }
+
+  .scan-frame {
+    position: relative;
+    transform: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .scan-veil--day {
+    opacity: 1;
+    background: linear-gradient(to top, var(--cloud), color-mix(in srgb, var(--cloud) 0%, transparent) 30%);
+  }
+
+  .dark-hero .scan-veil--day {
+    opacity: 1;
+  }
+
+  .scan-copy {
+    padding: 28px 0 36px;
+    text-align: center;
+    pointer-events: auto;
+  }
+
+  .scan-copy h1 {
+    max-width: none;
+    font-size: clamp(2.8rem, 12vw, 4.2rem);
+  }
+
+  .scan-lead,
+  .dark-hero .scan-lead {
+    margin: 0 auto;
+    color: var(--muted);
+  }
+
+  .scan-actions {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .scan-foot {
+    display: none;
+  }
+
+  .has-hero-scan .film-section {
+    margin-top: 0;
+    padding-top: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: none;
+  }
+}

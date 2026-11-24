@@ -1,0 +1,341 @@
+/* --- Hero v2: the first screen is an open index of the site (who we are, the industries, the way around) over a
+   dome of points rising from the mist (hero-index.js, point-dome.js). While the index is on screen the header
+   steps aside, since it would only repeat it; once the index has scrolled away the header comes down and stays.
+   Phones keep the plain hero. --- */
+
+/* the header floats over the page instead of taking a row of its own, so the index can start at the very top */
+.has-hero-index .site-header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: min(1320px, 100% - 56px);
+  translate: -50% 0;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.35s, visibility 0.5s;
+}
+
+.has-hero-index .site-header.is-tucked {
+  transform: translateY(-120%);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hero-index {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+/* the dome fills the whole first screen behind the index, its base lost in a mist of the page's own colour */
+.dome-stage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dome-haze {
+  position: absolute;
+  z-index: 1;
+  inset: auto 0 0;
+  height: 24%;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--cloud) 0%, transparent), color-mix(in srgb, var(--cloud) 82%, transparent) 60%, var(--cloud));
+}
+
+.index-top {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  column-gap: clamp(32px, 5vw, 88px);
+  padding-top: clamp(28px, 5svh, 52px);
+}
+
+/* exactly the header's brand at 1.26x (19px mark, 8px gap, 1.15rem name), so it can shrink into it */
+.index-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.index-logo img {
+  width: 24px;
+  height: auto;
+}
+
+.index-logo span {
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: 0.035em;
+}
+
+.index-brand h1 {
+  max-width: 13ch;
+  margin: clamp(22px, 4svh, 40px) 0 20px;
+  font-size: clamp(2.8rem, 4.6vw, 4.8rem);
+  font-weight: 500;
+  /* room for Czech accents: at 1.02 the á of "reálného" met the g of "digitální" above it */
+  line-height: 1.12;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.index-brand .hero-description {
+  max-width: 34rem;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.index-brand .hero-actions {
+  justify-content: flex-start;
+  margin-top: 28px;
+}
+
+/* the way around: the same links the header's menu holds */
+.index-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 40px;
+  align-content: start;
+  padding-top: 8px;
+}
+
+.index-col-title {
+  margin: 0 0 18px;
+  color: var(--ink);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.index-columns ul {
+  display: grid;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.index-columns a {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.35;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .index-columns a:hover {
+    color: var(--ink);
+    text-decoration-color: var(--line);
+  }
+}
+
+.index-meta {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-top: clamp(28px, 5svh, 48px);
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.index-lang a {
+  padding: 6px 2px;
+  color: var(--muted);
+}
+
+.index-lang a[aria-current] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.hero-index .hero-scroll {
+  z-index: 2;
+}
+
+/* --- the header's second tab, "O nás": a plain label beside the blue "Využití" pill, and a short menu --- */
+
+.nav-dropdown-toggle--plain {
+  background: none;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-dropdown-toggle--plain:hover {
+    background: color-mix(in srgb, var(--ink) 5%, transparent);
+    color: var(--ink);
+  }
+}
+
+.nav-dropdown.open .nav-dropdown-toggle--plain {
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  color: var(--ink);
+}
+
+.nav-menu--compact {
+  width: 230px;
+}
+
+.nav-menu--compact a {
+  padding: 9px 12px;
+}
+
+/* --- desktop: the header assembles itself as the page scrolls (hero-index.js sets --bar, --pill and each
+   part's place): the hero's logo and column titles fly into it, its bar and buttons fade in last --- */
+
+.has-hero-index.morph .site-header,
+.has-hero-index.morph .site-header.is-tucked {
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+  transition: none;
+}
+
+.has-hero-index.morph .site-header:before {
+  opacity: var(--bar, 1);
+}
+
+.has-hero-index.morph .desktop-nav {
+  background: color-mix(in srgb, var(--white) calc(80% * var(--pill, 1)), transparent);
+  border-color: color-mix(in srgb, var(--white) calc(90% * var(--pill, 1)), transparent);
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--shadow) calc(7% * var(--pill, 1)), transparent);
+}
+
+/* the header's buttons: away until the hero's own have gone under the bar, then in one after another, rising out
+   of a slight blur (header-morph.js sets .actions-in) */
+.has-hero-index.morph .header-actions > * {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  filter: blur(6px);
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.4, 0, 1, 1), filter 0.35s ease, visibility 0s linear 0.45s;
+}
+
+.has-hero-index.morph .site-header.actions-in .header-actions > * {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  filter: none;
+  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, visibility 0s;
+}
+
+.has-hero-index.morph .site-header.actions-in .header-actions > :nth-child(2) {
+  transition-delay: 0.08s;
+}
+
+.has-hero-index.morph .site-header.actions-in .header-actions > :nth-child(3) {
+  transition-delay: 0.16s;
+}
+
+/* the soft top: blur that fades out downward, over a veil of the page's colour, so what scrolls under it dissolves
+   instead of meeting a hard edge (under the header and the flying stand-ins) */
+.soft-top {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 29;
+  height: 170px;
+  pointer-events: none;
+  opacity: 0;
+  /* nearly solid where the logo and the tabs pass, thinning out below */
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--cloud) 97%, transparent), color-mix(in srgb, var(--cloud) 90%, transparent) 38%, color-mix(in srgb, var(--cloud) 50%, transparent) 68%, transparent);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent);
+  mask-image: linear-gradient(to bottom, #000 45%, transparent);
+}
+
+/* stand-ins for the logo and the column titles on their way into the header, above everything (the originals
+   keep their place in the page, hidden while their stand-ins fly) */
+.morph-ghosts {
+  position: fixed;
+  inset: 0;
+  z-index: 31;
+  pointer-events: none;
+}
+
+.morph-ghosts > * {
+  position: absolute;
+  margin: 0;
+  transform-origin: 0 0;
+  will-change: transform, opacity;
+}
+
+.has-hero-index.morph .index-columns li {
+  will-change: transform, opacity, filter;
+}
+
+/* --- tablets: the header stays (its menu is behind the burger); the index stacks under it --- */
+
+@media (max-width: 1000px) {
+  .hero-index {
+    padding-top: 60px;
+  }
+
+  .index-top {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 40px;
+  }
+
+  .index-logo {
+    display: none;
+  }
+
+  .index-brand h1 {
+    max-width: none;
+    margin-top: 12px;
+  }
+
+  .index-meta {
+    margin-top: 0;
+  }
+}
+
+/* --- phones: the hero as it was --- */
+
+@media (max-width: 760px) {
+  .has-hero-index .site-header {
+    width: min(100% - 30px, 1320px);
+  }
+
+  .hero-index {
+    min-height: 0;
+    padding-top: 122px;
+    overflow: visible;
+  }
+
+  .index-top {
+    display: block;
+    padding-top: 0;
+    text-align: center;
+  }
+
+  .index-brand {
+    margin-bottom: 35px;
+  }
+
+  .index-brand h1 {
+    margin: 0 0 30px;
+    font-size: clamp(3.5rem, 15vw, 5.8rem);
+    line-height: 1.1;
+    text-wrap: wrap;
+  }
+
+  .index-brand .hero-description {
+    margin: 0 auto;
+  }
+
+  .index-brand .hero-actions {
+    justify-content: center;
+    margin-top: 34px;
+  }
+
+  .index-columns,
+  .index-meta,
+  .dome-stage {
+    display: none;
+  }
+}
