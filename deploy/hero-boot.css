@@ -1,0 +1,557 @@
+/* --- The boot in the homepage's hero (hero-boot.js): live in 3D (<scanity-model>), a slider turns a cloud
+   of Scan-Blue points into the photorealistic model, and labels from the datasheet sit on it. The canvas is
+   transparent, so the boot stands on the page itself. --- */
+
+/* one frame: the boot fills it, the caption and the tools ride its top edge, the slider its bottom edge; the other
+   scans sit right under it */
+.boot-reveal {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+}
+
+.boot-stage {
+  position: relative;
+  width: 100%;
+  /* the frame takes the screen's height under the index, so the boot is the largest thing on the right, but never
+     taller than its width allows (a tall narrow frame only pushes the camera back) */
+  aspect-ratio: 6 / 5;
+  max-height: clamp(380px, calc(100svh - 480px), 880px);
+}
+
+.boot-poster,
+.boot-model {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.boot-model {
+  cursor: grab;
+  /* a vertical swipe still scrolls the page on touch screens; a sideways one turns the boot */
+  touch-action: pan-y;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.boot-model:active {
+  cursor: grabbing;
+}
+
+/* the poster (the point cloud) stands in until the 3D is drawn, then hands over */
+.boot-poster {
+  object-fit: contain;
+  pointer-events: none;
+  transition: opacity 0.6s;
+}
+
+.boot-reveal[data-state="live"] .boot-model {
+  opacity: 1;
+}
+
+.boot-reveal[data-state="live"] .boot-poster {
+  opacity: 0;
+}
+
+/* loading: a thin bar over the poster */
+.boot-loading {
+  position: absolute;
+  left: 50%;
+  bottom: 64px;
+  display: none;
+  width: 160px;
+  translate: -50% 0;
+}
+
+.boot-loading i {
+  display: block;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+.boot-loading b {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--blue);
+  transition: width 0.2s;
+}
+
+.boot-reveal[data-state="loading"] .boot-loading {
+  display: block;
+}
+
+/* phones and Save-Data: the 3D starts on a tap */
+.boot-start {
+  position: absolute;
+  left: 50%;
+  bottom: 64px;
+  translate: -50% 0;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 100px;
+  background: var(--ink);
+  color: var(--white);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.boot-start {
+  display: none;
+}
+
+.boot-reveal.needs-tap:not([data-state]) .boot-start {
+  display: block;
+}
+
+/* reset view and labels on/off, once the 3D is live */
+.boot-tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.boot-reveal[data-state="live"] .boot-tools {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.boot-tools button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 38px;
+  height: 38px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--white) 86%, transparent);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+
+.boot-tools button:hover {
+  border-color: color-mix(in srgb, var(--ink) 40%, transparent);
+}
+
+/* the labels' toggle is a word, not a riddle */
+.boot-tools .boot-labels {
+  padding: 0 14px 0 11px;
+  border-radius: 100px;
+}
+
+.boot-tools .boot-labels[aria-pressed="false"] svg {
+  opacity: 0.45;
+}
+
+.boot-tools svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+/* ---- labels: a Scan-Blue dot and a dark chip; the datasheet's text drops out of it ---- */
+.boot-hotspots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s, visibility 0s 0.5s;
+}
+
+/* only on the finished model */
+.boot-reveal[data-state="live"].is-revealed .boot-hotspots {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s 0.15s;
+}
+
+.boot-hotspots.is-off {
+  visibility: hidden !important;
+}
+
+.hs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  pointer-events: auto;
+  transition: opacity 0.25s;
+  will-change: transform;
+}
+
+.hs.is-back {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hs.is-left {
+  flex-direction: row-reverse;
+}
+
+.hs-dot {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 5px 0 0 -8px;
+  padding: 0;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--blue) 24%, transparent), 0 2px 8px color-mix(in srgb, var(--shadow) 25%, transparent);
+  cursor: pointer;
+}
+
+.hs.is-left .hs-dot {
+  margin: 5px -8px 0 0;
+}
+
+.hs-dot::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  opacity: 0;
+  animation: hs-ping 2.4s ease-out infinite;
+}
+
+@keyframes hs-ping {
+  0% { transform: scale(0.6); opacity: 0.7; }
+  80%, 100% { transform: scale(1.7); opacity: 0; }
+}
+
+.hs.is-open {
+  z-index: 5;
+}
+
+.hs.is-open .hs-dot {
+  background: var(--white);
+  border-color: var(--blue);
+}
+
+.hs-card {
+  position: relative;
+  border-radius: 13px;
+  background: var(--ink);
+  color: var(--white);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--shadow) 18%, transparent);
+}
+
+.hs-title {
+  display: block;
+  padding: 4px 11px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.hs-body {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 240px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--ink);
+  color: color-mix(in srgb, var(--white) 86%, transparent);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--shadow) 22%, transparent);
+  transform: translateY(-4px) scale(0.98);
+  transform-origin: top left;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.2s;
+}
+
+.hs.is-left .hs-body {
+  right: 0;
+  left: auto;
+  transform-origin: top right;
+}
+
+.hs.is-up .hs-body {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
+
+.hs.is-open .hs-body {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hs-body strong {
+  display: block;
+  margin: 0 0 4px;
+  color: var(--white);
+  font-size: 1.6rem;
+  line-height: 1.1;
+}
+
+.hs-body strong em {
+  color: color-mix(in srgb, var(--blue) 70%, var(--white));
+  font-style: normal;
+}
+
+/* the caption, centred under the frame (between the slider and the other scans); its how-to goes once the boot is
+   turned */
+.boot-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: balance;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.boot-reveal[data-state="live"] .boot-hint {
+  opacity: 1;
+}
+
+.boot-reveal.is-used .boot-hint {
+  opacity: 0;
+}
+
+/* under the slider: the other scans, in the demo section below */
+.boot-scans {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.boot-scans-title {
+  margin-right: 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.boot-scans a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--white) 70%, transparent);
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.boot-scans a:hover {
+  border-color: color-mix(in srgb, var(--ink) 40%, transparent);
+  background: var(--white);
+}
+
+.boot-scans a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.hint-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .hint-mouse {
+    display: none;
+  }
+
+  .hint-touch {
+    display: inline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hs-dot::after {
+    animation: none;
+  }
+}
+
+/* the control: the two states named at either end of a thin track, on the frame's bottom edge */
+.boot-control {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: min(100%, 440px);
+  translate: -50% 0;
+}
+
+.boot-label {
+  flex: none;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+/* the end the slider is nearer to reads in full ink */
+.boot-label:first-child {
+  color: color-mix(in srgb, var(--ink) calc(100% - 55% * var(--reveal, 0)), var(--muted));
+}
+
+.boot-label:last-child {
+  color: color-mix(in srgb, var(--ink) calc(45% + 55% * var(--reveal, 0)), var(--muted));
+}
+
+.boot-slider {
+  --fill: calc(var(--reveal, 0) * 100%);
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  margin: 0;
+  background: transparent;
+  cursor: grab;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.boot-slider:active {
+  cursor: grabbing;
+}
+
+.boot-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 100px;
+  background: linear-gradient(to right, var(--blue) var(--fill), color-mix(in srgb, var(--ink) 12%, transparent) var(--fill));
+}
+
+.boot-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
+.boot-slider::-moz-range-progress {
+  height: 4px;
+  border-radius: 100px;
+  background: var(--blue);
+}
+
+.boot-slider::-webkit-slider-thumb {
+  width: 24px;
+  height: 24px;
+  margin-top: -10px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 0 0 1px var(--line), 0 6px 18px color-mix(in srgb, var(--shadow) 18%, transparent);
+  transition: transform 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.boot-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 0 0 1px var(--line), 0 6px 18px color-mix(in srgb, var(--shadow) 18%, transparent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .boot-slider:hover::-webkit-slider-thumb {
+    transform: scale(1.08);
+  }
+}
+
+.boot-slider:focus-visible {
+  outline: none;
+}
+
+.boot-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 45%, transparent), 0 6px 18px color-mix(in srgb, var(--shadow) 18%, transparent);
+}
+
+.boot-slider:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 45%, transparent), 0 6px 18px color-mix(in srgb, var(--shadow) 18%, transparent);
+}
+
+/* ---- in the hero, where the Scanity logo of points stood: beside the headline ---- */
+.hero-boot {
+  align-self: center;
+}
+
+/* tablets: under the headline and the buttons */
+@media (max-width: 1000px) {
+  .hero-boot {
+    width: min(100%, 640px);
+    margin: 32px auto 0;
+  }
+
+  .hero-boot .boot-stage {
+    aspect-ratio: auto;
+    height: clamp(340px, 52svh, 520px);
+  }
+}
+
+/* phones: the frame as tall as the screen is wide */
+@media (max-width: 760px) {
+  .hero-boot {
+    width: 100%;
+    margin: 8px auto 40px;
+  }
+
+  .hero-boot .boot-stage {
+    aspect-ratio: auto;
+    height: clamp(300px, 96vw, 420px);
+  }
+
+  .boot-label {
+    font-size: 0.72rem;
+  }
+
+  .hs-body {
+    width: 200px;
+  }
+
+  .hs-title {
+    font-size: 0.68rem;
+    padding: 3px 9px;
+  }
+}

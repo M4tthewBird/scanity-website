@@ -1,0 +1,91 @@
+/* --- v4 preview (v4.html): the open index as a row above the headline and the live 3D boot (hero-header.js,
+   hero-boot.js). Only v4.html loads this file, after hero-index.css; the homepage and the v2/v3 previews are
+   untouched by it. --- */
+
+.hero-swarm-index {
+  /* two even columns: the headline on the left, the boot (and above it the index's columns) on the right */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  /* the headline and the boot follow the index at a set distance; on a tall screen the spare height goes below them,
+     not into a gap under the index */
+  grid-template-rows: auto auto;
+  align-content: start;
+  row-gap: clamp(32px, 6svh, 88px);
+  /* the whole first screen, so "Posuňte dolů" sits at its foot */
+  min-height: 100svh;
+  padding-top: clamp(28px, 5svh, 52px);
+}
+
+.index-bar {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: start;
+}
+
+.index-bar .index-logo {
+  align-self: start;
+}
+
+/* the columns and the language share the swarm's column */
+.index-bar .index-columns {
+  grid-column: 2;
+  grid-row: 1;
+  max-width: 440px;
+}
+
+.index-bar .index-lang {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  padding-top: 8px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.hero-swarm-index .hero-copy,
+.hero-swarm-index .hero-swarm-stage {
+  align-self: center;
+}
+
+/* the swarm gives the index the room it takes at the top */
+.hero-swarm-index .hero-swarm-stage {
+  height: clamp(340px, calc(100svh - 330px), 760px);
+}
+
+/* the side scroll-nav steps aside while the index is open (it would sit over the boot, and the index already
+   shows the way) */
+.has-hero-index .scroll-nav {
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+/* .is-tucked: the header hidden (reduced motion); [inert]: the header still assembling from the index */
+.has-hero-index:has(.site-header.is-tucked) .scroll-nav,
+.has-hero-index:has(.site-header[inert]) .scroll-nav {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* tablets and phones: the header stays at the top (its menu is behind the burger), the index steps aside */
+@media (max-width: 1000px) {
+  .hero-swarm-index {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    min-height: calc(100svh - 60px);
+    padding-top: 76px;
+  }
+
+  .index-bar {
+    display: none;
+  }
+
+  .hero-swarm-index .hero-swarm-stage {
+    height: clamp(260px, 40svh, 520px);
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-swarm-index {
+    min-height: 0;
+    padding-top: 92px;
+  }
+}
