@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="hero-swarm.css">
   <link rel="stylesheet" href="hero-index.css">
   <link rel="stylesheet" href="hero-v4.css">
+  <link rel="modulepreload" href="embed/scanity-model.js">
+  <link rel="modulepreload" href="embed/playcanvas.min.js">
   <link rel="stylesheet" href="hero-boot.css">
   <noscript><style>.has-hero-index .site-header.is-tucked { transform: none; opacity: 1; visibility: visible; }</style></noscript>
   <link rel="canonical" href="https://scanity.cz/">
@@ -63,15 +65,15 @@
               <span class="nav-menu-text">Výběr sedadla ve 3D, skyboxy a prémiové prostory</span>
             </a>
             <a href="produkty/">
-              <span class="nav-menu-title">Produkty & e-shopy</span>
+              <span class="nav-menu-title">Produkty a e-shopy</span>
               <span class="nav-menu-text">3D modely a fotky pro celé portfolio produktů</span>
             </a>
             <a href="hotely/">
-              <span class="nav-menu-title">Hotely & ubytování</span>
+              <span class="nav-menu-title">Hotely a ubytování</span>
               <span class="nav-menu-text">Pokoje a prostory k prohlédnutí před rezervací</span>
             </a>
             <a href="stavebnictvi/">
-              <span class="nav-menu-title">Stavebnictví & správa budov</span>
+              <span class="nav-menu-title">Stavebnictví a správa budov</span>
               <span class="nav-menu-text">Digitální dvojče stavby a historie jejího stavu</span>
             </a>
             <a class="nav-menu-all" href="#solutions">Přehled všech využití <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
@@ -111,9 +113,9 @@
         <div class="mobile-subnav">
           <a href="reality/">Realitní trh</a>
           <a href="sport/">Sportoviště a kulturní eventy</a>
-          <a href="produkty/">Produkty & e-shopy</a>
-          <a href="hotely/">Hotely & ubytování</a>
-          <a href="stavebnictvi/">Stavebnictví & správa budov</a>
+          <a href="produkty/">Produkty a e-shopy</a>
+          <a href="hotely/">Hotely a ubytování</a>
+          <a href="stavebnictvi/">Stavebnictví a správa budov</a>
         </div>
         <a href="#contact">Kontaktujte nás</a>
         <div class="mobile-lang">
@@ -133,9 +135,9 @@
             <ul aria-labelledby="indexUse">
               <li><a href="reality/">Realitní trh</a></li>
               <li><a href="sport/">Sportoviště a kulturní eventy</a></li>
-              <li><a href="produkty/">Produkty &amp; e-shopy</a></li>
-              <li><a href="hotely/">Hotely &amp; ubytování</a></li>
-              <li><a href="stavebnictvi/">Stavebnictví &amp; správa budov</a></li>
+              <li><a href="produkty/">Produkty a e-shopy</a></li>
+              <li><a href="hotely/">Hotely a ubytování</a></li>
+              <li><a href="stavebnictvi/">Stavebnictví a správa budov</a></li>
             </ul>
           </div>
           <div>
@@ -165,7 +167,6 @@
         <div class="boot-stage">
           <img class="boot-poster" src="assets/produkty/bota/00.webp" width="834" height="714" alt="Pracovní bota MTS Nexus naskenovaná do 3D jako mračno bodů" decoding="async">
           <div class="boot-hotspots"></div>
-          <div class="boot-loading" aria-hidden="true"><i><b></b></i></div>
           <button class="boot-start" type="button">Zobrazit ve 3D</button>
           <div class="boot-tools">
             <button class="boot-reset" type="button" aria-label="Výchozí pohled" title="Výchozí pohled"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/></svg></button>
@@ -355,7 +356,7 @@
         <a class="use-case" href="produkty/">
           <span class="use-number">03</span>
           <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><path d="M12 22V12"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><path d="m7.5 4.27 9 5.15"></path></svg></span>
-          <div><small>Produkty & e-shopy</small><h3>Produkt, který si zákazník otočí ze všech stran.</h3></div>
+          <div><small>Produkty a e-shopy</small><h3>Produkt, který si zákazník otočí ze všech stran.</h3></div>
           <p>Od jednoho produktu po celé portfolio: 3D modely pro e-shop a produktové fotky z libovolného úhlu.</p>
           <span class="use-arrow"><span class="use-arrow-label">Prozkoumat</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
         </a>
@@ -363,7 +364,7 @@
         <a class="use-case" href="hotely/">
           <span class="use-number">04</span>
           <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"></path><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path><path d="M12 4v6"></path><path d="M2 18h20"></path></svg></span>
-          <div><small>Hotely & ubytování</small><h3>Pokoj si host projde dřív, než rezervuje.</h3></div>
+          <div><small>Hotely a ubytování</small><h3>Pokoj si host projde dřív, než rezervuje.</h3></div>
           <p>Pokoje, wellness i restauraci si host projde online a rezervuje s jistotou.</p>
           <span class="use-arrow"><span class="use-arrow-label">Prozkoumat</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
         </a>
@@ -371,7 +372,7 @@
         <a class="use-case" href="stavebnictvi/">
           <span class="use-number">05</span>
           <span class="use-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"></path><path d="M14 6a6 6 0 0 1 6 6v3"></path><path d="M4 15v-3a6 6 0 0 1 6-6"></path><rect x="2" y="15" width="20" height="4" rx="1"></rect></svg></span>
-          <div><small>Stavebnictví & správa budov</small><h3>Stavbu projdete z kanceláře.</h3></div>
+          <div><small>Stavebnictví a správa budov</small><h3>Stavbu projdete z kanceláře.</h3></div>
           <p>Digitální dvojče stavby nebo objektu: méně cest na stavbu, rychlejší dokumentace a historie stavu v každé fázi.</p>
           <span class="use-arrow"><span class="use-arrow-label">Prozkoumat</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span>
         </a>

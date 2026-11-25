@@ -57,37 +57,6 @@
   opacity: 0;
 }
 
-/* loading: a thin bar over the poster */
-.boot-loading {
-  position: absolute;
-  left: 50%;
-  bottom: 64px;
-  display: none;
-  width: 160px;
-  translate: -50% 0;
-}
-
-.boot-loading i {
-  display: block;
-  height: 3px;
-  overflow: hidden;
-  border-radius: 100px;
-  background: color-mix(in srgb, var(--ink) 10%, transparent);
-}
-
-.boot-loading b {
-  display: block;
-  width: 0;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--blue);
-  transition: width 0.2s;
-}
-
-.boot-reveal[data-state="loading"] .boot-loading {
-  display: block;
-}
-
 /* phones and Save-Data: the 3D starts on a tap */
 .boot-start {
   position: absolute;

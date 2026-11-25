@@ -3,7 +3,7 @@
 // a front sweeps across the boot from the left of the screen to the right, whichever side the visitor is looking at.
 // With the model fully revealed, labels from the datasheet sit on the boot (hover or tap a dot for its card).
 //
-// Until the 3D is ready the first frame of the old pre-rendered sequence (the point cloud) stands in as a poster.
+// Until the 3D is ready a still of its first frame (the point cloud) stands in as a poster, with no loading bar.
 // The scan (18 MB) and the engine (2.5 MB) load once the section is near; on phones and with Save-Data only after a tap.
 (() => {
   const figure = document.querySelector('.boot-reveal');
@@ -12,7 +12,6 @@
   const stage = $('.boot-stage');
   const slider = $('.boot-slider');
   const layer = $('.boot-hotspots');
-  const bar = $('.boot-loading b');
   const cs = (document.documentElement.lang || 'cs').startsWith('cs');
 
   // ---- the scan, placed and seen as on the concept page --------------------------------------------------------
@@ -186,9 +185,6 @@
     model.transform = TRANSFORM;
     model.orbit = { ...model.orbit, target: CENTRE, position: START_FROM, fov: VIEW.fov, minDistance: VIEW.near, maxDistance: VIEW.far, wheel: 'ctrl' };
     stage.prepend(model);
-    model.addEventListener('progress', (e) => {
-      bar.style.width = `${Math.round(e.detail * 100)}%`;
-    });
 
     // the boot is wider than tall: a frame narrower than square needs the camera further back
     const fit = () => Math.max(1, 1.08 / model.aspect());
